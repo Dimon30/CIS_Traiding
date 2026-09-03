@@ -2,7 +2,7 @@ from datetime import date
 from decimal import Decimal
 import unittest
 
-from scripts.build_dataset import RateObservation, build_label_rows
+from scripts.build_dataset import RateObservation, build_label_rows, parse_horizons
 
 
 def observation(day: int, rate: str) -> RateObservation:
@@ -16,6 +16,9 @@ def observation(day: int, rate: str) -> RateObservation:
 
 
 class BuildLabelRowsTest(unittest.TestCase):
+    def test_parse_horizons_deduplicates_and_preserves_order(self) -> None:
+        self.assertEqual(parse_horizons("1,3,5,3,20"), (1, 3, 5, 20))
+
     def test_good_day_when_future_improvement_is_within_epsilon(self) -> None:
         observations = [
             observation(1, "10.0"),

@@ -6,3 +6,4 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 HACKATHON_LEAD_PLAYBOOK.md
+results/backtest_e*/

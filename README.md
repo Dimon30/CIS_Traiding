@@ -26,25 +26,104 @@
 .
 ├── PRODUCT_CONTRACT.md   # продуктовый и ML-контракт
 ├── analyse.ipynb         # текущий исследовательский ноутбук
-├── data/                 # исходные выгрузки курсов ЦБ РФ
+├── data/                 # исходные DBF и воспроизводимая разметка
+├── results/              # основной backtest и sensitivity по tolerance
+├── scripts/              # датасет, backtest, индикаторы, fast/slow и исторический срез
+├── tests/                # проверки разметки и политики отправки
 └── pyproject.toml        # конфигурация Python-проекта
 ```
 
 ## Текущий приоритет
 
-Сначала доказать качество основного сигнала «выгодно сейчас» на честном out-of-time backtest. Прототип клиентского пути и сценарий «момент изменился» выполняются после работоспособного сигнального слоя.
+Сначала доказать качество основного сигнала «выгодно сейчас» по продуктовой метке `message_hit` на walk-forward backtest. Главная метрика — устойчивый lift относительно случайного расписания с тем же количеством сигналов и cooldown.
 
-## Подготовка первого датасета
+## Окружение
 
-Первая версия строится только для направления `RUB→TJS`. Наблюдения, доступные модели, и разметка с будущими значениями сохраняются отдельно:
+Проект зафиксирован в `pyproject.toml` и `uv.lock` для Python 3.14+:
 
 ```powershell
-python scripts/build_dataset.py --currency TJS
+uv sync
 ```
 
-Результат:
+## Подготовка датасетов
 
-- `data/processed/rub_tjs_observations.csv` — исходные наблюдения без будущего;
-- `data/processed/rub_tjs_labels_h5_e50bp.csv` — разметка для горизонта 5 дней и допуска 0,5%.
+Один запуск создаёт наблюдения и разметку для TJS, UZS, KGS, AMD и KZT на горизонтах 1, 3, 5, 10 и 20 календарных дней:
 
-Скрипт принимает и другие коды валют, но сначала качество проверяется отдельно на TJS.
+```powershell
+python scripts/build_dataset.py --all-currencies
+```
+
+Для проверки чувствительности к определению правдивого сообщения:
+
+```powershell
+python scripts/build_dataset.py --all-currencies --epsilon 0
+python scripts/build_dataset.py --all-currencies --epsilon 0.01
+```
+
+Для одного коридора или горизонта доступны совместимые параметры:
+
+```powershell
+python scripts/build_dataset.py --currency TJS --horizon 5
+python scripts/build_dataset.py --currency TJS --horizons 1,3,5
+```
+
+Файлы разделены по назначению:
+
+- `rub_<currency>_observations.csv` — только информация, доступная модели на дату расчёта;
+- `rub_<currency>_labels_h<horizon>_e50bp.csv` — будущие outcomes для обучения и проверки.
+
+`message_hit=1` означает, что ожидание в пределах горизонта не дало курс выгоднее более чем на 0,5%. `target_good_now` оставлен как вспомогательная метка положения курса в окне `±h`.
+
+## Walk-forward backtest
+
+```powershell
+python scripts/run_backtest.py
+```
+
+Backtest:
+
+- обучает L2-логистическую регрессию на `message_hit`;
+- использует только прошлые данные и отдельный предыдущий год для threshold;
+- исключает повторные неизменившиеся курсы из доступных дат отправки;
+- применяет cooldown 4 календарных дня;
+- сравнивает сигнал с 300+ случайными расписаниями того же размера и с тем же cooldown;
+- сохраняет результаты по каждому временному фолду и каждой паре коридор/горизонт.
+
+Основные артефакты:
+
+- `results/backtest/walk_forward_folds.csv` — честные результаты каждого фолда;
+- `results/backtest/summary_by_corridor_horizon.csv` — сводка устойчивости;
+- `results/backtest/validation_threshold_tradeoffs.csv` — связь threshold, качества и частоты;
+- `results/backtest/signals.csv` — отправленные после cooldown сигналы;
+- `results/backtest/run_metadata.json` — точные допущения запуска.
+
+Текущий лучший кандидат — RUB→TJS на горизонте 3 дня: совокупный lift 1,36, signal hit rate 86,3%, 0,59 сигнала в неделю. Lift ≥ 1,3 получен в четырёх из пяти фолдов, поэтому критерий устойчивости пока не пройден.
+
+Проверка допусков 0%, 0,5% и 1% показала лучший баланс у 0,5%: при 1% hit rate растёт до 87,3%, но lift падает до 1,10 из-за слишком высокого random baseline. Полная таблица находится в `results/backtest/tolerance_summary.csv`.
+
+## Обязательные продуктовые гипотезы
+
+```powershell
+python scripts/evaluate_indicators.py
+python scripts/evaluate_fast_slow.py
+```
+
+Momentum, level, reversal и seasonality проверены на той же walk-forward-схеме. Ни одно простое правило не достигло устойчивого lift ≥ 1,3. Для RUB→TJS/3 дня двухшаговое подтверждение также не улучшило результат: hit rate 80,7% против 86,3% у раннего сигнала и средняя цена ожидания 10,4 б.п. Поэтому slow-сигнал не входит в текущую продуктовую политику.
+
+## Исторический срез
+
+Решение на конкретную дату можно восстановить из сохранённого out-of-time результата:
+
+```powershell
+python scripts/show_signal_as_of.py --date 2025-05-14 --corridor RUB_TJS --horizon 3
+```
+
+Отсутствие строки сигнала возвращает `send=false`; это не пересчитывает историю с использованием будущих параметров.
+
+## Проверки
+
+```powershell
+python -m unittest discover -s tests -v
+```
+
+Курс ЦБ используется только как открытый воспроизводимый proxy рыночного движения и не равен курсу перевода в банковском приложении.

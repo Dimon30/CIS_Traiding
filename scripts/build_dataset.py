@@ -14,6 +14,8 @@ from dbfread import DBF
 
 
 REQUIRED_FIELDS = {"nominal", "data", "curs"}
+DEFAULT_HORIZONS = (1, 3, 5, 10, 20)
+DEFAULT_CURRENCIES = ("TJS", "UZS", "KGS", "AMD", "KZT")
 
 
 @dataclass(frozen=True)
@@ -29,10 +31,24 @@ def parse_args() -> argparse.Namespace:
         description="Build one-corridor observations and labels from a CBR DBF file."
     )
     parser.add_argument("--currency", default="TJS", help="Currency code, for example TJS")
+    parser.add_argument(
+        "--all-currencies",
+        action="store_true",
+        help="Build TJS, UZS, KGS, AMD and KZT in one run",
+    )
     parser.add_argument("--input", type=Path, help="Exact DBF path; otherwise selected by currency")
     parser.add_argument("--input-dir", type=Path, default=Path("data"))
     parser.add_argument("--output-dir", type=Path, default=Path("data/processed"))
-    parser.add_argument("--horizon", type=int, default=5, help="Calendar-day horizon")
+    parser.add_argument(
+        "--horizon",
+        type=int,
+        help="Build one calendar-day horizon; overrides --horizons",
+    )
+    parser.add_argument(
+        "--horizons",
+        default=",".join(map(str, DEFAULT_HORIZONS)),
+        help="Comma-separated calendar-day horizons",
+    )
     parser.add_argument(
         "--epsilon",
         type=Decimal,
@@ -40,6 +56,13 @@ def parse_args() -> argparse.Namespace:
         help="Allowed relative distance from the best rate; 0.005 means 0.5%%",
     )
     return parser.parse_args()
+
+
+def parse_horizons(raw: str) -> tuple[int, ...]:
+    horizons = tuple(dict.fromkeys(int(value.strip()) for value in raw.split(",") if value.strip()))
+    if not horizons or any(horizon <= 0 for horizon in horizons):
+        raise ValueError("Horizons must contain positive integers")
+    return horizons
 
 
 def select_input_file(currency: str, input_dir: Path) -> Path:
@@ -215,32 +238,54 @@ def write_csv(path: Path, rows: list[dict[str, object]]) -> None:
         writer.writerows(rows)
 
 
-def main() -> None:
-    args = parse_args()
-    currency = args.currency.upper()
-    input_path = args.input or select_input_file(currency, args.input_dir)
+def build_currency_dataset(
+    *,
+    currency: str,
+    input_path: Path,
+    output_dir: Path,
+    horizons: tuple[int, ...],
+    epsilon: Decimal,
+) -> None:
     observations = load_observations(input_path)
     corridor = f"RUB_{currency}"
     observation_rows = build_observation_rows(observations, currency, input_path.name)
-    label_rows = build_label_rows(observations, args.horizon, args.epsilon, corridor)
-
-    epsilon_bps = int(args.epsilon * Decimal(10_000))
-    observations_path = args.output_dir / f"rub_{currency.lower()}_observations.csv"
-    labels_path = args.output_dir / (
-        f"rub_{currency.lower()}_labels_h{args.horizon}_e{epsilon_bps}bp.csv"
-    )
+    epsilon_bps = int(epsilon * Decimal(10_000))
+    observations_path = output_dir / f"rub_{currency.lower()}_observations.csv"
     write_csv(observations_path, observation_rows)
-    write_csv(labels_path, label_rows)
-
-    complete_labels = sum(row["has_full_window"] is True for row in label_rows)
-    positives = sum(row["target_good_now"] == 1 for row in label_rows)
-    hits = sum(row["message_hit"] == 1 for row in label_rows)
     print(f"Input: {input_path}")
     print(f"Observations: {len(observation_rows)} -> {observations_path}")
-    print(f"Complete labels: {complete_labels}")
-    print(f"Positive targets: {positives}")
-    print(f"Message hits: {hits}")
-    print(f"Labels: {len(label_rows)} -> {labels_path}")
+
+    for horizon in horizons:
+        label_rows = build_label_rows(observations, horizon, epsilon, corridor)
+        labels_path = output_dir / (
+            f"rub_{currency.lower()}_labels_h{horizon}_e{epsilon_bps}bp.csv"
+        )
+        write_csv(labels_path, label_rows)
+        complete_labels = sum(row["has_full_window"] is True for row in label_rows)
+        positives = sum(row["target_good_now"] == 1 for row in label_rows)
+        hits = sum(row["message_hit"] == 1 for row in label_rows)
+        print(
+            f"  h={horizon}: complete={complete_labels}, "
+            f"target_good_now={positives}, message_hit={hits} -> {labels_path}"
+        )
+
+
+def main() -> None:
+    args = parse_args()
+    horizons = (args.horizon,) if args.horizon else parse_horizons(args.horizons)
+    currencies = DEFAULT_CURRENCIES if args.all_currencies else (args.currency.upper(),)
+    if args.input and len(currencies) != 1:
+        raise ValueError("--input can only be used with one --currency")
+
+    for currency in currencies:
+        input_path = args.input or select_input_file(currency, args.input_dir)
+        build_currency_dataset(
+            currency=currency,
+            input_path=input_path,
+            output_dir=args.output_dir,
+            horizons=horizons,
+            epsilon=args.epsilon,
+        )
 
 
 if __name__ == "__main__":
