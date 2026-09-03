@@ -1,0 +1,127 @@
+{"kind":"slide","id":"sl/y90nupkv","slide":1,"title":"CIS TRADING","textShapes":5}
+{"kind":"shape","id":"sh/547294r6","slide":1,"name":"Прямоугольник 1","bbox":[0,0,18.67,720]}
+{"kind":"shape","id":"sh/k3yl0zql","slide":1,"name":"Прямоугольник 2","bbox":[18.67,0,9.33,720]}
+{"kind":"textbox","id":"sh/7qp4be9c","slide":1,"textChars":11,"textLines":1}
+{"kind":"textbox","id":"sh/65g3298r","slide":1,"textChars":30,"textLines":2}
+{"kind":"textbox","id":"sh/ts7md4r2","slide":1,"textChars":28,"textLines":1}
+{"kind":"shape","id":"sh/sryl4zqx","slide":1,"name":"Прямая соединительная линия 6","bbox":[90.67,502.67,376,0]}
+{"kind":"textbox","id":"sh/fu94fe98","slide":1,"textChars":24,"textLines":1}
+{"kind":"shape","id":"sh/utg3698n","slide":1,"name":"Овал 8","bbox":[1046.67,117.33,98.67,98.67]}
+{"kind":"shape","id":"sh/wn6dc7eh","slide":1,"name":"Овал 9","bbox":[1117.33,165.33,64,64]}
+{"kind":"textbox","id":"sh/hofulsf2","slide":1,"textChars":4,"textLines":1}
+{"kind":"slide","id":"sl/hwbqtkby","slide":2,"title":"ПРОБЛЕМА","textShapes":9}
+{"kind":"textbox","id":"sh/9072xkry","slide":2,"textChars":8,"textLines":1}
+{"kind":"textbox","id":"sh/ozy1ofad","slide":2,"textChars":32,"textLines":1}
+{"kind":"shape","id":"sh/b29kza94","slide":2,"name":"footer-rule","bbox":[73.33,666.67,1133.33,0]}
+{"kind":"textbox","id":"sh/a10jqpsj","slide":2,"textChars":36,"textLines":1}
+{"kind":"textbox","id":"sh/x4r21kru","slide":2,"textChars":2,"textLines":1}
+{"kind":"textbox","id":"sh/w3i1sfa9","slide":2,"textChars":36,"textLines":1}
+{"kind":"textbox","id":"sh/r65knqtk","slide":2,"textChars":124,"textLines":1}
+{"kind":"shape","id":"sh/q5wjelsz","slide":2,"name":"Скругленный прямоугольник 8","bbox":[880,185.33,326.67,293.33]}
+{"kind":"textbox","id":"sh/ove9o7yd","slide":2,"textChars":11,"textLines":1}
+{"kind":"textbox","id":"sh/9wnqhczy","slide":2,"textChars":85,"textLines":1}
+{"kind":"textbox","id":"sh/mtwrmxg7","slide":2,"textChars":32,"textLines":1}
+{"kind":"slide","id":"sl/ofy9wn61","slide":3,"title":"ПОСТАНОВКА","textShapes":12}
+{"kind":"textbox","id":"sh/cza94vmx","slide":3,"textChars":10,"textLines":1}
+{"kind":"textbox","id":"sh/d0jax03i","slide":3,"textChars":24,"textLines":1}
+{"kind":"shape","id":"sh/298ryl4v","slide":3,"name":"footer-rule","bbox":[73.33,666.67,1133.33,0]}
+{"kind":"textbox","id":"sh/3ah8rqlg","slide":3,"textChars":36,"textLines":1}
+{"kind":"textbox","id":"sh/obq90bml","slide":3,"textChars":2,"textLines":1}
+{"kind":"textbox","id":"sh/pcjqtg36","slide":3,"textChars":32,"textLines":1}
+{"kind":"textbox","id":"sh/m5cra54z","slide":3,"textChars":60,"textLines":1}
+{"kind":"shape","id":"sh/n6ls3alk","slide":3,"name":"Прямая соединительная линия 8","bbox":[73.33,402.67,1133.33,0]}
+{"kind":"textbox","id":"sh/n2l4fq98","slide":3,"textChars":6,"textLines":1}
+{"kind":"textbox","id":"sh/m1c3mlsn","slide":3,"textChars":38,"textLines":1}
+{"kind":"textbox","id":"sh/943mhgre","slide":3,"textChars":6,"textLines":1}
+{"kind":"textbox","id":"sh/83ulovat","slide":3,"textChars":38,"textLines":1}
+{"kind":"textbox","id":"sh/v6l4jq94","slide":3,"textChars":5,"textLines":1}
+{"kind":"textbox","id":"sh/a5c3ql8z","slide":3,"textChars":40,"textLines":1}
+{"kind":"slide","id":"sl/jyx0ra1s","slide":4,"title":"ПРОДУКТОВЫЙ КОНТРАКТ","textShapes":15}
+{"kind":"textbox","id":"sh/1cj2d8b6","slide":4,"textChars":20,"textLines":1}
+{"kind":"textbox","id":"sh/0ba143al","slide":4,"textChars":26,"textLines":1}
+{"kind":"shape","id":"sh/rm1k7yt4","slide":4,"name":"footer-rule","bbox":[73.33,666.67,1133.33,0]}
+{"kind":"textbox","id":"sh/ql8jytsj","slide":4,"textChars":36,"textLines":1}
+{"kind":"textbox","id":"sh/doj29oba","slide":4,"textChars":2,"textLines":1}
+{"kind":"textbox","id":"sh/sna103ap","slide":4,"textChars":1,"textLines":1}
+{"kind":"textbox","id":"sh/3ihk3et8","slide":4,"textChars":25,"textLines":1}
+{"kind":"shape","id":"sh/ih8ju9sn","slide":4,"name":"Прямая соединительная линия 8","bbox":[273.33,220,0,253.33]}
+{"kind":"textbox","id":"sh/kbm987y5","slide":4,"textChars":4,"textLines":1}
+{"kind":"textbox","id":"sh/5cva1cfq","slide":4,"textChars":34,"textLines":1}
+{"kind":"shape","id":"sh/i94r6xgz","slide":4,"name":"Прямая соединительная линия 11","bbox":[500,220,0,253.33]}
+{"kind":"textbox","id":"sh/jadsz2xk","slide":4,"textChars":3,"textLines":1}
+{"kind":"textbox","id":"sh/w72947yt","slide":4,"textChars":32,"textLines":1}
+{"kind":"shape","id":"sh/x8vaxsfe","slide":4,"name":"Прямая соединительная линия 14","bbox":[726.67,220,0,253.33]}
+{"kind":"textbox","id":"sh/a5kr2xg3","slide":4,"textChars":3,"textLines":1}
+{"kind":"textbox","id":"sh/v6tsv2xo","slide":4,"textChars":24,"textLines":1}
+{"kind":"shape","id":"sh/g36tgryd","slide":4,"name":"Прямая соединительная линия 17","bbox":[953.33,220,0,253.33]}
+{"kind":"textbox","id":"sh/h4fa9wfy","slide":4,"textChars":1,"textLines":1}
+{"kind":"textbox","id":"sh/p0batw72","slide":4,"textChars":27,"textLines":1}
+{"kind":"textbox","id":"sh/oz29krqh","slide":4,"textChars":67,"textLines":1}
+{"kind":"slide","id":"sl/i107q5of","slide":5,"title":"РЕШЕНИЕ","textShapes":12}
+{"kind":"textbox","id":"sh/dgbulwnm","slide":5,"textChars":7,"textLines":1}
+{"kind":"textbox","id":"sh/cf2tcr61","slide":5,"textChars":36,"textLines":1}
+{"kind":"shape","id":"sh/z2tcnm5s","slide":5,"name":"footer-rule","bbox":[73.33,666.67,1133.33,0]}
+{"kind":"textbox","id":"sh/yhkbe1o7","slide":5,"textChars":36,"textLines":1}
+{"kind":"textbox","id":"sh/l4bupwny","slide":5,"textChars":2,"textLines":1}
+{"kind":"shape","id":"sh/032tgr6d","slide":5,"name":"Прямая соединительная линия 6","bbox":[222.67,316,20,0]}
+{"kind":"shape","id":"sh/n6dcr65o","slide":5,"name":"Прямая соединительная линия 7","bbox":[408,316,20,0]}
+{"kind":"shape","id":"sh/m5kbi1oj","slide":5,"name":"Прямая соединительная линия 8","bbox":[593.33,316,20,0]}
+{"kind":"shape","id":"sh/w32dkbuh","slide":5,"name":"Прямая соединительная линия 9","bbox":[778.67,316,20,0]}
+{"kind":"shape","id":"sh/x4vedgvm","slide":5,"name":"Прямая соединительная линия 10","bbox":[964,316,20,0]}
+{"kind":"shape","id":"sh/ahkvi1cb","slide":5,"name":"Скругленный прямоугольник 11","bbox":[73.33,246.67,149.33,138.67]}
+{"kind":"textbox","id":"sh/v2twb6dw","slide":5,"textChars":14,"textLines":2}
+{"kind":"shape","id":"sh/k7mxovud","slide":5,"name":"Скругленный прямоугольник 13","bbox":[258.67,246.67,149.33,138.67]}
+{"kind":"textbox","id":"sh/58vehgvy","slide":5,"textChars":20,"textLines":2}
+{"kind":"shape","id":"sh/i54fmlc7","slide":5,"name":"Скругленный прямоугольник 15","bbox":[444,246.67,149.33,138.67]}
+{"kind":"textbox","id":"sh/j6dwfqds","slide":5,"textChars":13,"textLines":2}
+{"kind":"shape","id":"sh/sb6xsvu9","slide":5,"name":"Скругленный прямоугольник 17","bbox":[629.33,246.67,149.33,138.67]}
+{"kind":"textbox","id":"sh/tcfel0vu","slide":5,"textChars":14,"textLines":2}
+{"kind":"shape","id":"sh/hgrmpwj2","slide":5,"name":"Скругленный прямоугольник 19","bbox":[814.67,246.67,149.33,138.67]}
+{"kind":"textbox","id":"sh/gfi5grih","slide":5,"textChars":18,"textLines":2}
+{"kind":"shape","id":"sh/fe94nm1w","slide":5,"name":"Скругленный прямоугольник 21","bbox":[1000,246.67,149.33,138.67]}
+{"kind":"textbox","id":"sh/ud0ne10b","slide":5,"textChars":12,"textLines":2}
+{"kind":"textbox","id":"sh/pkr6tgjy","slide":5,"textChars":49,"textLines":1}
+{"kind":"textbox","id":"sh/4ji5kbid","slide":5,"textChars":85,"textLines":1}
+{"kind":"slide","id":"sl/x8f69ofe","slide":6,"title":"ДАННЫЕ","textShapes":14}
+{"kind":"textbox","id":"sh/yhg7epsj","slide":6,"textChars":6,"textLines":1}
+{"kind":"textbox","id":"sh/zi98nu94","slide":6,"textChars":34,"textLines":1}
+{"kind":"shape","id":"sh/87ipkzal","slide":6,"name":"footer-rule","bbox":[73.33,666.67,1133.33,0]}
+{"kind":"textbox","id":"sh/98rqt4r6","slide":6,"textChars":36,"textLines":1}
+{"kind":"textbox","id":"sh/ml07i9sv","slide":6,"textChars":2,"textLines":1}
+{"kind":"textbox","id":"sh/7m98ru9g","slide":6,"textChars":5,"textLines":1}
+{"kind":"textbox","id":"sh/oryp8fah","slide":6,"textChars":10,"textLines":1}
+{"kind":"textbox","id":"sh/pc76hkr2","slide":6,"textChars":5,"textLines":1}
+{"kind":"textbox","id":"sh/h4bupgn6","slide":6,"textChars":12,"textLines":1}
+{"kind":"textbox","id":"sh/w32twb6l","slide":6,"textChars":5,"textLines":1}
+{"kind":"textbox","id":"sh/v2tcn650","slide":6,"textChars":24,"textLines":1}
+{"kind":"textbox","id":"sh/u1kbu1ov","slide":6,"textChars":23,"textLines":1}
+{"kind":"shape","id":"sh/5svutgni","slide":6,"name":"Прямая соединительная линия 13","bbox":[426.67,533.33,780,0]}
+{"kind":"shape","id":"sh/47mt0b6x","slide":6,"name":"Прямая соединительная линия 14","bbox":[426.67,246.67,0,286.67]}
+{"kind":"shape","id":"sh/j6dcr65c","slide":6,"name":"Прямая соединительная линия 15","bbox":[426.67,319.57,10.99,24.1]}
+{"kind":"shape","id":"sh/i54bylor","slide":6,"name":"Прямая соединительная линия 16","bbox":[437.65,338.21,10.99,5.46]}
+{"kind":"shape","id":"sh/twfux0ne","slide":6,"name":"Прямая соединительная линия 17","bbox":[448.64,338.21,10.99,36.3]}
+{"kind":"shape","id":"sh/svmt4v6t","slide":6,"name":"Прямая соединительная линия 18","bbox":[459.62,374.51,10.99,44.27]}
+{"kind":"shape","id":"sh/cbe5g3ih","slide":6,"name":"Прямая соединительная линия 19","bbox":[470.61,418.77,10.99,27.47]}
+{"kind":"shape","id":"sh/dcnm98zm","slide":6,"name":"Прямая соединительная линия 20","bbox":[481.6,414.14,10.99,32.11]}
+{"kind":"shape","id":"sh/qpwnet0b","slide":6,"name":"Прямая соединительная линия 21","bbox":[492.58,414.14,10.99,16.71]}
+{"kind":"shape","id":"sh/bq547yhw","slide":6,"name":"Прямая соединительная линия 22","bbox":[503.57,430.85,10.99,8.35]}
+{"kind":"shape","id":"sh/0fy5k3id","slide":6,"name":"Прямая соединительная линия 23","bbox":[514.55,427.86,10.99,11.35]}
+{"kind":"shape","id":"sh/lg76d8zy","slide":6,"name":"Прямая соединительная линия 24","bbox":[525.54,427.86,10.99,20.61]}
+{"kind":"shape","id":"sh/ydgnit07","slide":6,"name":"Прямая соединительная линия 25","bbox":[536.53,441.62,10.99,6.85]}
+{"kind":"shape","id":"sh/zep4byhs","slide":6,"name":"Прямая соединительная линия 26","bbox":[547.51,413.6,10.99,28.02]}
+{"kind":"shape","id":"sh/gju58ji9","slide":6,"name":"Прямая соединительная линия 27","bbox":[558.5,413.6,10.99,3.87]}
+{"kind":"shape","id":"sh/1k3mhozu","slide":6,"name":"Прямая соединительная линия 28","bbox":[569.48,396.26,10.99,21.2]}
+{"kind":"shape","id":"sh/jet8nm1c","slide":6,"name":"Прямая соединительная линия 29","bbox":[580.47,396.26,10.99,11.66]}
+{"kind":"shape","id":"sh/idk7ehkr","slide":6,"name":"Прямая соединительная линия 30","bbox":[591.46,403.24,10.99,4.68]}
+{"kind":"shape","id":"sh/50bqpcj2","slide":6,"name":"Прямая соединительная линия 31","bbox":[602.44,403.24,10.99,2.96]}
+{"kind":"shape","id":"sh/4f2pgr2h","slide":6,"name":"Прямая соединительная линия 32","bbox":[613.43,406.2,10.99,17.15]}
+{"kind":"shape","id":"sh/va98j210","slide":6,"name":"Прямая соединительная линия 33","bbox":[624.41,417.46,10.99,5.89]}
+{"kind":"shape","id":"sh/u907axkf","slide":6,"name":"Прямая соединительная линия 34","bbox":[635.4,417.46,10.99,6.54]}
+{"kind":"shape","id":"sh/hcrqlcj6","slide":6,"name":"Прямая соединительная линия 35","bbox":[646.38,422.39,10.99,1.61]}
+{"kind":"shape","id":"sh/wbipc72l","slide":6,"name":"Прямая соединительная линия 36","bbox":[657.37,422.39,10.99,9.28]}
+{"kind":"shape","id":"sh/7698f214","slide":6,"name":"Прямая соединительная линия 37","bbox":[668.36,430.39,10.99,1.28]}
+{"kind":"shape","id":"sh/m5076xkj","slide":6,"name":"Прямая соединительная линия 38","bbox":[679.34,430.39,10.99,11.19]}
+{"kind":"shape","id":"sh/2dkbalg3","slide":6,"name":"Прямая соединительная линия 39","bbox":[690.33,324.85,10.99,116.73]}
+{"kind":"shape","id":"sh/netcjqxo","slide":6,"name":"Прямая соединительная линия 40","bbox":[701.31,324.85,10.99,78.61]}
+{"kind":"shape","id":"sh/of2tcvy9","slide":6,"name":"Прямая соединительная линия 41","bbox":[712.3,403.46,10.99,11.61]}
+{"kind":"notice","message":"Truncated: omitted 227 lines. Increase maxChars or narrow target."}

@@ -1,0 +1,7 @@
+currencies = ["TJS", "UZS", "KGS", "AMD", "KZT"]
+auxiliary_currencies = ["USD", "EUR", "CNY"]
+horizons_days = [1, 3, 5, 10, 20]
+epsilon_bps = 50
+raw_data_dir = "data"
+processed_data_dir = "data/processed"
+

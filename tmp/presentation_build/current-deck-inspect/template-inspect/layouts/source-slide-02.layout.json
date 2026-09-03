@@ -1,0 +1,1024 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/hwbqtkby",
+    "id": "hwbqtkby",
+    "slide": 2,
+    "layoutId": "/ppt/slideLayouts/slideLayout7.xml",
+    "layoutName": "Пустой слайд",
+    "layoutType": "blank",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Стандартная",
+    "colors": {
+      "accent1": "#5B9BD5",
+      "accent2": "#ED7D31",
+      "accent3": "#A5A5A5",
+      "accent4": "#FFC000",
+      "accent5": "#4472C4",
+      "accent6": "#70AD47",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#44546A",
+      "lt2": "#E7E6E6",
+      "hlink": "#0563C1",
+      "folHlink": "#954F72"
+    },
+    "fontScheme": {
+      "name": "Стандартная",
+      "majorFont": {
+        "latinTypeface": "Calibri Light"
+      },
+      "minorFont": {
+        "latinTypeface": "Calibri"
+      }
+    },
+    "typefaces": [
+      "Arial",
+      "Calibri",
+      "Calibri Light"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout7.xml",
+      "name": "Пустой слайд",
+      "type": "blank",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/2",
+          "id": "2",
+          "name": "Дата 1",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "text": "03.09.2026",
+          "textPreview": "03.09.2026",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "03.09.2026",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "03.09.2026"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/3",
+          "id": "3",
+          "name": "Нижний колонтитул 2",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/4",
+          "id": "4",
+          "name": "Номер слайда 3",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "type": "master",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/2",
+          "id": "2",
+          "name": "Заголовок 1",
+          "bbox": [
+            88,
+            38.33,
+            1104,
+            139.17
+          ],
+          "geometry": "rect",
+          "text": "Образец заголовка",
+          "textPreview": "Образец заголовка",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Образец заголовка",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Образец заголовка"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/3",
+          "id": "3",
+          "name": "Текст 2",
+          "bbox": [
+            88,
+            191.67,
+            1104,
+            456.83
+          ],
+          "geometry": "rect",
+          "text": "Образец текста\nВторой уровень\nТретий уровень\nЧетвертый уровень\nПятый уровень",
+          "textPreview": "Образец текста | Второй уровень | Третий уровень | Четвертый уровень | Пятый уровень",
+          "resolvedTextStyle": {
+            "vertical": 1,
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Образец текста",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Образец текста"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "Второй уровень",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Второй уровень"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "Третий уровень",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Третий уровень"
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "text": "Четвертый уровень",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Четвертый уровень"
+                }
+              ]
+            },
+            {
+              "index": 5,
+              "text": "Пятый уровень",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Пятый уровень"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/4",
+          "id": "4",
+          "name": "Дата 3",
+          "bbox": [
+            88,
+            667.33,
+            288,
+            38.33
+          ],
+          "geometry": "rect",
+          "text": "03.09.2026",
+          "textPreview": "03.09.2026",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "03.09.2026",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "03.09.2026"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/5",
+          "id": "5",
+          "name": "Нижний колонтитул 4",
+          "bbox": [
+            424,
+            667.33,
+            432,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          }
+        },
+        {
+          "order": 5,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/6",
+          "id": "6",
+          "name": "Номер слайда 5",
+          "bbox": [
+            904,
+            667.33,
+            288,
+            38.33
+          ],
+          "geometry": "rect",
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9072xkry",
+      "id": "2",
+      "name": "section",
+      "bbox": [
+        73.33,
+        29.33,
+        693.33,
+        24
+      ],
+      "geometry": "rect",
+      "text": "ПРОБЛЕМА",
+      "textPreview": "ПРОБЛЕМА",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "ПРОБЛЕМА"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "ПРОБЛЕМА",
+          "runs": [
+            {
+              "index": 1,
+              "text": "ПРОБЛЕМА",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": "#005CFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ozy1ofad",
+      "id": "3",
+      "name": "slide-title",
+      "bbox": [
+        73.33,
+        64,
+        1133.33,
+        69.33
+      ],
+      "geometry": "rect",
+      "text": "Курс есть. Ответа «когда?» — нет",
+      "textPreview": "Курс есть. Ответа «когда?» — нет",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Курс есть. Ответа «когда?» — нет"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Курс есть. Ответа «когда?» — нет",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Курс есть. Ответа «когда?» — нет",
+              "fontSize": 46.67,
+              "typeface": "Arial",
+              "color": "#0A0A0E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/b29kza94",
+      "id": "4",
+      "name": "footer-rule",
+      "bbox": [
+        73.33,
+        666.67,
+        1133.33,
+        0
+      ],
+      "geometry": "line",
+      "lineColor": "#DEE0E6",
+      "lineWidth": 1.07
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/a10jqpsj",
+      "id": "5",
+      "name": "TextBox 4",
+      "bbox": [
+        73.33,
+        676,
+        666.67,
+        18.67
+      ],
+      "geometry": "rect",
+      "text": "CIS TRADING  /  ПРОМЕЖУТОЧНЫЙ СТАТУС",
+      "textPreview": "CIS TRADING  /  ПРОМЕЖУТОЧНЫЙ СТАТУС",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CIS TRADING  /  ПРОМЕЖУТОЧНЫЙ СТАТУС"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CIS TRADING  /  ПРОМЕЖУТОЧНЫЙ СТАТУС",
+          "runs": [
+            {
+              "index": 1,
+              "text": "CIS TRADING  /  ",
+              "fontSize": 10.67,
+              "typeface": "Arial",
+              "color": "#91949E",
+              "bold": true
+            },
+            {
+              "index": 2,
+              "text": "ПРОМЕЖУТОЧНЫЙ СТАТУС",
+              "fontSize": 10.67,
+              "typeface": "Arial",
+              "color": "#91949E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/x4r21kru",
+      "id": "6",
+      "name": "TextBox 5",
+      "bbox": [
+        1146.67,
+        673.33,
+        60,
+        21.33
+      ],
+      "geometry": "rect",
+      "text": "02",
+      "textPreview": "02",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "02"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "02",
+          "resolvedTextStyle": {
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "02",
+              "fontSize": 12,
+              "typeface": "Arial",
+              "color": "#60636E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/w3i1sfa9",
+      "id": "7",
+      "name": "TextBox 6",
+      "bbox": [
+        73.33,
+        189.33,
+        826.67,
+        120
+      ],
+      "geometry": "rect",
+      "text": "«Перевести сегодня — или подождать?»",
+      "textPreview": "«Перевести сегодня — или подождать?»",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "«Перевести сегодня — или"
+          },
+          {
+            "index": 2,
+            "text": "подождать?»"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "«Перевести сегодня — или подождать?»",
+          "runs": [
+            {
+              "index": 1,
+              "text": "«Перевести сегодня — или подождать?»",
+              "fontSize": 45.33,
+              "typeface": "Arial",
+              "color": "#0A0A0E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/r65knqtk",
+      "id": "8",
+      "name": "TextBox 7",
+      "bbox": [
+        73.33,
+        313.33,
+        746.67,
+        120
+      ],
+      "geometry": "rect",
+      "text": "Регулярный перевод семье можно отложить на несколько дней. Но ежедневное наблюдение за рынком — лишняя нагрузка для клиента.",
+      "textPreview": "Регулярный перевод семье можно отложить на несколько дней. Но ежедневное наблюдение за рынком — лишняя нагрузка для клиента.",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Регулярный перевод семье можно отложить на несколько"
+          },
+          {
+            "index": 2,
+            "text": "дней. Но ежедневное наблюдение за рынком — лишняя"
+          },
+          {
+            "index": 3,
+            "text": "нагрузка для клиента."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Регулярный перевод семье можно отложить на несколько дней. Но ежедневное наблюдение за рынком — лишняя нагрузка для клиента.",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Регулярный перевод семье можно отложить на несколько дней. Но ежедневное наблюдение за рынком — лишняя нагрузка для клиента.",
+              "fontSize": 25.33,
+              "typeface": "Arial",
+              "color": "#60636E"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/q5wjelsz",
+      "id": "9",
+      "name": "Скругленный прямоугольник 8",
+      "bbox": [
+        880,
+        185.33,
+        326.67,
+        293.33
+      ],
+      "geometry": "roundRect",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "fillColor": "#F4F5F8",
+      "lineColor": "#DEE0E6",
+      "lineWidth": 1.33
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ove9o7yd",
+      "id": "10",
+      "name": "TextBox 9",
+      "bbox": [
+        914.67,
+        217.33,
+        253.33,
+        36
+      ],
+      "geometry": "rect",
+      "text": "Цена ошибки",
+      "textPreview": "Цена ошибки",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Цена ошибки"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Цена ошибки",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Цена ошибки",
+              "fontSize": 21.33,
+              "typeface": "Arial",
+              "color": "#EE0076",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9wnqhczy",
+      "id": "11",
+      "name": "TextBox 10",
+      "bbox": [
+        914.67,
+        270.67,
+        246.67,
+        181.33
+      ],
+      "geometry": "rect",
+      "text": "Уверенный, но неверный совет разрушает доверие сильнее, чем пропущенный хороший день.",
+      "textPreview": "Уверенный, но неверный совет разрушает доверие сильнее, чем пропущенный хороший день.",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 6,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Уверенный, но"
+          },
+          {
+            "index": 2,
+            "text": "неверный совет"
+          },
+          {
+            "index": 3,
+            "text": "разрушает доверие"
+          },
+          {
+            "index": 4,
+            "text": "сильнее, чем"
+          },
+          {
+            "index": 5,
+            "text": "пропущенный"
+          },
+          {
+            "index": 6,
+            "text": "хороший день."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Уверенный, но неверный совет разрушает доверие сильнее, чем пропущенный хороший день.",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Уверенный, но неверный совет разрушает доверие сильнее, чем пропущенный хороший день.",
+              "fontSize": 22.67,
+              "typeface": "Arial",
+              "color": "#0A0A0E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/mtwrmxg7",
+      "id": "12",
+      "name": "TextBox 11",
+      "bbox": [
+        73.33,
+        509.33,
+        713.33,
+        40
+      ],
+      "geometry": "rect",
+      "text": "Поэтому precision важнее recall.",
+      "textPreview": "Поэтому precision важнее recall.",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Поэтому precision важнее recall."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Поэтому precision важнее recall.",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Поэтому ",
+              "fontSize": 30.67,
+              "typeface": "Arial",
+              "color": "#005CFF",
+              "bold": true
+            },
+            {
+              "index": 2,
+              "text": "precision ",
+              "fontSize": 30.67,
+              "typeface": "Arial",
+              "color": "#005CFF",
+              "bold": true
+            },
+            {
+              "index": 3,
+              "text": "важнее ",
+              "fontSize": 30.67,
+              "typeface": "Arial",
+              "color": "#005CFF",
+              "bold": true
+            },
+            {
+              "index": 4,
+              "text": "recall.",
+              "fontSize": 30.67,
+              "typeface": "Arial",
+              "color": "#005CFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    }
+  ],
+  "composeRuns": []
+}

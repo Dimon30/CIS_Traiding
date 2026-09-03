@@ -1,0 +1,2505 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/x8f69ofe",
+    "id": "x8f69ofe",
+    "slide": 6,
+    "layoutId": "/ppt/slideLayouts/slideLayout7.xml",
+    "layoutName": "Пустой слайд",
+    "layoutType": "blank",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Стандартная",
+    "colors": {
+      "accent1": "#5B9BD5",
+      "accent2": "#ED7D31",
+      "accent3": "#A5A5A5",
+      "accent4": "#FFC000",
+      "accent5": "#4472C4",
+      "accent6": "#70AD47",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#44546A",
+      "lt2": "#E7E6E6",
+      "hlink": "#0563C1",
+      "folHlink": "#954F72"
+    },
+    "fontScheme": {
+      "name": "Стандартная",
+      "majorFont": {
+        "latinTypeface": "Calibri Light"
+      },
+      "minorFont": {
+        "latinTypeface": "Calibri"
+      }
+    },
+    "typefaces": [
+      "Arial",
+      "Calibri",
+      "Calibri Light"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout7.xml",
+      "name": "Пустой слайд",
+      "type": "blank",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/2",
+          "id": "2",
+          "name": "Дата 1",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "text": "03.09.2026",
+          "textPreview": "03.09.2026",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "03.09.2026",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "03.09.2026"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/3",
+          "id": "3",
+          "name": "Нижний колонтитул 2",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/4",
+          "id": "4",
+          "name": "Номер слайда 3",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "type": "master",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/2",
+          "id": "2",
+          "name": "Заголовок 1",
+          "bbox": [
+            88,
+            38.33,
+            1104,
+            139.17
+          ],
+          "geometry": "rect",
+          "text": "Образец заголовка",
+          "textPreview": "Образец заголовка",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Образец заголовка",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Образец заголовка"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/3",
+          "id": "3",
+          "name": "Текст 2",
+          "bbox": [
+            88,
+            191.67,
+            1104,
+            456.83
+          ],
+          "geometry": "rect",
+          "text": "Образец текста\nВторой уровень\nТретий уровень\nЧетвертый уровень\nПятый уровень",
+          "textPreview": "Образец текста | Второй уровень | Третий уровень | Четвертый уровень | Пятый уровень",
+          "resolvedTextStyle": {
+            "vertical": 1,
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Образец текста",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Образец текста"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "Второй уровень",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Второй уровень"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "Третий уровень",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Третий уровень"
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "text": "Четвертый уровень",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Четвертый уровень"
+                }
+              ]
+            },
+            {
+              "index": 5,
+              "text": "Пятый уровень",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Пятый уровень"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/4",
+          "id": "4",
+          "name": "Дата 3",
+          "bbox": [
+            88,
+            667.33,
+            288,
+            38.33
+          ],
+          "geometry": "rect",
+          "text": "03.09.2026",
+          "textPreview": "03.09.2026",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "03.09.2026",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "03.09.2026"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/5",
+          "id": "5",
+          "name": "Нижний колонтитул 4",
+          "bbox": [
+            424,
+            667.33,
+            432,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          }
+        },
+        {
+          "order": 5,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/6",
+          "id": "6",
+          "name": "Номер слайда 5",
+          "bbox": [
+            904,
+            667.33,
+            288,
+            38.33
+          ],
+          "geometry": "rect",
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/yhg7epsj",
+      "id": "2",
+      "name": "section",
+      "bbox": [
+        73.33,
+        29.33,
+        693.33,
+        24
+      ],
+      "geometry": "rect",
+      "text": "ДАННЫЕ",
+      "textPreview": "ДАННЫЕ",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "ДАННЫЕ"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "ДАННЫЕ",
+          "runs": [
+            {
+              "index": 1,
+              "text": "ДАННЫЕ",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": "#005CFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zi98nu94",
+      "id": "3",
+      "name": "slide-title",
+      "bbox": [
+        73.33,
+        64,
+        1133.33,
+        69.33
+      ],
+      "geometry": "rect",
+      "text": "10 лет данных → 2 462 полные метки",
+      "textPreview": "10 лет данных → 2 462 полные метки",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "10 лет данных → 2 462 полные метки"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "10 лет данных → 2 462 полные метки",
+          "runs": [
+            {
+              "index": 1,
+              "text": "10 лет данных → 2 462 полные метки",
+              "fontSize": 46.67,
+              "typeface": "Arial",
+              "color": "#0A0A0E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/87ipkzal",
+      "id": "4",
+      "name": "footer-rule",
+      "bbox": [
+        73.33,
+        666.67,
+        1133.33,
+        0
+      ],
+      "geometry": "line",
+      "lineColor": "#DEE0E6",
+      "lineWidth": 1.07
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/98rqt4r6",
+      "id": "5",
+      "name": "TextBox 4",
+      "bbox": [
+        73.33,
+        676,
+        666.67,
+        18.67
+      ],
+      "geometry": "rect",
+      "text": "CIS TRADING  /  ПРОМЕЖУТОЧНЫЙ СТАТУС",
+      "textPreview": "CIS TRADING  /  ПРОМЕЖУТОЧНЫЙ СТАТУС",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CIS TRADING  /  ПРОМЕЖУТОЧНЫЙ СТАТУС"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CIS TRADING  /  ПРОМЕЖУТОЧНЫЙ СТАТУС",
+          "runs": [
+            {
+              "index": 1,
+              "text": "CIS TRADING  /  ",
+              "fontSize": 10.67,
+              "typeface": "Arial",
+              "color": "#91949E",
+              "bold": true
+            },
+            {
+              "index": 2,
+              "text": "ПРОМЕЖУТОЧНЫЙ СТАТУС",
+              "fontSize": 10.67,
+              "typeface": "Arial",
+              "color": "#91949E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ml07i9sv",
+      "id": "6",
+      "name": "TextBox 5",
+      "bbox": [
+        1146.67,
+        673.33,
+        60,
+        21.33
+      ],
+      "geometry": "rect",
+      "text": "06",
+      "textPreview": "06",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "06"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "06",
+          "resolvedTextStyle": {
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "06",
+              "fontSize": 12,
+              "typeface": "Arial",
+              "color": "#60636E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7m98ru9g",
+      "id": "7",
+      "name": "TextBox 6",
+      "bbox": [
+        73.33,
+        193.33,
+        233.33,
+        73.33
+      ],
+      "geometry": "rect",
+      "text": "2 468",
+      "textPreview": "2 468",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "2 468"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "2 468",
+          "runs": [
+            {
+              "index": 1,
+              "text": "2 468",
+              "fontSize": 45.33,
+              "typeface": "Arial",
+              "color": "#005CFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/oryp8fah",
+      "id": "8",
+      "name": "TextBox 7",
+      "bbox": [
+        73.33,
+        266.67,
+        233.33,
+        66.67
+      ],
+      "geometry": "rect",
+      "text": "наблюдений",
+      "textPreview": "наблюдений",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "наблюдений"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "наблюдений",
+          "runs": [
+            {
+              "index": 1,
+              "text": "наблюдений",
+              "fontSize": 21.33,
+              "typeface": "Arial",
+              "color": "#60636E"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/pc76hkr2",
+      "id": "9",
+      "name": "TextBox 8",
+      "bbox": [
+        73.33,
+        341.33,
+        233.33,
+        73.33
+      ],
+      "geometry": "rect",
+      "text": "2 462",
+      "textPreview": "2 462",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "2 462"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "2 462",
+          "runs": [
+            {
+              "index": 1,
+              "text": "2 462",
+              "fontSize": 45.33,
+              "typeface": "Arial",
+              "color": "#EE0076",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/h4bupgn6",
+      "id": "10",
+      "name": "TextBox 9",
+      "bbox": [
+        73.33,
+        414.67,
+        233.33,
+        66.67
+      ],
+      "geometry": "rect",
+      "text": "полные метки",
+      "textPreview": "полные метки",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "полные метки"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "полные метки",
+          "runs": [
+            {
+              "index": 1,
+              "text": "полные метки",
+              "fontSize": 21.33,
+              "typeface": "Arial",
+              "color": "#60636E"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/w32twb6l",
+      "id": "11",
+      "name": "TextBox 10",
+      "bbox": [
+        73.33,
+        489.33,
+        266.67,
+        73.33
+      ],
+      "geometry": "rect",
+      "text": "29,5%",
+      "textPreview": "29,5%",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "29,5%"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "29,5%",
+          "runs": [
+            {
+              "index": 1,
+              "text": "29,5%",
+              "fontSize": 45.33,
+              "typeface": "Arial",
+              "color": "#005CFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/v2tcn650",
+      "id": "12",
+      "name": "TextBox 11",
+      "bbox": [
+        73.33,
+        562.67,
+        266.67,
+        66.67
+      ],
+      "geometry": "rect",
+      "text": "дней target_good_now = 1",
+      "textPreview": "дней target_good_now = 1",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "дней target_good_now = 1"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "дней target_good_now = 1",
+          "runs": [
+            {
+              "index": 1,
+              "text": "дней ",
+              "fontSize": 21.33,
+              "typeface": "Arial",
+              "color": "#60636E"
+            },
+            {
+              "index": 2,
+              "text": "target_good_now = 1",
+              "fontSize": 21.33,
+              "typeface": "Arial",
+              "color": "#60636E"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/u1kbu1ov",
+      "id": "13",
+      "name": "TextBox 12",
+      "bbox": [
+        426.67,
+        180,
+        640,
+        37.33
+      ],
+      "geometry": "rect",
+      "text": "02.09.2016 — 02.09.2026",
+      "textPreview": "02.09.2016 — 02.09.2026",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "02.09.2016 — 02.09.2026"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "02.09.2016 — 02.09.2026",
+          "runs": [
+            {
+              "index": 1,
+              "text": "02.09.2016 — 02.09.2026",
+              "fontSize": 21.33,
+              "typeface": "Arial",
+              "color": "#60636E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5svutgni",
+      "id": "14",
+      "name": "Прямая соединительная линия 13",
+      "bbox": [
+        426.67,
+        533.33,
+        780,
+        0
+      ],
+      "geometry": "line",
+      "lineColor": "#DEE0E6",
+      "lineWidth": 1.33
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/47mt0b6x",
+      "id": "15",
+      "name": "Прямая соединительная линия 14",
+      "bbox": [
+        426.67,
+        246.67,
+        0,
+        286.67
+      ],
+      "geometry": "line",
+      "lineColor": "#DEE0E6",
+      "lineWidth": 1.33
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/j6dcr65c",
+      "id": "16",
+      "name": "Прямая соединительная линия 15",
+      "bbox": [
+        426.67,
+        319.57,
+        10.99,
+        24.1
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/i54bylor",
+      "id": "17",
+      "name": "Прямая соединительная линия 16",
+      "bbox": [
+        437.65,
+        338.21,
+        10.99,
+        5.46
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/twfux0ne",
+      "id": "18",
+      "name": "Прямая соединительная линия 17",
+      "bbox": [
+        448.64,
+        338.21,
+        10.99,
+        36.3
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/svmt4v6t",
+      "id": "19",
+      "name": "Прямая соединительная линия 18",
+      "bbox": [
+        459.62,
+        374.51,
+        10.99,
+        44.27
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/cbe5g3ih",
+      "id": "20",
+      "name": "Прямая соединительная линия 19",
+      "bbox": [
+        470.61,
+        418.77,
+        10.99,
+        27.47
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 20,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/dcnm98zm",
+      "id": "21",
+      "name": "Прямая соединительная линия 20",
+      "bbox": [
+        481.6,
+        414.14,
+        10.99,
+        32.11
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 21,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/qpwnet0b",
+      "id": "22",
+      "name": "Прямая соединительная линия 21",
+      "bbox": [
+        492.58,
+        414.14,
+        10.99,
+        16.71
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 22,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/bq547yhw",
+      "id": "23",
+      "name": "Прямая соединительная линия 22",
+      "bbox": [
+        503.57,
+        430.85,
+        10.99,
+        8.35
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 23,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0fy5k3id",
+      "id": "24",
+      "name": "Прямая соединительная линия 23",
+      "bbox": [
+        514.55,
+        427.86,
+        10.99,
+        11.35
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 24,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lg76d8zy",
+      "id": "25",
+      "name": "Прямая соединительная линия 24",
+      "bbox": [
+        525.54,
+        427.86,
+        10.99,
+        20.61
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 25,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ydgnit07",
+      "id": "26",
+      "name": "Прямая соединительная линия 25",
+      "bbox": [
+        536.53,
+        441.62,
+        10.99,
+        6.85
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 26,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zep4byhs",
+      "id": "27",
+      "name": "Прямая соединительная линия 26",
+      "bbox": [
+        547.51,
+        413.6,
+        10.99,
+        28.02
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 27,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gju58ji9",
+      "id": "28",
+      "name": "Прямая соединительная линия 27",
+      "bbox": [
+        558.5,
+        413.6,
+        10.99,
+        3.87
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 28,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/1k3mhozu",
+      "id": "29",
+      "name": "Прямая соединительная линия 28",
+      "bbox": [
+        569.48,
+        396.26,
+        10.99,
+        21.2
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 29,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/jet8nm1c",
+      "id": "30",
+      "name": "Прямая соединительная линия 29",
+      "bbox": [
+        580.47,
+        396.26,
+        10.99,
+        11.66
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 30,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/idk7ehkr",
+      "id": "31",
+      "name": "Прямая соединительная линия 30",
+      "bbox": [
+        591.46,
+        403.24,
+        10.99,
+        4.68
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 31,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/50bqpcj2",
+      "id": "32",
+      "name": "Прямая соединительная линия 31",
+      "bbox": [
+        602.44,
+        403.24,
+        10.99,
+        2.96
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 32,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4f2pgr2h",
+      "id": "33",
+      "name": "Прямая соединительная линия 32",
+      "bbox": [
+        613.43,
+        406.2,
+        10.99,
+        17.15
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 33,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/va98j210",
+      "id": "34",
+      "name": "Прямая соединительная линия 33",
+      "bbox": [
+        624.41,
+        417.46,
+        10.99,
+        5.89
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 34,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/u907axkf",
+      "id": "35",
+      "name": "Прямая соединительная линия 34",
+      "bbox": [
+        635.4,
+        417.46,
+        10.99,
+        6.54
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 35,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hcrqlcj6",
+      "id": "36",
+      "name": "Прямая соединительная линия 35",
+      "bbox": [
+        646.38,
+        422.39,
+        10.99,
+        1.61
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 36,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wbipc72l",
+      "id": "37",
+      "name": "Прямая соединительная линия 36",
+      "bbox": [
+        657.37,
+        422.39,
+        10.99,
+        9.28
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 37,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7698f214",
+      "id": "38",
+      "name": "Прямая соединительная линия 37",
+      "bbox": [
+        668.36,
+        430.39,
+        10.99,
+        1.28
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 38,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/m5076xkj",
+      "id": "39",
+      "name": "Прямая соединительная линия 38",
+      "bbox": [
+        679.34,
+        430.39,
+        10.99,
+        11.19
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 39,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2dkbalg3",
+      "id": "40",
+      "name": "Прямая соединительная линия 39",
+      "bbox": [
+        690.33,
+        324.85,
+        10.99,
+        116.73
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 40,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/netcjqxo",
+      "id": "41",
+      "name": "Прямая соединительная линия 40",
+      "bbox": [
+        701.31,
+        324.85,
+        10.99,
+        78.61
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 41,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/of2tcvy9",
+      "id": "42",
+      "name": "Прямая соединительная линия 41",
+      "bbox": [
+        712.3,
+        403.46,
+        10.99,
+        11.61
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 42,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/pgbul0fu",
+      "id": "43",
+      "name": "Прямая соединительная линия 42",
+      "bbox": [
+        723.29,
+        387.34,
+        10.99,
+        27.73
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 43,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ep0b6lg7",
+      "id": "44",
+      "name": "Прямая соединительная линия 43",
+      "bbox": [
+        734.27,
+        370.67,
+        10.99,
+        16.68
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 44,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fq9cfqxc",
+      "id": "45",
+      "name": "Прямая соединительная линия 44",
+      "bbox": [
+        745.26,
+        370.67,
+        10.99,
+        65.76
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 45,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0r2t8vyx",
+      "id": "46",
+      "name": "Прямая соединительная линия 45",
+      "bbox": [
+        756.24,
+        431.78,
+        10.99,
+        4.65
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 46,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/1sbuh0fi",
+      "id": "47",
+      "name": "Прямая соединительная линия 46",
+      "bbox": [
+        767.23,
+        428.18,
+        10.99,
+        3.6
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 47,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ql0b21gv",
+      "id": "48",
+      "name": "Прямая соединительная линия 47",
+      "bbox": [
+        778.22,
+        428.18,
+        10.99,
+        12.82
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 48,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/rm9sb6xg",
+      "id": "49",
+      "name": "Прямая соединительная линия 48",
+      "bbox": [
+        789.2,
+        440.99,
+        10.99,
+        3.76
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 49,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9gfeh4zy",
+      "id": "50",
+      "name": "Прямая соединительная линия 49",
+      "bbox": [
+        800.19,
+        440.78,
+        10.99,
+        3.98
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 50,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/8f6x8jid",
+      "id": "51",
+      "name": "Прямая соединительная линия 50",
+      "bbox": [
+        811.17,
+        440.78,
+        10.99,
+        10.32
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 51,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7exwfehs",
+      "id": "52",
+      "name": "Прямая соединительная линия 51",
+      "bbox": [
+        822.16,
+        436.71,
+        10.99,
+        14.38
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 52,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/mdof6907",
+      "id": "53",
+      "name": "Прямая соединительная линия 52",
+      "bbox": [
+        833.15,
+        407.53,
+        10.99,
+        29.19
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 53,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lcfed4z2",
+      "id": "54",
+      "name": "Прямая соединительная линия 53",
+      "bbox": [
+        844.13,
+        275.73,
+        10.99,
+        131.8
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 54,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kb6d4zih",
+      "id": "55",
+      "name": "Прямая соединительная линия 54",
+      "bbox": [
+        855.12,
+        275.73,
+        10.99,
+        257.61
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 55,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zaxwbuhw",
+      "id": "56",
+      "name": "Прямая соединительная линия 55",
+      "bbox": [
+        866.1,
+        524.43,
+        10.99,
+        8.91
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 56,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/y94v2p0b",
+      "id": "57",
+      "name": "Прямая соединительная линия 56",
+      "bbox": [
+        877.09,
+        485.12,
+        10.99,
+        39.31
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 57,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/x8ve9kzq",
+      "id": "58",
+      "name": "Прямая соединительная линия 57",
+      "bbox": [
+        888.08,
+        467.05,
+        10.99,
+        18.07
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 58,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/c7md0zi5",
+      "id": "59",
+      "name": "Прямая соединительная линия 58",
+      "bbox": [
+        899.06,
+        467.05,
+        10.99,
+        7.74
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 59,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/o3a5cjud",
+      "id": "60",
+      "name": "Прямая соединительная линия 59",
+      "bbox": [
+        910.05,
+        427.27,
+        10.99,
+        47.51
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 60,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/p4j6loby",
+      "id": "61",
+      "name": "Прямая соединительная линия 60",
+      "bbox": [
+        921.03,
+        405.51,
+        10.99,
+        21.75
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 61,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/21snatc7",
+      "id": "62",
+      "name": "Прямая соединительная линия 61",
+      "bbox": [
+        932.02,
+        405.01,
+        10.99,
+        0.51
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 62,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/n21ojets",
+      "id": "63",
+      "name": "Прямая соединительная линия 62",
+      "bbox": [
+        943,
+        341.78,
+        10.99,
+        63.23
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 63,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0zq58ju1",
+      "id": "64",
+      "name": "Прямая соединительная линия 63",
+      "bbox": [
+        953.99,
+        303.16,
+        10.99,
+        38.62
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 64,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/10z6hobm",
+      "id": "65",
+      "name": "Прямая соединительная линия 64",
+      "bbox": [
+        964.98,
+        267.19,
+        10.99,
+        35.97
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 65,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ed8n69cb",
+      "id": "66",
+      "name": "Прямая соединительная линия 65",
+      "bbox": [
+        975.96,
+        267.19,
+        10.99,
+        65.72
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 66,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fyhofetw",
+      "id": "67",
+      "name": "Прямая соединительная линия 66",
+      "bbox": [
+        986.95,
+        332.91,
+        10.99,
+        5.17
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 67,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kvu5k3ul",
+      "id": "68",
+      "name": "Прямая соединительная линия 67",
+      "bbox": [
+        997.93,
+        316.35,
+        10.99,
+        21.73
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 68,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lw36d8b6",
+      "id": "69",
+      "name": "Прямая соединительная линия 68",
+      "bbox": [
+        1008.92,
+        313.55,
+        10.99,
+        2.8
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 69,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vq58j2d8",
+      "id": "70",
+      "name": "Прямая соединительная линия 69",
+      "bbox": [
+        1019.91,
+        313.55,
+        10.99,
+        11.02
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 70,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/upwraxwn",
+      "id": "71",
+      "name": "Прямая соединительная линия 70",
+      "bbox": [
+        1030.89,
+        309.4,
+        10.99,
+        15.17
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 71,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hs7qlcve",
+      "id": "72",
+      "name": "Прямая соединительная линия 71",
+      "bbox": [
+        1041.88,
+        281.98,
+        10.99,
+        27.42
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 72,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gre9c7et",
+      "id": "73",
+      "name": "Прямая соединительная линия 72",
+      "bbox": [
+        1052.86,
+        246.67,
+        10.99,
+        35.32
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 73,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3up8nmd4",
+      "id": "74",
+      "name": "Прямая соединительная линия 73",
+      "bbox": [
+        1063.85,
+        246.67,
+        10.99,
+        3.18
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 74,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/itgrehwz",
+      "id": "75",
+      "name": "Прямая соединительная линия 74",
+      "bbox": [
+        1074.84,
+        249.84,
+        10.99,
+        79.94
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 75,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5w7qpwva",
+      "id": "76",
+      "name": "Прямая соединительная линия 75",
+      "bbox": [
+        1085.82,
+        329.79,
+        10.99,
+        25.63
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 76,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4vy9grep",
+      "id": "77",
+      "name": "Прямая соединительная линия 76",
+      "bbox": [
+        1096.81,
+        346.22,
+        10.99,
+        9.2
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 77,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zyl8bid0",
+      "id": "78",
+      "name": "Прямая соединительная линия 77",
+      "bbox": [
+        1107.79,
+        306.72,
+        10.99,
+        39.5
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 78,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/yxc72dwf",
+      "id": "79",
+      "name": "Прямая соединительная линия 78",
+      "bbox": [
+        1118.78,
+        285.55,
+        10.99,
+        21.17
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 79,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/m9szm1kf",
+      "id": "80",
+      "name": "Прямая соединительная линия 79",
+      "bbox": [
+        1129.77,
+        285.55,
+        10.99,
+        5.69
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 80,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/na1gf610",
+      "id": "81",
+      "name": "Прямая соединительная линия 80",
+      "bbox": [
+        1140.75,
+        291.24,
+        10.99,
+        25.96
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 81,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/8bahobil",
+      "id": "82",
+      "name": "Прямая соединительная линия 81",
+      "bbox": [
+        1151.74,
+        317.2,
+        10.99,
+        9.47
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 82,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9cjyhgj6",
+      "id": "83",
+      "name": "Прямая соединительная линия 82",
+      "bbox": [
+        1162.72,
+        326.67,
+        10.99,
+        18.27
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 83,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/adszq10r",
+      "id": "84",
+      "name": "Прямая соединительная линия 83",
+      "bbox": [
+        1173.71,
+        344.95,
+        10.99,
+        2.73
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 84,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ve1gj61w",
+      "id": "85",
+      "name": "Прямая соединительная линия 84",
+      "bbox": [
+        1184.69,
+        281.03,
+        10.99,
+        66.65
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 85,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wfahsbih",
+      "id": "86",
+      "name": "Прямая соединительная линия 85",
+      "bbox": [
+        1195.68,
+        247.95,
+        10.99,
+        33.07
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 1.73
+    },
+    {
+      "order": 86,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xg3ylgj2",
+      "id": "87",
+      "name": "TextBox 86",
+      "bbox": [
+        426.67,
+        546.67,
+        80,
+        24
+      ],
+      "geometry": "rect",
+      "text": "2016",
+      "textPreview": "2016",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "2016"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "2016",
+          "runs": [
+            {
+              "index": 1,
+              "text": "2016",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": "#91949E"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 87,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/qh8fehk7",
+      "id": "88",
+      "name": "TextBox 87",
+      "bbox": [
+        1126.67,
+        546.67,
+        80,
+        24
+      ],
+      "geometry": "rect",
+      "text": "2026",
+      "textPreview": "2026",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "2026"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "2026",
+          "resolvedTextStyle": {
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "2026",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": "#91949E"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 88,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/rihg7m1s",
+      "id": "89",
+      "name": "TextBox 88",
+      "bbox": [
+        426.67,
+        588,
+        573.33,
+        26.67
+      ],
+      "geometry": "rect",
+      "text": "RUB за 1 TJS · ниже — выгоднее",
+      "textPreview": "RUB за 1 TJS · ниже — выгоднее",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "RUB за 1 TJS · ниже — выгоднее"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "RUB за 1 TJS · ниже — выгоднее",
+          "runs": [
+            {
+              "index": 1,
+              "text": "RUB за 1 TJS · ниже — выгоднее",
+              "fontSize": 16,
+              "typeface": "Arial",
+              "color": "#60636E"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    }
+  ],
+  "composeRuns": []
+}

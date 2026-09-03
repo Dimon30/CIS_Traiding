@@ -1,0 +1,850 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/auv1sc",
+    "id": "auv1sc",
+    "slide": 1,
+    "layoutId": "/ppt/slideLayouts/slideLayout7.xml",
+    "layoutName": "Пустой слайд",
+    "layoutType": "blank",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Стандартная",
+    "colors": {
+      "accent1": "#5B9BD5",
+      "accent2": "#ED7D31",
+      "accent3": "#A5A5A5",
+      "accent4": "#FFC000",
+      "accent5": "#4472C4",
+      "accent6": "#70AD47",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#44546A",
+      "lt2": "#E7E6E6",
+      "hlink": "#0563C1",
+      "folHlink": "#954F72"
+    },
+    "fontScheme": {
+      "name": "Стандартная",
+      "majorFont": {
+        "latinTypeface": "Calibri Light"
+      },
+      "minorFont": {
+        "latinTypeface": "Calibri"
+      }
+    },
+    "typefaces": [
+      "Arial",
+      "Calibri",
+      "Calibri Light"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout7.xml",
+      "name": "Пустой слайд",
+      "type": "blank",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/2",
+          "id": "2",
+          "name": "Дата 1",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "text": "03.09.2026",
+          "textPreview": "03.09.2026",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "03.09.2026",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "03.09.2026"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/3",
+          "id": "3",
+          "name": "Нижний колонтитул 2",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/4",
+          "id": "4",
+          "name": "Номер слайда 3",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "type": "master",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/2",
+          "id": "2",
+          "name": "Заголовок 1",
+          "bbox": [
+            88,
+            38.33,
+            1104,
+            139.17
+          ],
+          "geometry": "rect",
+          "text": "Образец заголовка",
+          "textPreview": "Образец заголовка",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Образец заголовка",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Образец заголовка"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/3",
+          "id": "3",
+          "name": "Текст 2",
+          "bbox": [
+            88,
+            191.67,
+            1104,
+            456.83
+          ],
+          "geometry": "rect",
+          "text": "Образец текста\nВторой уровень\nТретий уровень\nЧетвертый уровень\nПятый уровень",
+          "textPreview": "Образец текста | Второй уровень | Третий уровень | Четвертый уровень | Пятый уровень",
+          "resolvedTextStyle": {
+            "vertical": 1,
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Образец текста",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Образец текста"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "Второй уровень",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Второй уровень"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "Третий уровень",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Третий уровень"
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "text": "Четвертый уровень",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Четвертый уровень"
+                }
+              ]
+            },
+            {
+              "index": 5,
+              "text": "Пятый уровень",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Пятый уровень"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/4",
+          "id": "4",
+          "name": "Дата 3",
+          "bbox": [
+            88,
+            667.33,
+            288,
+            38.33
+          ],
+          "geometry": "rect",
+          "text": "03.09.2026",
+          "textPreview": "03.09.2026",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "03.09.2026",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "03.09.2026"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/5",
+          "id": "5",
+          "name": "Нижний колонтитул 4",
+          "bbox": [
+            424,
+            667.33,
+            432,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          }
+        },
+        {
+          "order": 5,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/6",
+          "id": "6",
+          "name": "Номер слайда 5",
+          "bbox": [
+            904,
+            667.33,
+            288,
+            38.33
+          ],
+          "geometry": "rect",
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/e9wn29kz",
+      "id": "2",
+      "name": "Прямоугольник 1",
+      "bbox": [
+        0,
+        0,
+        18.67,
+        720
+      ],
+      "geometry": "rect",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "fillColor": "#005CFF",
+      "lineWidth": 1.33
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fapobel4",
+      "id": "3",
+      "name": "Прямоугольник 2",
+      "bbox": [
+        18.67,
+        0,
+        9.33,
+        720
+      ],
+      "geometry": "rect",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "fillColor": "#EE0076",
+      "lineWidth": 1.33
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ozy58321",
+      "id": "4",
+      "name": "TextBox 3",
+      "bbox": [
+        88,
+        69.33,
+        466.67,
+        32
+      ],
+      "geometry": "rect",
+      "text": "CIS TRADING",
+      "textPreview": "CIS TRADING",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CIS TRADING"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CIS TRADING",
+          "runs": [
+            {
+              "index": 1,
+              "text": "CIS TRADING",
+              "fontSize": 17.33,
+              "typeface": "Arial",
+              "color": "#005CFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/p076ho3m",
+      "id": "5",
+      "name": "TextBox 4",
+      "bbox": [
+        88,
+        168,
+        960,
+        193.33
+      ],
+      "geometry": "rect",
+      "text": "Когда выгодно\nперевести деньги",
+      "textPreview": "Когда выгодно | перевести деньги",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Когда выгодно"
+          },
+          {
+            "index": 2,
+            "text": "перевести деньги"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Когда выгодно\nперевести деньги",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Когда выгодно\nперевести деньги",
+              "fontSize": 66.67,
+              "typeface": "Arial",
+              "color": "#0A0A0E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2xgn6tkv",
+      "id": "6",
+      "name": "TextBox 5",
+      "bbox": [
+        90.67,
+        406.67,
+        746.67,
+        45.33
+      ],
+      "geometry": "rect",
+      "text": "Промежуточный статус проекта",
+      "textPreview": "Промежуточный статус проекта",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Промежуточный статус проекта"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Промежуточный статус проекта",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Промежуточный статус проекта",
+              "fontSize": 30.67,
+              "typeface": "Arial",
+              "color": "#60636E"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/nypofylg",
+      "id": "7",
+      "name": "Прямая соединительная линия 6",
+      "bbox": [
+        90.67,
+        502.67,
+        376,
+        0
+      ],
+      "geometry": "line",
+      "lineColor": "#0A0A0E",
+      "lineWidth": 2.67
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/43e5wz2h",
+      "id": "8",
+      "name": "TextBox 7",
+      "bbox": [
+        90.67,
+        525.33,
+        586.67,
+        32
+      ],
+      "geometry": "rect",
+      "text": "RUB → TJS  ·  03.09.2026",
+      "textPreview": "RUB → TJS  ·  03.09.2026",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "RUB → TJS  ·  03.09.2026"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "RUB → TJS  ·  03.09.2026",
+          "runs": [
+            {
+              "index": 1,
+              "text": "RUB → TJS  ·  03.09.2026",
+              "fontSize": 18.67,
+              "typeface": "Arial",
+              "color": "#60636E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/54nm5432",
+      "id": "9",
+      "name": "Овал 8",
+      "bbox": [
+        1046.67,
+        117.33,
+        98.67,
+        98.67
+      ],
+      "geometry": "ellipse",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "fillColor": "#005CFF",
+      "lineWidth": 1.33
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xgf29w3u",
+      "id": "10",
+      "name": "Овал 9",
+      "bbox": [
+        1117.33,
+        165.33,
+        64,
+        64
+      ],
+      "geometry": "ellipse",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "fillColor": "#EE0076",
+      "lineWidth": 1.33
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wv610rm9",
+      "id": "11",
+      "name": "TextBox 10",
+      "bbox": [
+        1050.67,
+        141.33,
+        93.33,
+        33.33
+      ],
+      "geometry": "rect",
+      "text": "ITMO",
+      "textPreview": "ITMO",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "ITMO"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "ITMO",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "ITMO",
+              "fontSize": 20,
+              "typeface": "Arial",
+              "color": "#FFFFFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    }
+  ],
+  "composeRuns": []
+}

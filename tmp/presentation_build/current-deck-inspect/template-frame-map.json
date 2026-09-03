@@ -1,0 +1,558 @@
+{
+  "outputSlides": [
+    {
+      "outputSlide": 1,
+      "sourceSlide": 1,
+      "narrativeRole": "content",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        {
+          "sourceElementIds": [
+            "sh/547294r6",
+            "sh/k3yl0zql",
+            "sh/7qp4be9c",
+            "sh/65g3298r",
+            "sh/ts7md4r2",
+            "sh/sryl4zqx",
+            "sh/fu94fe98",
+            "sh/utg3698n",
+            "sh/wn6dc7eh",
+            "sh/hofulsf2"
+          ],
+          "action": "rewrite",
+          "reason": "Revise copy and palette in inherited slide elements."
+        }
+      ]
+    },
+    {
+      "outputSlide": 2,
+      "sourceSlide": 2,
+      "narrativeRole": "content",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        {
+          "sourceElementIds": [
+            "sh/9072xkry",
+            "sh/ozy1ofad",
+            "sh/b29kza94",
+            "sh/a10jqpsj",
+            "sh/x4r21kru",
+            "sh/w3i1sfa9",
+            "sh/r65knqtk",
+            "sh/q5wjelsz",
+            "sh/ove9o7yd",
+            "sh/9wnqhczy",
+            "sh/mtwrmxg7"
+          ],
+          "action": "rewrite",
+          "reason": "Revise copy and palette in inherited slide elements."
+        }
+      ]
+    },
+    {
+      "outputSlide": 3,
+      "sourceSlide": 3,
+      "narrativeRole": "content",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        {
+          "sourceElementIds": [
+            "sh/cza94vmx",
+            "sh/d0jax03i",
+            "sh/298ryl4v",
+            "sh/3ah8rqlg",
+            "sh/obq90bml",
+            "sh/pcjqtg36",
+            "sh/m5cra54z",
+            "sh/n6ls3alk",
+            "sh/n2l4fq98",
+            "sh/m1c3mlsn",
+            "sh/943mhgre",
+            "sh/83ulovat",
+            "sh/v6l4jq94",
+            "sh/a5c3ql8z"
+          ],
+          "action": "rewrite",
+          "reason": "Revise copy and palette in inherited slide elements."
+        }
+      ]
+    },
+    {
+      "outputSlide": 4,
+      "sourceSlide": 4,
+      "narrativeRole": "content",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        {
+          "sourceElementIds": [
+            "sh/1cj2d8b6",
+            "sh/0ba143al",
+            "sh/rm1k7yt4",
+            "sh/ql8jytsj",
+            "sh/doj29oba",
+            "sh/sna103ap",
+            "sh/3ihk3et8",
+            "sh/ih8ju9sn",
+            "sh/kbm987y5",
+            "sh/5cva1cfq",
+            "sh/i94r6xgz",
+            "sh/jadsz2xk",
+            "sh/w72947yt",
+            "sh/x8vaxsfe",
+            "sh/a5kr2xg3",
+            "sh/v6tsv2xo",
+            "sh/g36tgryd",
+            "sh/h4fa9wfy",
+            "sh/p0batw72",
+            "sh/oz29krqh"
+          ],
+          "action": "rewrite",
+          "reason": "Revise copy and palette in inherited slide elements."
+        }
+      ]
+    },
+    {
+      "outputSlide": 5,
+      "sourceSlide": 5,
+      "narrativeRole": "content",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        {
+          "sourceElementIds": [
+            "sh/dgbulwnm",
+            "sh/cf2tcr61",
+            "sh/z2tcnm5s",
+            "sh/yhkbe1o7",
+            "sh/l4bupwny",
+            "sh/032tgr6d",
+            "sh/n6dcr65o",
+            "sh/m5kbi1oj",
+            "sh/w32dkbuh",
+            "sh/x4vedgvm",
+            "sh/ahkvi1cb",
+            "sh/v2twb6dw",
+            "sh/k7mxovud",
+            "sh/58vehgvy",
+            "sh/i54fmlc7",
+            "sh/j6dwfqds",
+            "sh/sb6xsvu9",
+            "sh/tcfel0vu",
+            "sh/hgrmpwj2",
+            "sh/gfi5grih",
+            "sh/fe94nm1w",
+            "sh/ud0ne10b",
+            "sh/pkr6tgjy",
+            "sh/4ji5kbid"
+          ],
+          "action": "rewrite",
+          "reason": "Revise copy and palette in inherited slide elements."
+        }
+      ]
+    },
+    {
+      "outputSlide": 6,
+      "sourceSlide": 6,
+      "narrativeRole": "content",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        {
+          "sourceElementIds": [
+            "sh/yhg7epsj",
+            "sh/zi98nu94",
+            "sh/87ipkzal",
+            "sh/98rqt4r6",
+            "sh/ml07i9sv",
+            "sh/7m98ru9g",
+            "sh/oryp8fah",
+            "sh/pc76hkr2",
+            "sh/h4bupgn6",
+            "sh/w32twb6l",
+            "sh/v2tcn650",
+            "sh/u1kbu1ov",
+            "sh/5svutgni",
+            "sh/47mt0b6x",
+            "sh/j6dcr65c",
+            "sh/i54bylor",
+            "sh/twfux0ne",
+            "sh/svmt4v6t",
+            "sh/cbe5g3ih",
+            "sh/dcnm98zm",
+            "sh/qpwnet0b",
+            "sh/bq547yhw",
+            "sh/0fy5k3id",
+            "sh/lg76d8zy",
+            "sh/ydgnit07",
+            "sh/zep4byhs",
+            "sh/gju58ji9",
+            "sh/1k3mhozu",
+            "sh/jet8nm1c",
+            "sh/idk7ehkr",
+            "sh/50bqpcj2",
+            "sh/4f2pgr2h",
+            "sh/va98j210",
+            "sh/u907axkf",
+            "sh/hcrqlcj6",
+            "sh/wbipc72l",
+            "sh/7698f214",
+            "sh/m5076xkj",
+            "sh/2dkbalg3",
+            "sh/netcjqxo",
+            "sh/of2tcvy9",
+            "sh/pgbul0fu",
+            "sh/ep0b6lg7",
+            "sh/fq9cfqxc",
+            "sh/0r2t8vyx",
+            "sh/1sbuh0fi",
+            "sh/ql0b21gv",
+            "sh/rm9sb6xg",
+            "sh/9gfeh4zy",
+            "sh/8f6x8jid",
+            "sh/7exwfehs",
+            "sh/mdof6907",
+            "sh/lcfed4z2",
+            "sh/kb6d4zih",
+            "sh/zaxwbuhw",
+            "sh/y94v2p0b",
+            "sh/x8ve9kzq",
+            "sh/c7md0zi5",
+            "sh/o3a5cjud",
+            "sh/p4j6loby",
+            "sh/21snatc7",
+            "sh/n21ojets",
+            "sh/0zq58ju1",
+            "sh/10z6hobm",
+            "sh/ed8n69cb",
+            "sh/fyhofetw",
+            "sh/kvu5k3ul",
+            "sh/lw36d8b6",
+            "sh/vq58j2d8",
+            "sh/upwraxwn",
+            "sh/hs7qlcve",
+            "sh/gre9c7et",
+            "sh/3up8nmd4",
+            "sh/itgrehwz",
+            "sh/5w7qpwva",
+            "sh/4vy9grep",
+            "sh/zyl8bid0",
+            "sh/yxc72dwf",
+            "sh/m9szm1kf",
+            "sh/na1gf610",
+            "sh/8bahobil",
+            "sh/9cjyhgj6",
+            "sh/adszq10r",
+            "sh/ve1gj61w",
+            "sh/wfahsbih",
+            "sh/xg3ylgj2",
+            "sh/qh8fehk7",
+            "sh/rihg7m1s"
+          ],
+          "action": "rewrite",
+          "reason": "Revise copy and palette in inherited slide elements."
+        }
+      ]
+    },
+    {
+      "outputSlide": 7,
+      "sourceSlide": 7,
+      "narrativeRole": "content",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        {
+          "sourceElementIds": [
+            "sh/cb2tkvap",
+            "sh/dcbud0ra",
+            "sh/ydkbm5sv",
+            "sh/zedcfa9g",
+            "sh/kzmdova1",
+            "sh/l0vuh0rm",
+            "sh/eh0ba1sr",
+            "sh/fi9c369c",
+            "sh/baxkjqlk",
+            "sh/a9ojq5kz",
+            "sh/xcz2l03q",
+            "sh/cbq1sv25",
+            "sh/n6x0fqlo",
+            "sh/25ojml43",
+            "sh/p8fih03e",
+            "sh/o761ov2t",
+            "sh/f2d0b6lc",
+            "sh/eh4jil4r",
+            "sh/id4ju1oz",
+            "sh/jedkn654",
+            "sh/4fm1wb6p",
+            "sh/50v2pgna",
+            "sh/q143ylov",
+            "sh/r2dkrq5g"
+          ],
+          "action": "rewrite",
+          "reason": "Revise copy and palette in inherited slide elements."
+        }
+      ]
+    },
+    {
+      "outputSlide": 8,
+      "sourceSlide": 8,
+      "narrativeRole": "content",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        {
+          "sourceElementIds": [
+            "sh/18byd4zy",
+            "sh/g72x4zyd",
+            "sh/ri9g7uhw",
+            "sh/6h0fypgb",
+            "sh/tkby9kzm",
+            "sh/sjix0zy1",
+            "sh/je9g3ahk",
+            "sh/id0fu50z",
+            "sh/o7ydoret",
+            "sh/98rehwve",
+            "sh/m5gvmhwn",
+            "sh/n6pwfmd8",
+            "sh/0jydkreh",
+            "sh/1k7edwv2",
+            "sh/ehgvihwr",
+            "sh/zipwbmdc",
+            "sh/kfixwbe1",
+            "sh/lgbepgvm",
+            "sh/tw7e9gnq",
+            "sh/svydgb65",
+            "sh/7u5w765k",
+            "sh/6twve1oz",
+            "sh/5sne5wne",
+            "sh/kredcr6t",
+            "sh/jq5w365o"
+          ],
+          "action": "rewrite",
+          "reason": "Revise copy and palette in inherited slide elements."
+        }
+      ]
+    },
+    {
+      "outputSlide": 9,
+      "sourceSlide": 9,
+      "narrativeRole": "content",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        {
+          "sourceElementIds": [
+            "sh/1cfmhgne",
+            "sh/0b65obm9",
+            "sh/nex4jq5k",
+            "sh/mdonql4z",
+            "sh/9gzml0nq",
+            "sh/ofq5svm5",
+            "sh/bih4na5w",
+            "sh/ah8nu54b",
+            "sh/oza1gfyh",
+            "sh/p0ji9kf2",
+            "sh/2xsjepgb",
+            "sh/3y107axw",
+            "sh/cnu1kzyd",
+            "sh/do3id4fy",
+            "sh/qlcjipgn",
+            "sh/bml0buxs",
+            "sh/0ru1ozyp",
+            "sh/lsn2h4fa",
+            "sh/98ji147e",
+            "sh/87a18zqt",
+            "sh/76h0zup8",
+            "sh/ml8j6p8n",
+            "sh/hcji5o7a"
+          ],
+          "action": "rewrite",
+          "reason": "Revise copy and palette in inherited slide elements."
+        }
+      ]
+    },
+    {
+      "outputSlide": 10,
+      "sourceSlide": 10,
+      "narrativeRole": "content",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        {
+          "sourceElementIds": [
+            "sh/xc3mho32",
+            "sh/cbu58j2h",
+            "sh/zelojyl8",
+            "sh/ydcnatkn",
+            "sh/l036l83y",
+            "sh/kzu5c32t",
+            "sh/725onyl4",
+            "sh/m1cnetkj",
+            "sh/s7yt4b21",
+            "sh/d87uxg3m",
+            "sh/q5gb21kb",
+            "sh/r6pcv6lw",
+            "sh/0bit8b2d",
+            "sh/1cru1g3y"
+          ],
+          "action": "rewrite",
+          "reason": "Revise copy and palette in inherited slide elements."
+        }
+      ]
+    },
+    {
+      "outputSlide": 11,
+      "sourceSlide": 11,
+      "narrativeRole": "content",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        {
+          "sourceElementIds": [
+            "sh/xcryxg7y",
+            "sh/wbih4b6d",
+            "sh/n69grmpw",
+            "sh/250zy18b",
+            "sh/98rytw72"
+          ],
+          "action": "rewrite",
+          "reason": "Retain and recolor inherited slide chrome."
+        },
+        {
+          "sourceElementIds": [
+            "im/cre5or2h",
+            "sh/72t03qp0",
+            "sh/61kzalof",
+            "sh/ofqtgnyt",
+            "sh/9gza9sze",
+            "sh/mdobedg3"
+          ],
+          "action": "rewrite",
+          "reason": "Clear and repurpose the inherited chart area for the requested date-level push inspector."
+        },
+        {
+          "action": "add",
+          "newPrimitiveAllowed": true,
+          "zone": {
+            "left": 73,
+            "top": 165,
+            "width": 1133,
+            "height": 450
+          },
+          "reason": "The user explicitly requested an interface showing whether a push fires on any selected day and which message is used.",
+          "mustNotOverlapInherited": true
+        }
+      ]
+    },
+    {
+      "outputSlide": 12,
+      "sourceSlide": 12,
+      "narrativeRole": "content",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        {
+          "sourceElementIds": [
+            "sh/1gbm9s3a",
+            "sh/0f2lgnmp",
+            "sh/ra943il8",
+            "sh/q903ad4n",
+            "sh/dcbm583y",
+            "sh/sb2lcnmd",
+            "sh/b6d4f2lc",
+            "sh/a543mx4r",
+            "sh/wvupgz6t",
+            "sh/xw3q94ne",
+            "sh/atc7epon",
+            "sh/bulo7u58",
+            "sh/orapcf6h",
+            "sh/9sj65kn2",
+            "sh/mps7a5or",
+            "sh/nq1o3a5w",
+            "sh/0nap8f6l",
+            "sh/1oj61kn6",
+            "sh/hkbm5wzu",
+            "sh/gj25cry9"
+          ],
+          "action": "rewrite",
+          "reason": "Revise copy and palette in inherited slide elements."
+        }
+      ]
+    },
+    {
+      "outputSlide": 13,
+      "sourceSlide": 13,
+      "narrativeRole": "content",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        {
+          "sourceElementIds": [
+            "sh/q50nydsj",
+            "sh/bq9orito",
+            "sh/o3i5w3ad",
+            "sh/p4r6p8by",
+            "sh/21gnuts7",
+            "sh/32ponyts",
+            "sh/gzy5s3a1",
+            "sh/1076lobm",
+            "sh/hcfy9k3u",
+            "sh/gb6x0zm9",
+            "sh/vaxg7ulo",
+            "sh/u9ofyp43",
+            "sh/t8fy5k3i",
+            "sh/876xwfmx",
+            "sh/7mdg3als",
+            "sh/6l4fu547",
+            "sh/lkvy103m",
+            "sh/kjmxsfm1",
+            "sh/cnqh8fux",
+            "sh/xozyhkbi",
+            "sh/q18f65cr",
+            "sh/bmhgfatc",
+            "sh/oz6x4vul",
+            "sh/p0zyd0b6",
+            "sh/2xof2lcv",
+            "sh/3yxgbqdg",
+            "sh/8vahgzu5",
+            "sh/9wjyp4bq",
+            "sh/jqlkfyds",
+            "sh/ipcjmtw7",
+            "sh/5cn2h8vy",
+            "sh/4re1o3ed",
+            "sh/re5kjydo",
+            "sh/6dwjqtw3",
+            "sh/tgn2l8vu",
+            "sh/sfe1s3e9",
+            "sh/7i107edk"
+          ],
+          "action": "rewrite",
+          "reason": "Revise copy and palette in inherited slide elements."
+        }
+      ]
+    },
+    {
+      "outputSlide": 14,
+      "sourceSlide": 14,
+      "narrativeRole": "content",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        {
+          "sourceElementIds": [
+            "sh/xc7eds76",
+            "sh/wbydknq1",
+            "sh/jepwf2pc",
+            "sh/idgvmx8r",
+            "sh/5grehs7i",
+            "sh/kfidonqx",
+            "sh/zi5c3y98",
+            "sh/ehwvat8n",
+            "sh/c3e1gjyd",
+            "sh/x4ni9ofy",
+            "sh/a1wze9g7",
+            "sh/b2507exs",
+            "sh/kre1k3y9",
+            "sh/ls7idofu",
+            "sh/y5wjitgj",
+            "sh/z650byxo",
+            "sh/0buh8zy5",
+            "sh/1w3i14fq"
+          ],
+          "action": "rewrite",
+          "reason": "Revise copy and palette in inherited slide elements."
+        }
+      ]
+    }
+  ],
+  "omittedSourceSlides": []
+}

@@ -1,0 +1,14 @@
+first_test_year = 2022
+validation_years = 1
+cooldown_days = 4
+random_repeats = 500
+random_seed = 42
+min_validation_signals = 12
+max_signals_per_week = 2.0
+
+strategies = [
+  "per_corridor",
+  "pooled",
+  "pooled_with_corridor_thresholds",
+]
+

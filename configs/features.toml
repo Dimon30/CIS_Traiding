@@ -1,0 +1,20 @@
+[sets.price_core]
+columns = [
+  "return_1", "return_3", "return_5", "return_10", "return_20",
+  "distance_to_min_5", "distance_to_min_10", "distance_to_min_20", "distance_to_min_60",
+  "distance_to_mean_5", "distance_to_mean_10", "distance_to_mean_20", "distance_to_mean_60",
+  "range_position_5", "range_position_10", "range_position_20", "range_position_60",
+]
+
+[sets.volatility]
+columns = ["volatility_5", "volatility_10", "volatility_20"]
+
+[sets.momentum]
+columns = ["down_streak", "days_since_previous"]
+
+[sets.calendar]
+columns = ["month_sin", "month_cos", "weekday_sin", "weekday_cos"]
+
+[sets.current_model]
+include = ["price_core", "volatility", "momentum", "calendar"]
+

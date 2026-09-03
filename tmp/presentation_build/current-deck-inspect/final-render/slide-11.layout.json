@@ -1,0 +1,1690 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/jetc3ut0",
+    "id": "jetc3ut0",
+    "slide": 11,
+    "layoutId": "/ppt/slideLayouts/slideLayout7.xml",
+    "layoutName": "Пустой слайд",
+    "layoutType": "blank",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "backgroundColor": "#F3F2F7",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Стандартная",
+    "colors": {
+      "accent1": "#5B9BD5",
+      "accent2": "#ED7D31",
+      "accent3": "#A5A5A5",
+      "accent4": "#FFC000",
+      "accent5": "#4472C4",
+      "accent6": "#70AD47",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#44546A",
+      "lt2": "#E7E6E6",
+      "hlink": "#0563C1",
+      "folHlink": "#954F72"
+    },
+    "fontScheme": {
+      "name": "Стандартная",
+      "majorFont": {
+        "latinTypeface": "Calibri Light"
+      },
+      "minorFont": {
+        "latinTypeface": "Calibri"
+      }
+    },
+    "typefaces": [
+      "Arial",
+      "Calibri",
+      "Calibri Light"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout7.xml",
+      "name": "Пустой слайд",
+      "type": "blank",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/2",
+          "id": "2",
+          "name": "Дата 1",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "text": "03.09.2026",
+          "textPreview": "03.09.2026",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "03.09.2026",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "03.09.2026"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/3",
+          "id": "3",
+          "name": "Нижний колонтитул 2",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/4",
+          "id": "4",
+          "name": "Номер слайда 3",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "type": "master",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/2",
+          "id": "2",
+          "name": "Заголовок 1",
+          "bbox": [
+            88,
+            38.33,
+            1104,
+            139.17
+          ],
+          "geometry": "rect",
+          "text": "Образец заголовка",
+          "textPreview": "Образец заголовка",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Образец заголовка",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Образец заголовка"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/3",
+          "id": "3",
+          "name": "Текст 2",
+          "bbox": [
+            88,
+            191.67,
+            1104,
+            456.83
+          ],
+          "geometry": "rect",
+          "text": "Образец текста\nВторой уровень\nТретий уровень\nЧетвертый уровень\nПятый уровень",
+          "textPreview": "Образец текста | Второй уровень | Третий уровень | Четвертый уровень | Пятый уровень",
+          "resolvedTextStyle": {
+            "vertical": 1,
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Образец текста",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Образец текста"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "Второй уровень",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Второй уровень"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "Третий уровень",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Третий уровень"
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "text": "Четвертый уровень",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Четвертый уровень"
+                }
+              ]
+            },
+            {
+              "index": 5,
+              "text": "Пятый уровень",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Пятый уровень"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/4",
+          "id": "4",
+          "name": "Дата 3",
+          "bbox": [
+            88,
+            667.33,
+            288,
+            38.33
+          ],
+          "geometry": "rect",
+          "text": "03.09.2026",
+          "textPreview": "03.09.2026",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "03.09.2026",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "03.09.2026"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/5",
+          "id": "5",
+          "name": "Нижний колонтитул 4",
+          "bbox": [
+            424,
+            667.33,
+            432,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          }
+        },
+        {
+          "order": 5,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/6",
+          "id": "6",
+          "name": "Номер слайда 5",
+          "bbox": [
+            904,
+            667.33,
+            288,
+            38.33
+          ],
+          "geometry": "rect",
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xcryxg7y",
+      "id": "2",
+      "name": "section",
+      "bbox": [
+        73.33,
+        29.33,
+        693.33,
+        24
+      ],
+      "geometry": "rect",
+      "text": "ИНТЕРФЕЙС",
+      "textPreview": "ИНТЕРФЕЙС",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "#FA581B",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "ИНТЕРФЕЙС"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "ИНТЕРФЕЙС",
+          "runs": [
+            {
+              "index": 1,
+              "text": "ИНТЕРФЕЙС",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": "#FA581B",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wbih4b6d",
+      "id": "3",
+      "name": "slide-title",
+      "bbox": [
+        73.33,
+        64,
+        1133.33,
+        69.33
+      ],
+      "geometry": "rect",
+      "text": "Инспектор показывает пуш и сообщение на любой день",
+      "textPreview": "Инспектор показывает пуш и сообщение на любой день",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "#090909",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Инспектор показывает пуш и сообщение на"
+          },
+          {
+            "index": 2,
+            "text": "любой день"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Инспектор показывает пуш и сообщение на любой день",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Инспектор показывает пуш и сообщение на любой день",
+              "fontSize": 46.67,
+              "typeface": "Arial",
+              "color": "#090909",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/n69grmpw",
+      "id": "4",
+      "name": "footer-rule",
+      "bbox": [
+        73.33,
+        666.67,
+        1133.33,
+        0
+      ],
+      "geometry": "line",
+      "lineColor": "#E6E5EB",
+      "lineWidth": 1
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/250zy18b",
+      "id": "5",
+      "name": "TextBox 4",
+      "bbox": [
+        73.33,
+        676,
+        666.67,
+        18.67
+      ],
+      "geometry": "rect",
+      "text": "CIS TRADING  /  ТРИГГЕРНАЯ МОДЕЛЬ",
+      "textPreview": "CIS TRADING  /  ТРИГГЕРНАЯ МОДЕЛЬ",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "#6B6B70",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CIS TRADING  /  ТРИГГЕРНАЯ МОДЕЛЬ"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CIS TRADING  /  ТРИГГЕРНАЯ МОДЕЛЬ",
+          "runs": [
+            {
+              "index": 1,
+              "text": "CIS TRADING  /  ТРИГГЕРНАЯ МОДЕЛЬ",
+              "fontSize": 10.67,
+              "typeface": "Arial",
+              "color": "#6B6B70",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/98rytw72",
+      "id": "6",
+      "name": "TextBox 5",
+      "bbox": [
+        1146.67,
+        673.33,
+        60,
+        21.33
+      ],
+      "geometry": "rect",
+      "text": "11",
+      "textPreview": "11",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "#6B6B70",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "11"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "11",
+          "resolvedTextStyle": {
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "11",
+              "fontSize": 12,
+              "typeface": "Arial",
+              "color": "#6B6B70",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/cre5or2h",
+      "id": "13",
+      "name": "notebook-signal-chart",
+      "bbox": [
+        73.33,
+        176,
+        1133.33,
+        406.67
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image.png",
+        "contentType": "image/png",
+        "byteLength": 66060
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image.png",
+        "contentType": "image/png",
+        "byteLength": 66060
+      }
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/72t03qp0",
+      "id": "8",
+      "name": "Овал 7",
+      "bbox": [
+        73.33,
+        612,
+        12,
+        12
+      ],
+      "geometry": "ellipse",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/61kzalof",
+      "id": "9",
+      "name": "TextBox 8",
+      "bbox": [
+        96,
+        602.67,
+        173.33,
+        29.33
+      ],
+      "geometry": "rect",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ofqtgnyt",
+      "id": "10",
+      "name": "TextBox 9",
+      "bbox": [
+        306.67,
+        598.67,
+        21.33,
+        32
+      ],
+      "geometry": "rect",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9gza9sze",
+      "id": "11",
+      "name": "TextBox 10",
+      "bbox": [
+        334.67,
+        602.67,
+        120,
+        29.33
+      ],
+      "geometry": "rect",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "lineWidth": 0
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/mdobedg3",
+      "id": "12",
+      "name": "TextBox 11",
+      "bbox": [
+        702.67,
+        602.67,
+        504,
+        29.33
+      ],
+      "geometry": "rect",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0b6tc3yx",
+      "id": "14",
+      "name": "inspector-shell",
+      "bbox": [
+        74,
+        170,
+        1132,
+        440
+      ],
+      "geometry": "roundRect",
+      "text": "TRIGGER INSPECTOR",
+      "textPreview": "TRIGGER INSPECTOR",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 15,
+        "typeface": "Calibri",
+        "color": "#6B6B70",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "insets": {
+          "top": 25,
+          "right": 30,
+          "bottom": 0,
+          "left": 30
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "TRIGGER INSPECTOR"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "TRIGGER INSPECTOR",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#6B6B70",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "TRIGGER INSPECTOR",
+              "fontSize": 15,
+              "color": "#6B6B70",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineWidth": 0
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/1cfa58zi",
+      "id": "15",
+      "name": "date-label",
+      "bbox": [
+        104,
+        240,
+        120,
+        22
+      ],
+      "geometry": "rect",
+      "text": "Дата",
+      "textPreview": "Дата",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 15,
+        "typeface": "Calibri",
+        "color": "#6B6B70",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Дата"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Дата",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#6B6B70",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Дата",
+              "fontSize": 15,
+              "color": "#6B6B70",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/epobatgr",
+      "id": "16",
+      "name": "date-field",
+      "bbox": [
+        104,
+        270,
+        330,
+        52
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F3F2F7",
+      "lineWidth": 0
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zaxs3yhc",
+      "id": "17",
+      "name": "date-value",
+      "bbox": [
+        124,
+        282,
+        292,
+        28
+      ],
+      "geometry": "rect",
+      "text": "18 декабря 2026",
+      "textPreview": "18 декабря 2026",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 20,
+        "typeface": "Calibri",
+        "color": "#090909",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "18 декабря 2026"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "18 декабря 2026",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "color": "#090909",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "18 декабря 2026",
+              "fontSize": 20,
+              "color": "#090909",
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/cn6t83y1",
+      "id": "18",
+      "name": "channel-label",
+      "bbox": [
+        104,
+        354,
+        180,
+        22
+      ],
+      "geometry": "rect",
+      "text": "Валютный канал",
+      "textPreview": "Валютный канал",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 15,
+        "typeface": "Calibri",
+        "color": "#6B6B70",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Валютный канал"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Валютный канал",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#6B6B70",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Валютный канал",
+              "fontSize": 15,
+              "color": "#6B6B70",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/dofa18z6",
+      "id": "19",
+      "name": "channel-field",
+      "bbox": [
+        104,
+        384,
+        330,
+        52
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F3F2F7",
+      "lineWidth": 0
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/tsnip0ny",
+      "id": "20",
+      "name": "channel-value",
+      "bbox": [
+        124,
+        396,
+        292,
+        28
+      ],
+      "geometry": "rect",
+      "text": "RUB → TJS",
+      "textPreview": "RUB → TJS",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 20,
+        "typeface": "Calibri",
+        "color": "#090909",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "RUB → TJS"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "RUB → TJS",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "color": "#090909",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "RUB → TJS",
+              "fontSize": 20,
+              "color": "#090909",
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/87ehgv6d",
+      "id": "21",
+      "name": "check-button",
+      "bbox": [
+        104,
+        486,
+        330,
+        58
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FA581B",
+      "lineWidth": 0
+    },
+    {
+      "order": 20,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7650nq5s",
+      "id": "22",
+      "name": "check-button-text",
+      "bbox": [
+        104,
+        501,
+        330,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Проверить день",
+      "textPreview": "Проверить день",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 21,
+        "typeface": "Calibri",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Проверить день"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Проверить день",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "color": "#FFFFFF",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Проверить день",
+              "fontSize": 21,
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 21,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/65wzelo7",
+      "id": "23",
+      "name": "ui-divider",
+      "bbox": [
+        500,
+        205,
+        0,
+        348
+      ],
+      "geometry": "line",
+      "lineColor": "#E6E5EB",
+      "lineWidth": 2
+    },
+    {
+      "order": 22,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/l43ilgn2",
+      "id": "24",
+      "name": "result-label",
+      "bbox": [
+        560,
+        215,
+        180,
+        22
+      ],
+      "geometry": "rect",
+      "text": "РЕЗУЛЬТАТ",
+      "textPreview": "РЕЗУЛЬТАТ",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 15,
+        "typeface": "Calibri",
+        "color": "#6B6B70",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "РЕЗУЛЬТАТ"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "РЕЗУЛЬТАТ",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#6B6B70",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "РЕЗУЛЬТАТ",
+              "fontSize": 15,
+              "color": "#6B6B70",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 23,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/k3uhcb6h",
+      "id": "25",
+      "name": "result-card",
+      "bbox": [
+        560,
+        252,
+        590,
+        82
+      ],
+      "geometry": "roundRect",
+      "text": "Пуш будет отправлен",
+      "textPreview": "Пуш будет отправлен",
+      "resolvedFontSize": 25,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 25,
+        "typeface": "Calibri",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 0,
+          "right": 20,
+          "bottom": 0,
+          "left": 72
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Пуш будет отправлен"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Пуш будет отправлен",
+          "resolvedTextStyle": {
+            "fontSize": 25,
+            "color": "#FFFFFF",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Пуш будет отправлен",
+              "fontSize": 25,
+              "color": "#FFFFFF",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#090909",
+      "lineWidth": 0
+    },
+    {
+      "order": 24,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/j2lgjq5w",
+      "id": "26",
+      "name": "status-dot",
+      "bbox": [
+        588,
+        278,
+        28,
+        28
+      ],
+      "geometry": "ellipse",
+      "fillColor": "#59B98F",
+      "lineWidth": 0
+    },
+    {
+      "order": 25,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/y1czalob",
+      "id": "27",
+      "name": "message-label",
+      "bbox": [
+        560,
+        370,
+        180,
+        22
+      ],
+      "geometry": "rect",
+      "text": "СООБЩЕНИЕ",
+      "textPreview": "СООБЩЕНИЕ",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 15,
+        "typeface": "Calibri",
+        "color": "#6B6B70",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "СООБЩЕНИЕ"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "СООБЩЕНИЕ",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#6B6B70",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "СООБЩЕНИЕ",
+              "fontSize": 15,
+              "color": "#6B6B70",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 26,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/p07ixkn6",
+      "id": "28",
+      "name": "message-card",
+      "bbox": [
+        560,
+        407,
+        590,
+        108
+      ],
+      "geometry": "roundRect",
+      "text": "Если планировали перевод к праздникам, сегодня стоит проверить условия.",
+      "textPreview": "Если планировали перевод к праздникам, сегодня стоит проверить условия.",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 22,
+        "typeface": "Calibri",
+        "color": "#090909",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 16,
+          "right": 32,
+          "bottom": 16,
+          "left": 32
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Если планировали перевод к праздникам,"
+          },
+          {
+            "index": 2,
+            "text": "сегодня стоит проверить условия."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Если планировали перевод к праздникам, сегодня стоит проверить условия.",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "color": "#090909"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Если планировали перевод к праздникам, сегодня стоит проверить условия.",
+              "fontSize": 22,
+              "color": "#090909"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#F3F2F7",
+      "lineWidth": 0
+    },
+    {
+      "order": 27,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4zyhofml",
+      "id": "29",
+      "name": "reason-code",
+      "bbox": [
+        560,
+        548,
+        590,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Причина: порог пройден · frequency cap соблюдён",
+      "textPreview": "Причина: порог пройден · frequency cap соблюдён",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 16,
+        "typeface": "Calibri",
+        "color": "#6B6B70",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Причина: порог пройден · frequency cap соблюдён"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Причина: порог пройден · frequency cap соблюдён",
+          "resolvedTextStyle": {
+            "fontSize": 16,
+            "color": "#6B6B70",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Причина: порог пройден · frequency cap соблюдён",
+              "fontSize": 16,
+              "color": "#6B6B70",
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

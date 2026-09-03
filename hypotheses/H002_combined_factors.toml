@@ -1,0 +1,18 @@
+id = "H002_combined_factors"
+status = "ready"
+statement = "Комбинация уровня курса, momentum и volatility устойчивее одного индикатора."
+corridors = ["TJS", "UZS", "KGS", "AMD", "KZT"]
+horizons_days = [1, 3, 5, 10, 20]
+primary_horizon_days = 3
+target = "message_hit"
+feature_sets = ["price_core", "volatility", "momentum", "calendar"]
+models = ["logistic", "hist_gradient_boosting"]
+strategies = ["per_corridor", "pooled", "pooled_with_corridor_thresholds"]
+baseline = "matched_random_and_single_indicators"
+
+[acceptance]
+minimum_lift = 1.3
+minimum_mean_benefit_bps = 0.0
+require_multiple_corridors = true
+require_out_of_time_stability = true
+

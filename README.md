@@ -8,6 +8,8 @@
 
 Единственный источник продуктовых и ML-требований — [PRODUCT_CONTRACT.md](PRODUCT_CONTRACT.md).
 
+Организация гипотез, feature sets, моделей, walk-forward экспериментов и review-notebooks описана в [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md).
+
 В нём зафиксированы:
 
 - пользователь, проблема и границы MVP;

@@ -1,0 +1,4 @@
+All slides: blue/magenta accent colors are intentionally replaced with orange/peach from the user-provided AI Product Hack 2026 PDF reference.
+Slides 2–5, 7–8, 10, 12–14: copy is revised to incorporate the requested customer portrait, bank benefit, restrained cadence, experiment variables, channel-specific hypothesis, message design, and team ownership.
+Slide 11: the time-series demonstration body is replaced by a date-level push inspector mockup because this interface is explicitly requested and no inherited UI layout exists.
+Slides 6 and 9: factual data and first-result metrics are retained, with only narrative framing and palette adjustments.
