@@ -1,0 +1,25 @@
+{
+  "target": "message_hit",
+  "horizons_days": [
+    1,
+    3,
+    5,
+    10,
+    20
+  ],
+  "currencies": [
+    "TJS",
+    "UZS",
+    "KGS",
+    "AMD",
+    "KZT"
+  ],
+  "epsilon_bps": 50,
+  "cooldown_days": 4,
+  "eligibility": "CBR effective-date observations excluding repeated unchanged rates",
+  "random_baseline": "same corridor/fold, same signal count, same cooldown",
+  "threshold_selection": "maximum validation Wilson lower bound with minimum event count",
+  "first_test_year": 2022,
+  "random_repeats": 300,
+  "model": "L2 logistic regression implemented with NumPy IRLS"
+}
