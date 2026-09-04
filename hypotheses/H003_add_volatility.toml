@@ -1,0 +1,18 @@
+id = "H003_add_volatility"
+status = "ready"
+statement = "Добавление rolling volatility к price core улучшает качество сигнала."
+corridors = ["TJS", "UZS", "KGS", "AMD", "KZT"]
+horizons_days = [3]
+primary_horizon_days = 3
+target = "message_hit"
+feature_sets = ["price_core", "volatility"]
+models = ["logistic"]
+strategies = ["pooled_with_corridor_thresholds"]
+baseline = "H001_price_core"
+
+[acceptance]
+minimum_lift = 1.3
+minimum_mean_benefit_bps = 0.0
+require_multiple_corridors = true
+require_out_of_time_stability = true
+

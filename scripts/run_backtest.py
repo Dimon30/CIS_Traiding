@@ -128,6 +128,7 @@ class LogisticModel:
 def add_features(observations: pd.DataFrame) -> pd.DataFrame:
     frame = observations.sort_values("date").copy()
     rate = frame["rub_per_unit"].astype(float)
+    calendar_gap = frame["date"].diff().dt.days.astype(float).replace(0, np.nan)
     for period in (1, 3, 5, 10, 20):
         frame[f"return_{period}"] = rate.pct_change(periods=period, fill_method=None)
     for window in (5, 10, 20, 60):
@@ -143,6 +144,20 @@ def add_features(observations: pd.DataFrame) -> pd.DataFrame:
         frame[f"volatility_{window}"] = frame["return_1"].rolling(
             window, min_periods=window
         ).std()
+    # Point-in-time first/second derivatives. Calendar-time variants avoid
+    # treating a multi-day publication gap as one ordinary step.
+    frame["d1_pct"] = rate.pct_change(fill_method=None)
+    frame["d1_per_day"] = frame["d1_pct"] / calendar_gap
+    frame["d2_pct"] = frame["d1_pct"].diff()
+    average_gap = (calendar_gap + calendar_gap.shift(1)) / 2.0
+    frame["d2_per_day2"] = frame["d1_per_day"].diff() / average_gap
+    for span in (5, 10):
+        smooth = rate.ewm(span=span, adjust=False).mean()
+        frame[f"ewm_d1_pct_{span}"] = smooth.pct_change(fill_method=None)
+        frame[f"ewm_d2_pct_{span}"] = frame[f"ewm_d1_pct_{span}"].diff()
+    for window in (20, 60):
+        past_min = rate.rolling(window, min_periods=window).min().shift(1)
+        frame[f"rebound_from_past_min_{window}"] = rate / past_min - 1.0
     down = rate.diff().lt(0).to_numpy()
     streak = np.zeros(len(frame), dtype=int)
     for index in range(1, len(frame)):
@@ -157,6 +172,56 @@ def add_features(observations: pd.DataFrame) -> pd.DataFrame:
     return frame
 
 
+AUXILIARY_FEATURE_BASES = (
+    "return_1",
+    "return_5",
+    "return_20",
+    "d1_per_day",
+    "d2_per_day2",
+    "volatility_20",
+    "range_position_60",
+)
+
+
+def add_auxiliary_features(
+    frame: pd.DataFrame,
+    data_dir: Path,
+    currencies: tuple[str, ...] = ("USD", "EUR"),
+) -> pd.DataFrame:
+    """Backward as-of join of auxiliary FX features; never uses a future quote."""
+    result = frame.sort_values("date").copy()
+    for currency in currencies:
+        path = data_dir / f"rub_{currency.lower()}_observations.csv"
+        if not path.exists():
+            raise FileNotFoundError(
+                f"Missing {path}. Run build_dataset.py --currencies {','.join(currencies)} "
+                "--observations-only first."
+            )
+        auxiliary = pd.read_csv(path, parse_dates=["date"])
+        auxiliary = add_features(auxiliary)
+        keep = ["date", *AUXILIARY_FEATURE_BASES]
+        prefix = currency.lower()
+        auxiliary = auxiliary[keep].rename(
+            columns={name: f"{prefix}_{name}" for name in AUXILIARY_FEATURE_BASES}
+        )
+        auxiliary[f"{prefix}_source_date"] = auxiliary["date"]
+        result = pd.merge_asof(
+            result.sort_values("date"),
+            auxiliary.sort_values("date"),
+            on="date",
+            direction="backward",
+            allow_exact_matches=True,
+        )
+        if (result[f"{prefix}_source_date"] > result["date"]).any():
+            raise AssertionError(f"Future {currency} quote leaked into features")
+    if {"usd_return_5", "eur_return_5"}.issubset(result.columns):
+        result["eur_usd_return_spread_5"] = result["eur_return_5"] - result["usd_return_5"]
+        result["eur_usd_volatility_spread_20"] = (
+            result["eur_volatility_20"] - result["usd_volatility_20"]
+        )
+    return result
+
+
 def load_model_frame(data_dir: Path, currency: str, horizon: int, epsilon_bps: int) -> pd.DataFrame:
     prefix = f"rub_{currency.lower()}"
     observations = pd.read_csv(data_dir / f"{prefix}_observations.csv", parse_dates=["date"])
@@ -169,6 +234,7 @@ def load_model_frame(data_dir: Path, currency: str, horizon: int, epsilon_bps: i
         "date",
         "corridor",
         "has_full_window",
+        "target_good_now",
         "message_hit",
         "future_regret_bps",
         "moment_advantage_bps",

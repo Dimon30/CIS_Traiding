@@ -70,7 +70,10 @@ CIS_Traiding/
 │   └── models/                   # fitted model каждого fold
 │
 ├── notebooks/
-│   └── README.md                 # шаблон review-notebook
+│   ├── 00_data_pipeline_audit.ipynb
+│   ├── 01_model_benchmark.ipynb
+│   ├── 02_hypotheses_and_sensitivity.ipynb
+│   └── README.md                 # правила review-notebook
 │
 ├── results/
 │   └── backtest/                 # утверждённые результаты для защиты
@@ -82,6 +85,10 @@ CIS_Traiding/
     ├── test_models.py
     └── test_inference.py
 ```
+
+Фактические результаты полного исследования лежат в
+`results/experiments/20260904_*`. Каталог `results/hypothesis_study/` содержит
+сводные таблицы, статистические тесты, графики и итоговый Markdown-отчёт.
 
 Переезжать в `src/` нужно постепенно. Существующие рабочие скрипты не следует ломать перед сдачей.
 
@@ -139,15 +146,21 @@ cross_currency   — USD/EUR/CNY факторы
 
 Model config описывает класс модели и пространство гиперпараметров, но не хранит данные и результат.
 
-Минимальный набор:
+Стартовый benchmark:
 
 ```text
 dummy/random baseline
 logistic regression
-histogram gradient boosting
+CatBoost
+random forest
+SVM
+KNN
+Gaussian naive Bayes
 ```
 
-Сначала проверяется LogReg. Boosting нужен только для ответа на вопрос, дают ли нелинейности дополнительный OOT-эффект.
+Логистическая регрессия остаётся интерпретируемым baseline. Остальные модели
+проверяют, дают ли нелинейности и локальная структура дополнительный OOT-эффект.
+Победителя выбираем по lift и устойчивости, а не по train score.
 
 ### 5. Experiment run
 
@@ -353,4 +366,3 @@ Runner должен сам:
 6. Только затем удалять дублирование старого кода.
 
 Не нужно сначала переносить все файлы, а потом пытаться восстановить рабочий backtest. Каждый шаг должен сохранять прохождение тестов и текущие результаты.
-

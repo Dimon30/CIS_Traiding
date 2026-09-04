@@ -1,0 +1,10 @@
+hypothesis,verdict,evidence,what_remains
+H1 relative-format proxy,rejected_proxy,hit 67.4% vs 67.0%; Mann-Whitney p=0.589,Original understandability claim needs user research
+H2 combined factors,promising_not_confirmed,paired delta lift 0.312; raw p=0.03125; Holm p=0.125,Need more independent test periods
+H3 rarity/cooldown proxy,rejected_proxy,"precision delta -1.2%; CI [-5.4%, 3.0%]",Loyalty needs notification interaction logs
+H4 pooled vs per-corridor,inconclusive,logistic delta lift 0.159; Holm p=1.000,Pooled random forest is the practical candidate
+H5 fast vs slow,rejected_for_current_rule,slow-fast hit delta -0.8%; p=0.561,A different adaptive policy can be tested later
+H6 honest UX and trust,not_testable,No user reaction data,Controlled message test or pilot
+H7 CBR vs bank benefit,blocked_by_data,No historical bank rate/spread,Parallel bank and CBR time series
+ML-H006 derivatives,rejected,median delta lift -0.001; Holm p=1.000,Keep only if a later fold shows stable gain
+ML-H007 USD/EUR,inconclusive,"mean delta 0.215, median 0.041; Holm p=0.656",Effect is unstable and driven by a few folds

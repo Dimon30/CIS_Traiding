@@ -1,0 +1,17 @@
+id = "H006_add_derivatives"
+status = "ready"
+statement = "Первые и вторые производные, сглаженная скорость и отскок от прошлого минимума улучшают сигнал поверх факторов кейса."
+corridors = ["TJS", "UZS", "KGS", "AMD", "KZT"]
+horizons_days = [1, 3, 5, 10, 20]
+primary_horizon_days = 3
+target = "message_hit"
+feature_sets = ["full_market"]
+models = ["logistic", "catboost", "random_forest", "svm", "knn", "naive_bayes"]
+strategies = ["per_corridor", "pooled_with_corridor_thresholds"]
+baseline = "H002_combined_factors"
+
+[acceptance]
+minimum_lift = 1.3
+minimum_mean_benefit_bps = 0.0
+require_multiple_corridors = true
+require_out_of_time_stability = true

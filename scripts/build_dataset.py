@@ -16,6 +16,7 @@ from dbfread import DBF
 REQUIRED_FIELDS = {"nominal", "data", "curs"}
 DEFAULT_HORIZONS = (1, 3, 5, 10, 20)
 DEFAULT_CURRENCIES = ("TJS", "UZS", "KGS", "AMD", "KZT")
+DEFAULT_AUXILIARY_CURRENCIES = ("USD", "EUR", "CNY")
 
 
 @dataclass(frozen=True)
@@ -35,6 +36,20 @@ def parse_args() -> argparse.Namespace:
         "--all-currencies",
         action="store_true",
         help="Build TJS, UZS, KGS, AMD and KZT in one run",
+    )
+    parser.add_argument(
+        "--currencies",
+        help="Comma-separated currencies; overrides --currency/--all-currencies",
+    )
+    parser.add_argument(
+        "--include-auxiliary",
+        action="store_true",
+        help="Also build point-in-time observations for USD, EUR and CNY",
+    )
+    parser.add_argument(
+        "--observations-only",
+        action="store_true",
+        help="Write observations without future-based labels (useful for auxiliary FX)",
     )
     parser.add_argument("--input", type=Path, help="Exact DBF path; otherwise selected by currency")
     parser.add_argument("--input-dir", type=Path, default=Path("data"))
@@ -245,6 +260,7 @@ def build_currency_dataset(
     output_dir: Path,
     horizons: tuple[int, ...],
     epsilon: Decimal,
+    observations_only: bool = False,
 ) -> None:
     observations = load_observations(input_path)
     corridor = f"RUB_{currency}"
@@ -254,6 +270,9 @@ def build_currency_dataset(
     write_csv(observations_path, observation_rows)
     print(f"Input: {input_path}")
     print(f"Observations: {len(observation_rows)} -> {observations_path}")
+
+    if observations_only:
+        return
 
     for horizon in horizons:
         label_rows = build_label_rows(observations, horizon, epsilon, corridor)
@@ -273,7 +292,16 @@ def build_currency_dataset(
 def main() -> None:
     args = parse_args()
     horizons = (args.horizon,) if args.horizon else parse_horizons(args.horizons)
-    currencies = DEFAULT_CURRENCIES if args.all_currencies else (args.currency.upper(),)
+    if args.currencies:
+        currencies = tuple(
+            dict.fromkeys(item.strip().upper() for item in args.currencies.split(",") if item.strip())
+        )
+    elif args.all_currencies:
+        currencies = DEFAULT_CURRENCIES
+    else:
+        currencies = (args.currency.upper(),)
+    if args.include_auxiliary:
+        currencies = tuple(dict.fromkeys((*currencies, *DEFAULT_AUXILIARY_CURRENCIES)))
     if args.input and len(currencies) != 1:
         raise ValueError("--input can only be used with one --currency")
 
@@ -285,6 +313,7 @@ def main() -> None:
             output_dir=args.output_dir,
             horizons=horizons,
             epsilon=args.epsilon,
+            observations_only=args.observations_only or currency in DEFAULT_AUXILIARY_CURRENCIES,
         )
 
 

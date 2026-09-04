@@ -9,3 +9,5 @@ HACKATHON_LEAD_PLAYBOOK.md
 results/backtest_e*/
 TEAM_ROLES.md
 E2E_ARCHITECTURE.md
+artifacts/
+results/experiments/*/models/

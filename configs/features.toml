@@ -15,6 +15,29 @@ columns = ["down_streak", "days_since_previous"]
 [sets.calendar]
 columns = ["month_sin", "month_cos", "weekday_sin", "weekday_cos"]
 
+[sets.derivatives]
+columns = [
+  "d1_pct", "d1_per_day", "d2_pct", "d2_per_day2",
+  "ewm_d1_pct_5", "ewm_d2_pct_5", "ewm_d1_pct_10", "ewm_d2_pct_10",
+]
+
+[sets.reversal]
+columns = ["rebound_from_past_min_20", "rebound_from_past_min_60"]
+
+[sets.cross_currency]
+columns = [
+  "usd_return_1", "usd_return_5", "usd_return_20", "usd_d1_per_day",
+  "usd_d2_per_day2", "usd_volatility_20", "usd_range_position_60",
+  "eur_return_1", "eur_return_5", "eur_return_20", "eur_d1_per_day",
+  "eur_d2_per_day2", "eur_volatility_20", "eur_range_position_60",
+  "eur_usd_return_spread_5", "eur_usd_volatility_spread_20",
+]
+
 [sets.current_model]
 include = ["price_core", "volatility", "momentum", "calendar"]
 
+[sets.full_market]
+include = ["current_model", "derivatives", "reversal"]
+
+[sets.full_market_with_fx]
+include = ["full_market", "cross_currency"]

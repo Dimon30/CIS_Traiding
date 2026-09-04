@@ -55,6 +55,14 @@ uv sync
 python scripts/build_dataset.py --all-currencies
 ```
 
+USD и EUR используются только как point-in-time признаки. Для них не нужны
+future labels:
+
+```powershell
+python scripts/build_dataset.py --currencies USD,EUR --observations-only
+python scripts/audit_pipeline.py
+```
+
 Для проверки чувствительности к определению правдивого сообщения:
 
 ```powershell
@@ -81,6 +89,49 @@ python scripts/build_dataset.py --currency TJS --horizons 1,3,5
 ```powershell
 python scripts/run_backtest.py
 ```
+
+## Полная проверка гипотез
+
+Главный runner поддерживает шесть стартовых классификаторов: Logistic Regression,
+CatBoost, Random Forest, SVM, KNN и Gaussian Naive Bayes. Два обязательных режима:
+
+- `per_corridor` — отдельная модель и порог для каждого направления;
+- `pooled_with_corridor_thresholds` — одна модель на все направления и отдельная
+  калибровка порога на validation для каждого направления.
+
+Год `T-1` служит validation, год `T` — test, вся более ранняя история — expanding
+train. Перед validation и test стоит purge gap длиной `h`, поэтому future label
+обучающей строки не пересекает следующий период.
+
+```powershell
+# Benchmark моделей на основном h=3, epsilon=50 bp
+python scripts/run_experiment.py \
+  --hypotheses H007_add_usd_eur \
+  --horizons 3 --epsilon-bps 50 \
+  --models logistic,catboost,random_forest,svm,knn,naive_bayes \
+  --strategies per_corridor,pooled_with_corridor_thresholds \
+  --run-id 20260904_model_benchmark
+
+# Ablation: price → факторы кейса → производные → USD/EUR
+python scripts/run_experiment.py \
+  --hypotheses H001_price_core,H002_combined_factors,H006_add_derivatives,H007_add_usd_eur \
+  --horizons 3 --epsilon-bps 50 --models logistic \
+  --strategies per_corridor,pooled_with_corridor_thresholds \
+  --run-id 20260904_feature_ablation
+
+# Чувствительность к h и epsilon
+python scripts/run_experiment.py \
+  --hypotheses H007_add_usd_eur \
+  --horizons 1,3,5,10,20 --epsilon-bps 0,50,100 \
+  --models logistic \
+  --strategies per_corridor,pooled_with_corridor_thresholds \
+  --run-id 20260904_h_epsilon_sensitivity
+
+python scripts/analyze_hypotheses.py
+```
+
+Итоговый человекочитаемый отчёт: `results/hypothesis_study/HYPOTHESIS_REPORT.md`.
+Рядом лежат statistical tests, model ranking, sensitivity table и графики.
 
 Backtest:
 

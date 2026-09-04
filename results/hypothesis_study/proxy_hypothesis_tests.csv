@@ -1,0 +1,4 @@
+hypothesis,selected_days,other_days,selected_hit_rate,other_hit_rate,selected_regret_bps_median,other_regret_bps_median,mann_whitney_p,odds_ratio_hit,fisher_p,candidate_signals,sent_after_cooldown,precision_before,precision_after,precision_delta,bootstrap_ci_low,bootstrap_ci_high,paired_folds,mean_hit_delta_slow_minus_fast,p_value_one_sided,mean_wait_days,mean_waiting_cost_bps
+H1 relative-format market proxy,3243.0,8784.0,0.6740672217082948,0.6698542805100182,13.0715497342,13.4532095273,0.5887211225453302,1.019296432382093,0.3395998780505498,,,,,,,,,,,,
+H3 rarity/cooldown proxy,,,,,,,,,,1230.0,670.0,0.8040650406504065,0.7925373134328358,-0.011527727217570671,-0.05374537417589732,0.029572632927229482,,,,,
+H5 fast-vs-slow proxy,,,,,,,,,,,,,,,,,19.0,-0.007653954095520943,0.560574620679211,1.0095693779904304,7.255150111785904

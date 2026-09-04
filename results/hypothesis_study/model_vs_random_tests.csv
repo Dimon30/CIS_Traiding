@@ -1,0 +1,13 @@
+strategy,model,n_test_years,mean_yearly_lift,min_yearly_lift,p_value_one_sided,p_value_holm,significant_5pct
+pooled_with_corridor_thresholds,random_forest,5,1.6160720537209936,1.181739589407497,0.03125,0.375,False
+pooled_with_corridor_thresholds,logistic,5,1.6131223551574247,1.0581950831541844,0.03125,0.375,False
+per_corridor,random_forest,5,1.5709794028682111,1.0534297395172998,0.03125,0.375,False
+pooled_with_corridor_thresholds,svm,5,1.5188826350709288,0.989399254497142,0.0625,0.375,False
+per_corridor,svm,5,1.486397537420005,0.9240794125199809,0.0625,0.375,False
+pooled_with_corridor_thresholds,catboost,5,1.4796420408383864,1.150782599822147,0.03125,0.375,False
+per_corridor,knn,5,1.434801355504715,1.0609146404072898,0.03125,0.375,False
+per_corridor,catboost,5,1.4115625749497016,1.1677207397653784,0.03125,0.375,False
+pooled_with_corridor_thresholds,knn,5,1.344941095025676,1.0538243602363575,0.03125,0.375,False
+per_corridor,logistic,5,1.315608136244564,1.082872842691129,0.03125,0.375,False
+pooled_with_corridor_thresholds,naive_bayes,5,1.2289176186361686,0.9446853232197746,0.40625,0.625,False
+per_corridor,naive_bayes,5,1.2069887009943265,0.9020844790127363,0.3125,0.625,False

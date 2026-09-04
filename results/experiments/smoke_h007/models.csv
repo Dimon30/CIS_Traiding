@@ -1,0 +1,6 @@
+hypothesis_id,horizon_days,epsilon_bps,strategy,model,test_year,validation_auc,validation_pr_auc,train_rows,validation_rows,feature_count,hyperparameters,corridor
+H007_add_usd_eur,3,50,pooled_with_corridor_thresholds,logistic,2022,0.6586752878094937,0.8140852410476984,5318,1223,57,"{""C"": 0.01, ""class_weight"": ""none""}",ALL
+H007_add_usd_eur,3,50,pooled_with_corridor_thresholds,logistic,2023,0.6439250809898457,0.6905543835656538,6556,1219,57,"{""C"": 0.01, ""class_weight"": ""none""}",ALL
+H007_add_usd_eur,3,50,pooled_with_corridor_thresholds,logistic,2024,0.5881562970197715,0.7893362373687389,7790,1225,57,"{""C"": 0.01, ""class_weight"": ""balanced""}",ALL
+H007_add_usd_eur,3,50,pooled_with_corridor_thresholds,logistic,2025,0.658850350105846,0.8034886238334722,9030,1235,57,"{""C"": 10.0, ""class_weight"": ""none""}",ALL
+H007_add_usd_eur,3,50,pooled_with_corridor_thresholds,logistic,2026,0.6869801258116655,0.7699324806816676,10275,1225,57,"{""C"": 0.1, ""class_weight"": ""balanced""}",ALL
