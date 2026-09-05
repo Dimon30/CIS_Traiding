@@ -1,8 +1,0 @@
-Source deck: CIS_Traiding_status_ITMO.pptx, 14 slides, 1280×720, blank-layout slides with slide-local elements.
-Reusable structure: cover; statement/callout; three-part framing; five-metric contract; six-step flow; data chart; checklist; temporal split; results dashboard; two-card interpretation; time-series demo; two-column risks; six-step roadmap; team roster.
-Typography: Arial for authored content, bold high-contrast titles, compact all-caps section labels.
-Existing chrome: section label, large title, footer rule, project footer, two-digit page number.
-Brand assets: ITMO wordmark on cover and blue/magenta accent system.
-Insertion contract: preserve all 14 source slide structures; rewrite inherited text and colors; on slide 11 replace the inherited chart body with a bounded daily push-inspector interface while keeping inherited chrome.
-Placeholders: source slides use a blank layout and slide-local shapes; no empty structural placeholders were found in the source slide inventory.
-
