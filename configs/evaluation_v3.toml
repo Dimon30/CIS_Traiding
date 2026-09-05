@@ -1,0 +1,50 @@
+protocol_version = "temporal_v3"
+artifact_schema_version = 3
+target_contract_version = 2
+eligibility_version = 1
+canonical_baseline_run_id = "20260905_wave0_temporal_v3_baseline"
+
+[temporal]
+first_outer_year = 2022
+first_selection_year = 2019
+calibration_years = 1
+policy_years = 1
+purge_days = "target_horizon"
+minimum_train_rows_per_corridor = 500
+minimum_role_rows_per_corridor = 100
+minimum_test_rows_per_corridor = 40
+include_partial_last_fold = true
+
+[calibration]
+method = "identity"
+
+[policy]
+cooldown_days = 4
+minimum_policy_signals = 12
+hard_min_signals_per_week = "none"
+hard_max_signals_per_week = 1.4
+frequency_grid = [
+  0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7,
+  0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4,
+]
+frontier_integration_min = 0.25
+frontier_integration_max = 1.25
+threshold_objective = "wilson_lower_then_matched_random_lift_then_count"
+
+[random]
+version = 3
+draws = 2000
+smoke_draws = 200
+seed = 42
+primary_stratification = "calendar_month"
+sensitivity_stratifications = ["fold_count_only", "month_update_gap"]
+maximum_aggregate_mcse = 0.005
+
+[bootstrap]
+version = 1
+replicates = 5000
+smoke_replicates = 200
+seed = 42029
+primary_block_days = 28
+sensitivity_block_days = [14, 56]
+ci_level = 0.95

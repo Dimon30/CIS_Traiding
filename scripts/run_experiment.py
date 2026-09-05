@@ -72,6 +72,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-id", help="Stable output directory name")
     parser.add_argument("--save-models", action="store_true")
     parser.add_argument("--transfer-amount-rub", type=float, default=100_000.0)
+    parser.add_argument(
+        "--evaluation-protocol",
+        choices=("v2", "temporal_v3"),
+        default="v2",
+        help="Keep v2 for historical reproduction; H013+ experiments must use temporal_v3.",
+    )
+    parser.add_argument(
+        "--smoke-evaluation",
+        action="store_true",
+        help="Use reduced random/bootstrap repeats for a v3 integration check.",
+    )
     return parser.parse_args()
 
 
@@ -730,6 +741,12 @@ def concat_nonempty(frames: list[pd.DataFrame]) -> pd.DataFrame:
 
 def main() -> None:
     args = parse_args()
+    if args.evaluation_protocol == "temporal_v3":
+        from evaluation.engine import run_v3
+
+        artifact_dir = run_v3(args)
+        print(f"\nArtifacts: {artifact_dir}")
+        return
     data_config = read_toml(args.config_dir / "data.toml")
     feature_config = read_toml(args.config_dir / "features.toml")
     model_config = read_toml(args.config_dir / "models.toml")

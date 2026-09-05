@@ -1,0 +1,18 @@
+id = "H009_evaluation_v3"
+status = "implemented_pending_canonical_run"
+statement = "Evaluation protocol v3 separates model selection, calibration, policy selection, and outer OOT evaluation."
+corridors = ["TJS", "UZS", "KGS", "AMD", "KZT"]
+horizons_days = [3]
+primary_horizon_days = 3
+target = "message_hit"
+feature_sets = ["full_market_with_fx"]
+models = ["random_forest"]
+strategies = ["pooled_with_corridor_thresholds"]
+baseline = "corrected_v2_h008_reference"
+evaluation_protocol = "temporal_v3"
+
+[acceptance]
+require_all_corridors = true
+require_policy_frontier = true
+require_paired_uncertainty = true
+require_reproducible_manifest = true
