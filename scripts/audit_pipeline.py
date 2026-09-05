@@ -23,7 +23,7 @@ FORBIDDEN_TOKENS = ("future", "target", "message_hit", "window_min", "window_mea
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--data-dir", type=Path, default=Path("data"))
+    parser.add_argument("--data-dir", type=Path, default=Path("data/raw"))
     parser.add_argument("--processed-dir", type=Path, default=Path("data/processed"))
     parser.add_argument("--output-dir", type=Path, default=Path("results/hypothesis_study"))
     return parser.parse_args()

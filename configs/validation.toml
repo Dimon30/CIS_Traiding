@@ -10,5 +10,6 @@ strategies = [
   "per_corridor",
   "pooled",
   "pooled_with_corridor_thresholds",
+  "pooled_without_corridor_feature",
 ]
 

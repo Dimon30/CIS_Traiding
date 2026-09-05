@@ -50,13 +50,20 @@ def paired_lift_test(
         left = left[left[column] == value]
     for column, value in right_filter.items():
         right = right[right[column] == value]
-    pair = left[keys + ["lift"]].merge(
-        right[keys + ["lift"]], on=keys, suffixes=("_left", "_right")
-    ).dropna()
+    pair = left[keys + ["lift", "signals"]].merge(
+        right[keys + ["lift", "signals"]],
+        on=keys,
+        suffixes=("_left", "_right"),
+        how="outer",
+        validate="one_to_one",
+    )
+    left_active = pair["signals_left"].fillna(0).gt(0) & pair["lift_left"].notna()
+    right_active = pair["signals_right"].fillna(0).gt(0) & pair["lift_right"].notna()
+    common_active = pair.loc[left_active & right_active].copy()
     # Corridors in the same year share RUB and macro shocks. Aggregate them
     # before inference so five test-years, not correlated corridor-year rows,
     # are the independent blocks.
-    blocks = pair.groupby(
+    blocks = common_active.groupby(
         ["horizon_days", "epsilon_bps", "model", "test_year"], as_index=False
     )[["lift_left", "lift_right"]].mean()
     difference = blocks["lift_right"] - blocks["lift_left"]
@@ -67,11 +74,62 @@ def paired_lift_test(
         p_value = 1.0
     return {
         "hypothesis": name,
+        "comparison_scope": "corridor-years where both policies emitted signals",
+        "corridor_year_cells": len(pair),
+        "left_active_cells": int(left_active.sum()),
+        "right_active_cells": int(right_active.sum()),
+        "common_active_cells": len(common_active),
+        "all_time_blocks": int(pair["test_year"].nunique()),
         "n_time_blocks": len(blocks),
         "left_mean_lift": float(blocks["lift_left"].mean()) if len(blocks) else np.nan,
         "right_mean_lift": float(blocks["lift_right"].mean()) if len(blocks) else np.nan,
         "mean_delta_lift": float(difference.mean()) if len(blocks) else np.nan,
         "median_delta_lift": float(difference.median()) if len(blocks) else np.nan,
+        "p_value_one_sided": p_value,
+    }
+
+
+def paired_model_metric_test(
+    folds: pd.DataFrame,
+    left_filter: dict[str, object],
+    right_filter: dict[str, object],
+    name: str,
+    metric: str,
+    higher_is_better: bool,
+) -> dict[str, object]:
+    """Compare score-level model metrics on every common OOT corridor-year."""
+    keys = ["horizon_days", "epsilon_bps", "model", "corridor", "test_year"]
+    left = folds.copy()
+    right = folds.copy()
+    for column, value in left_filter.items():
+        left = left[left[column] == value]
+    for column, value in right_filter.items():
+        right = right[right[column] == value]
+    pair = left[keys + [metric]].merge(
+        right[keys + [metric]], on=keys, suffixes=("_left", "_right"),
+        validate="one_to_one",
+    ).dropna()
+    blocks = pair.groupby(
+        ["horizon_days", "epsilon_bps", "model", "test_year"], as_index=False
+    )[[f"{metric}_left", f"{metric}_right"]].mean()
+    raw_difference = blocks[f"{metric}_right"] - blocks[f"{metric}_left"]
+    improvement = raw_difference if higher_is_better else -raw_difference
+    if len(improvement) and not np.allclose(improvement, 0):
+        p_value = float(
+            wilcoxon(improvement, alternative="greater", zero_method="wilcox").pvalue
+        )
+    else:
+        p_value = 1.0
+    return {
+        "comparison": name,
+        "metric": metric,
+        "higher_is_better": higher_is_better,
+        "corridor_year_cells": len(pair),
+        "n_time_blocks": len(blocks),
+        "left_mean": float(blocks[f"{metric}_left"].mean()) if len(blocks) else np.nan,
+        "right_mean": float(blocks[f"{metric}_right"].mean()) if len(blocks) else np.nan,
+        "mean_improvement": float(improvement.mean()) if len(blocks) else np.nan,
+        "median_improvement": float(improvement.median()) if len(blocks) else np.nan,
         "p_value_one_sided": p_value,
     }
 
@@ -169,6 +227,16 @@ def model_vs_random_tests(folds: pd.DataFrame) -> pd.DataFrame:
             {
                 "strategy": strategy,
                 "model": model,
+                "corridor_year_cells": len(group),
+                "active_corridor_year_cells": int(group["signals"].gt(0).sum()),
+                "active_cell_share": float(group["signals"].gt(0).mean()),
+                "total_test_years": int(group["test_year"].nunique()),
+                "years_with_all_corridors_active": int(
+                    group.assign(active=group["signals"].gt(0))
+                    .groupby("test_year")["active"]
+                    .all()
+                    .sum()
+                ),
                 "n_test_years": len(yearly),
                 "mean_yearly_lift": float(yearly.mean()),
                 "min_yearly_lift": float(yearly.min()),
@@ -279,11 +347,15 @@ def main() -> None:
     ablation_folds = pd.read_csv(args.ablation / "fold_metrics.csv")
     sensitivity_summary = pd.read_csv(args.sensitivity / "summary.csv")
 
+    comparison_specs = [
+        (ablation_folds, {"hypothesis_id": "H001_price_core", "strategy": "pooled_with_corridor_thresholds"}, {"hypothesis_id": "H002_combined_factors", "strategy": "pooled_with_corridor_thresholds"}, "H2 combination vs price-only"),
+        (ablation_folds, {"hypothesis_id": "H002_combined_factors", "strategy": "pooled_with_corridor_thresholds"}, {"hypothesis_id": "H006_add_derivatives", "strategy": "pooled_with_corridor_thresholds"}, "Derivatives vs case factors"),
+        (ablation_folds, {"hypothesis_id": "H006_add_derivatives", "strategy": "pooled_with_corridor_thresholds"}, {"hypothesis_id": "H007_add_usd_eur", "strategy": "pooled_with_corridor_thresholds"}, "USD/EUR factors vs derivatives"),
+        (benchmark_folds, {"strategy": "per_corridor", "model": "logistic"}, {"strategy": "pooled_with_corridor_thresholds", "model": "logistic"}, "H4 pooled vs per-corridor logistic"),
+    ]
     tests = [
-        paired_lift_test(ablation_folds, {"hypothesis_id": "H001_price_core", "strategy": "pooled_with_corridor_thresholds"}, {"hypothesis_id": "H002_combined_factors", "strategy": "pooled_with_corridor_thresholds"}, "H2 combination vs price-only"),
-        paired_lift_test(ablation_folds, {"hypothesis_id": "H002_combined_factors", "strategy": "pooled_with_corridor_thresholds"}, {"hypothesis_id": "H006_add_derivatives", "strategy": "pooled_with_corridor_thresholds"}, "Derivatives vs case factors"),
-        paired_lift_test(ablation_folds, {"hypothesis_id": "H006_add_derivatives", "strategy": "pooled_with_corridor_thresholds"}, {"hypothesis_id": "H007_add_usd_eur", "strategy": "pooled_with_corridor_thresholds"}, "USD/EUR factors vs derivatives"),
-        paired_lift_test(benchmark_folds, {"strategy": "per_corridor", "model": "logistic"}, {"strategy": "pooled_with_corridor_thresholds", "model": "logistic"}, "H4 pooled vs per-corridor logistic"),
+        paired_lift_test(frame, left, right, name)
+        for frame, left, right, name in comparison_specs
     ]
     adjusted = holm_adjust([float(item["p_value_one_sided"]) for item in tests])
     for item, value in zip(tests, adjusted):
@@ -291,6 +363,23 @@ def main() -> None:
         item["significant_5pct"] = value < 0.05
     tests_frame = pd.DataFrame(tests)
     tests_frame.to_csv(args.output_dir / "statistical_tests.csv", index=False)
+    model_metric_tests = [
+        paired_model_metric_test(
+            frame, left, right, name, metric, higher_is_better
+        )
+        for frame, left, right, name in comparison_specs
+        for metric, higher_is_better in (("pr_auc", True), ("brier", False))
+    ]
+    model_adjusted = holm_adjust(
+        [float(item["p_value_one_sided"]) for item in model_metric_tests]
+    )
+    for item, value in zip(model_metric_tests, model_adjusted):
+        item["p_value_holm"] = value
+        item["significant_5pct"] = value < 0.05
+    model_metric_tests_frame = pd.DataFrame(model_metric_tests)
+    model_metric_tests_frame.to_csv(
+        args.output_dir / "model_metric_tests.csv", index=False
+    )
     random_tests = model_vs_random_tests(benchmark_folds)
     random_tests.to_csv(args.output_dir / "model_vs_random_tests.csv", index=False)
 
@@ -322,12 +411,34 @@ def main() -> None:
     )
     verdicts.to_csv(args.output_dir / "hypothesis_verdicts.csv", index=False)
 
-    ranking = benchmark_summary.groupby(["strategy", "model"], as_index=False).agg(
-        corridors=("corridor", "nunique"), mean_lift=("lift", "mean"),
-        worst_fold_lift=("min_fold_lift", "min"), mean_hit_rate=("signal_hit_rate", "mean"),
-        mean_roc_auc=("roc_auc", "mean"), mean_pr_auc=("pr_auc", "mean"),
-        mean_brier=("brier", "mean"), mean_frequency=("signals_per_week", "mean"),
-    ).sort_values(["mean_lift", "worst_fold_lift"], ascending=False)
+    ranking_metrics: dict[str, tuple[str, str]] = {
+        "corridors": ("corridor", "nunique"),
+        "mean_lift": ("lift", "mean"),
+        "worst_fold_lift": ("min_fold_lift", "min"),
+        "mean_hit_rate": ("signal_hit_rate", "mean"),
+        "mean_roc_auc": ("roc_auc", "mean"),
+        "mean_pr_auc": ("pr_auc", "mean"),
+        "mean_brier": ("brier", "mean"),
+        "mean_frequency": ("signals_per_week", "mean"),
+    }
+    if "pr_auc_gain" in benchmark_summary.columns:
+        ranking_metrics["mean_pr_auc_gain"] = ("pr_auc_gain", "mean")
+    if "brier_skill_score" in benchmark_summary.columns:
+        ranking_metrics["mean_brier_skill_score"] = ("brier_skill_score", "mean")
+    ranking = (
+        benchmark_summary.groupby(["strategy", "model"], as_index=False)
+        .agg(**ranking_metrics)
+        .sort_values(["mean_lift", "worst_fold_lift"], ascending=False)
+    )
+    if {"active_folds", "folds"}.issubset(benchmark_summary.columns):
+        coverage = benchmark_summary.groupby(["strategy", "model"], as_index=False).agg(
+            active_corridor_years=("active_folds", "sum"),
+            total_corridor_years=("folds", "sum"),
+        )
+        coverage["active_cell_share"] = (
+            coverage["active_corridor_years"] / coverage["total_corridor_years"]
+        )
+        ranking = ranking.merge(coverage, on=["strategy", "model"], validate="one_to_one")
     ranking.to_csv(args.output_dir / "model_ranking.csv", index=False)
     make_figures(benchmark_summary, sensitivity_summary, benchmark_predictions, args.output_dir / "figures")
 
@@ -349,9 +460,9 @@ def main() -> None:
 
 - `lift = signal hit rate / matched-random hit rate` отвечает на главный продуктовый вопрос: насколько уведомление лучше случайного дня при той же частоте и cooldown.
 - `hit rate` и `false push rate` измеряют правдивость сообщений и риск потери доверия.
-- `PR-AUC` проверяет ранжирование полезных моментов и лучше ROC-AUC отражает качество положительного класса.
+- `PR-AUC` проверяет ранжирование полезных моментов; `PR-AUC gain` показывает улучшение над базовой долей положительного класса.
 - `ROC-AUC` остаётся порог-независимой диагностикой разделимости классов.
-- `Brier score` показывает качество вероятностного score; он важен, если score позже показывается как надёжность.
+- `Brier score` показывает качество вероятностного score; `Brier skill score` сравнивает его с константным validation-прогнозом.
 - `balanced accuracy` не даёт частому классу полностью определить результат.
 - `advantage/regret bps` и их рублёвый эквивалент для перевода 100 000 ₽ связывают ML-ошибки с экономикой клиента. Это proxy на курсе ЦБ, не доказанная выгода по банковскому курсу.
 
@@ -361,9 +472,24 @@ def main() -> None:
 
 ## Парные статистические проверки
 
-Сначала lift усредняется по коридорам внутри каждого test-year, затем односторонний Wilcoxon проверяет пять независимых временных блоков. Так общие RUB-шоки не создают искусственную значимость. Поправка Holm контролирует множественные сравнения. Пять лет дают низкую мощность, поэтому практический размер эффекта и устойчивость важнее одного p-value.
+Lift определён только в corridor-year, где policy отправила хотя бы один сигнал.
+Поэтому парное сравнение lift проводится только на ячейках, где активны обе
+policy, а таблица отдельно показывает их coverage. Затем lift усредняется по
+коридорам внутри test-year, и односторонний Wilcoxon проверяет временные блоки.
+Так отсутствие сигнала не превращается искусственно в успех или ошибку, но и не
+исчезает из отчёта. Поправка Holm контролирует множественные сравнения. Пять лет
+дают низкую мощность, поэтому практический размер эффекта и устойчивость важнее
+одного p-value.
 
 {markdown_table(tests_frame)}
+
+## Парные проверки качества ML score
+
+PR-AUC и Brier существуют для всех OOT-дней независимо от threshold и cooldown.
+Их сравнение отделено от signal-policy lift и использует все общие
+corridor-year ячейки.
+
+{markdown_table(model_metric_tests_frame)}
 
 ## Значимость относительно случайного расписания
 

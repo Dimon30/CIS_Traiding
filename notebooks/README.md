@@ -15,7 +15,7 @@ Notebook используется для разбора уже выполнен�
 9. Коэффициенты или feature importance.
 10. Verdict и ограничения.
 
-Notebook должен только читать артефакты из `artifacts/experiments/<experiment_id>/` и не менять dataset, labels или test-результаты.
+Notebook должен только читать артефакты из `results/experiments/<experiment_id>/` и не менять dataset, labels или test-результаты.
 
 Три воспроизводимых checkpoint-notebook в этом каталоге читают зафиксированные
 артефакты из `results/`:
@@ -24,10 +24,14 @@ Notebook должен только читать артефакты из `artifac
 2. `01_model_benchmark.ipynb` — модели и pooled/per-corridor;
 3. `02_hypotheses_and_sensitivity.ipynb` — статтесты, h/epsilon и product proxy.
 
+Каталог `exploration/` отделён намеренно: в нём лежат ранние исследовательские
+ноутбуки с собственной аналитикой. Они не являются реализацией production pipeline
+и запускаются из корня репозитория, чтобы относительные пути оставались корректными.
+
 Запуск:
 
 ```powershell
-jupyter nbconvert --to notebook --execute --inplace notebooks/00_data_pipeline_audit.ipynb
-jupyter nbconvert --to notebook --execute --inplace notebooks/01_model_benchmark.ipynb
-jupyter nbconvert --to notebook --execute --inplace notebooks/02_hypotheses_and_sensitivity.ipynb
+uv run jupyter nbconvert --to notebook --execute --inplace notebooks/00_data_pipeline_audit.ipynb
+uv run jupyter nbconvert --to notebook --execute --inplace notebooks/01_model_benchmark.ipynb
+uv run jupyter nbconvert --to notebook --execute --inplace notebooks/02_hypotheses_and_sensitivity.ipynb
 ```

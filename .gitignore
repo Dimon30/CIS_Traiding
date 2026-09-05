@@ -5,6 +5,9 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+tmp/
+.ipynb_checkpoints/
+catboost_info/
 HACKATHON_LEAD_PLAYBOOK.md
 results/backtest_e*/
 TEAM_ROLES.md

@@ -52,7 +52,7 @@ def parse_args() -> argparse.Namespace:
         help="Write observations without future-based labels (useful for auxiliary FX)",
     )
     parser.add_argument("--input", type=Path, help="Exact DBF path; otherwise selected by currency")
-    parser.add_argument("--input-dir", type=Path, default=Path("data"))
+    parser.add_argument("--input-dir", type=Path, default=Path("data/raw"))
     parser.add_argument("--output-dir", type=Path, default=Path("data/processed"))
     parser.add_argument(
         "--horizon",

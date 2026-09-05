@@ -6,7 +6,15 @@
 
 ## Документация
 
-Единственный источник продуктовых и ML-требований — [PRODUCT_CONTRACT.md](PRODUCT_CONTRACT.md).
+Начинать знакомство с проектом нужно с [CURRENT_STATE.md](CURRENT_STATE.md): там
+указаны основной pipeline, роль каждого скрипта, канонические результаты и
+ближайший технический приоритет.
+
+Навигация по документации:
+
+1. [PRODUCT_CONTRACT.md](PRODUCT_CONTRACT.md) — продукт, target и критерии качества;
+2. [CURRENT_STATE.md](CURRENT_STATE.md) — что является текущим, завершённым и планируемым;
+3. [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) — подробная экспериментальная архитектура.
 
 Организация гипотез, feature sets, моделей, walk-forward экспериментов и review-notebooks описана в [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md).
 
@@ -26,18 +34,34 @@
 
 ```text
 .
-├── PRODUCT_CONTRACT.md   # продуктовый и ML-контракт
-├── analyse.ipynb         # текущий исследовательский ноутбук
-├── data/                 # исходные DBF и воспроизводимая разметка
-├── results/              # основной backtest и sensitivity по tolerance
-├── scripts/              # датасет, backtest, индикаторы, fast/slow и исторический срез
-├── tests/                # проверки разметки и политики отправки
-└── pyproject.toml        # конфигурация Python-проекта
+├── AGENTS.md             # быстрый технический контекст для AI-агентов
+├── CURRENT_STATE.md      # единая карта текущего состояния и основного pipeline
+├── PRODUCT_CONTRACT.md   # единственный источник продуктовых и ML-требований
+├── PROJECT_STRUCTURE.md  # архитектура экспериментов и границы модулей
+├── configs/              # data, features, models и validation в TOML
+├── data/
+│   ├── raw/              # неизменяемые исходные DBF
+│   ├── processed/        # воспроизводимые observations и labels
+│   └── exploration/      # исследовательские выгрузки, не входящие в pipeline
+├── hypotheses/           # реестр проверяемых ML-гипотез
+├── scripts/              # исполняемый pipeline и CLI-точки входа
+├── tests/                # unit-тесты разметки, признаков и signal policy
+├── notebooks/            # review-notebooks и отдельная exploration-зона
+├── results/              # зафиксированные backtest/experiment/research outputs
+├── deliverables/         # финальные PDF/PPTX и исходник презентации
+└── docs/archive/         # устаревшие материалы, не являющиеся source of truth
 ```
+
+Команды запускаются из корня репозитория. Временные рендеры и промежуточные
+файлы создавайте в `tmp/`: каталог игнорируется Git.
 
 ## Текущий приоритет
 
-Сначала доказать качество основного сигнала «выгодно сейчас» по продуктовой метке `message_hit` на walk-forward backtest. Главная метрика — устойчивый lift относительно случайного расписания с тем же количеством сигналов и cooldown.
+Новая схема оценки разделяет качество ML score, threshold policy и delivery
+policy после cooldown. Ближайший шаг — проверить её новым smoke run и повторить
+сопоставимый benchmark feature sets × model families. Текущий random forest —
+кандидат, а не принятая финальная модель. Подробный статус зафиксирован в
+[CURRENT_STATE.md](CURRENT_STATE.md).
 
 ## Окружение
 
@@ -45,6 +69,7 @@
 
 ```powershell
 uv sync
+uv run python -m unittest discover -s tests -v
 ```
 
 ## Подготовка датасетов
@@ -52,29 +77,29 @@ uv sync
 Один запуск создаёт наблюдения и разметку для TJS, UZS, KGS, AMD и KZT на горизонтах 1, 3, 5, 10 и 20 календарных дней:
 
 ```powershell
-python scripts/build_dataset.py --all-currencies
+uv run python scripts/build_dataset.py --all-currencies
 ```
 
 USD и EUR используются только как point-in-time признаки. Для них не нужны
 future labels:
 
 ```powershell
-python scripts/build_dataset.py --currencies USD,EUR --observations-only
-python scripts/audit_pipeline.py
+uv run python scripts/build_dataset.py --currencies USD,EUR --observations-only
+uv run python scripts/audit_pipeline.py
 ```
 
 Для проверки чувствительности к определению правдивого сообщения:
 
 ```powershell
-python scripts/build_dataset.py --all-currencies --epsilon 0
-python scripts/build_dataset.py --all-currencies --epsilon 0.01
+uv run python scripts/build_dataset.py --all-currencies --epsilon 0
+uv run python scripts/build_dataset.py --all-currencies --epsilon 0.01
 ```
 
 Для одного коридора или горизонта доступны совместимые параметры:
 
 ```powershell
-python scripts/build_dataset.py --currency TJS --horizon 5
-python scripts/build_dataset.py --currency TJS --horizons 1,3,5
+uv run python scripts/build_dataset.py --currency TJS --horizon 5
+uv run python scripts/build_dataset.py --currency TJS --horizons 1,3,5
 ```
 
 Файлы разделены по назначению:
@@ -84,20 +109,29 @@ python scripts/build_dataset.py --currency TJS --horizons 1,3,5
 
 `message_hit=1` означает, что ожидание в пределах горизонта не дало курс выгоднее более чем на 0,5%. `target_good_now` оставлен как вспомогательная метка положения курса в окне `±h`.
 
-## Walk-forward backtest
+## Reference baseline
+
+Это зафиксированный logistic baseline для контроля совместимости и исторического
+сравнения. Новые модели и feature-гипотезы нужно запускать через
+`scripts/run_experiment.py`.
 
 ```powershell
-python scripts/run_backtest.py
+uv run python scripts/run_backtest.py
 ```
 
-## Полная проверка гипотез
+## Основной experiment pipeline
 
-Главный runner поддерживает шесть стартовых классификаторов: Logistic Regression,
-CatBoost, Random Forest, SVM, KNN и Gaussian Naive Bayes. Два обязательных режима:
+Главный runner поддерживает семь классификаторов: Logistic Regression,
+HistGradientBoosting, CatBoost, Random Forest, SVM, KNN и Gaussian Naive Bayes.
+Основной сохранённый benchmark сравнивает шесть из них без HistGradientBoosting.
+Основные режимы:
 
 - `per_corridor` — отдельная модель и порог для каждого направления;
 - `pooled_with_corridor_thresholds` — одна модель на все направления и отдельная
-  калибровка порога на validation для каждого направления.
+  калибровка порога на validation для каждого направления;
+- `pooled_without_corridor_feature` — диагностический вариант общей модели без
+  признака валюты, но с отдельными порогами;
+- `pooled` — общая модель с признаком валюты и единым порогом.
 
 Год `T-1` служит validation, год `T` — test, вся более ранняя история — expanding
 train. Перед validation и test стоит purge gap длиной `h`, поэтому future label
@@ -105,30 +139,34 @@ train. Перед validation и test стоит purge gap длиной `h`, по
 
 ```powershell
 # Benchmark моделей на основном h=3, epsilon=50 bp
-python scripts/run_experiment.py \
-  --hypotheses H007_add_usd_eur \
-  --horizons 3 --epsilon-bps 50 \
-  --models logistic,catboost,random_forest,svm,knn,naive_bayes \
-  --strategies per_corridor,pooled_with_corridor_thresholds \
+uv run python scripts/run_experiment.py `
+  --hypotheses H007_add_usd_eur `
+  --horizons 3 --epsilon-bps 50 `
+  --models logistic,catboost,random_forest,svm,knn,naive_bayes `
+  --strategies per_corridor,pooled_with_corridor_thresholds `
   --run-id 20260904_model_benchmark
 
 # Ablation: price → факторы кейса → производные → USD/EUR
-python scripts/run_experiment.py \
-  --hypotheses H001_price_core,H002_combined_factors,H006_add_derivatives,H007_add_usd_eur \
-  --horizons 3 --epsilon-bps 50 --models logistic \
-  --strategies per_corridor,pooled_with_corridor_thresholds \
+uv run python scripts/run_experiment.py `
+  --hypotheses H001_price_core,H002_combined_factors,H006_add_derivatives,H007_add_usd_eur `
+  --horizons 3 --epsilon-bps 50 --models logistic `
+  --strategies per_corridor,pooled_with_corridor_thresholds `
   --run-id 20260904_feature_ablation
 
 # Чувствительность к h и epsilon
-python scripts/run_experiment.py \
-  --hypotheses H007_add_usd_eur \
-  --horizons 1,3,5,10,20 --epsilon-bps 0,50,100 \
-  --models logistic \
-  --strategies per_corridor,pooled_with_corridor_thresholds \
+uv run python scripts/run_experiment.py `
+  --hypotheses H007_add_usd_eur `
+  --horizons 1,3,5,10,20 --epsilon-bps 0,50,100 `
+  --models logistic `
+  --strategies per_corridor,pooled_with_corridor_thresholds `
   --run-id 20260904_h_epsilon_sensitivity
 
-python scripts/analyze_hypotheses.py
+uv run python scripts/analyze_hypotheses.py
 ```
+
+Контролируемое сравнение способов объединения валют задаёт
+`hypotheses/H008_pooling_ablation.toml`. Его первый v2-run сохранён в
+`results/experiments/20260904_h008_pooling_v2_rf_logistic/`.
 
 Итоговый человекочитаемый отчёт: `results/hypothesis_study/HYPOTHESIS_REPORT.md`.
 Рядом лежат statistical tests, model ranking, sensitivity table и графики.
@@ -154,11 +192,14 @@ Backtest:
 
 Проверка допусков 0%, 0,5% и 1% показала лучший баланс у 0,5%: при 1% hit rate растёт до 87,3%, но lift падает до 1,10 из-за слишком высокого random baseline. Полная таблица находится в `results/backtest/tolerance_summary.csv`.
 
-## Обязательные продуктовые гипотезы
+## Завершённые product-policy studies
+
+Эти команды воспроизводят боковые исследования, но не являются вторым основным
+pipeline:
 
 ```powershell
-python scripts/evaluate_indicators.py
-python scripts/evaluate_fast_slow.py
+uv run python scripts/evaluate_indicators.py
+uv run python scripts/evaluate_fast_slow.py
 ```
 
 Momentum, level, reversal и seasonality проверены на той же walk-forward-схеме. Ни одно простое правило не достигло устойчивого lift ≥ 1,3. Для RUB→TJS/3 дня двухшаговое подтверждение также не улучшило результат: hit rate 80,7% против 86,3% у раннего сигнала и средняя цена ожидания 10,4 б.п. Поэтому slow-сигнал не входит в текущую продуктовую политику.
@@ -168,7 +209,7 @@ Momentum, level, reversal и seasonality проверены на той же wal
 Решение на конкретную дату можно восстановить из сохранённого out-of-time результата:
 
 ```powershell
-python scripts/show_signal_as_of.py --date 2025-05-14 --corridor RUB_TJS --horizon 3
+uv run python scripts/show_signal_as_of.py --date 2025-05-14 --corridor RUB_TJS --horizon 3
 ```
 
 Отсутствие строки сигнала возвращает `send=false`; это не пересчитывает историю с использованием будущих параметров.
@@ -176,7 +217,7 @@ python scripts/show_signal_as_of.py --date 2025-05-14 --corridor RUB_TJS --horiz
 ## Проверки
 
 ```powershell
-python -m unittest discover -s tests -v
+uv run python -m unittest discover -s tests -v
 ```
 
 Курс ЦБ используется только как открытый воспроизводимый proxy рыночного движения и не равен курсу перевода в банковском приложении.

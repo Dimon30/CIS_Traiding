@@ -141,14 +141,27 @@ def add_corridor_columns(frame: pd.DataFrame, categories: list[str]) -> pd.DataF
 def design_matrix(
     frame: pd.DataFrame,
     feature_columns: list[str],
-    pooled: bool,
+    include_corridor_feature: bool,
     currencies: list[str],
 ) -> pd.DataFrame:
     matrix = frame[feature_columns].reset_index(drop=True).astype(float)
-    if pooled:
+    if include_corridor_feature:
         corridor = add_corridor_columns(frame, currencies).reset_index(drop=True)
         matrix = pd.concat([matrix, corridor], axis=1)
     return matrix.replace([np.inf, -np.inf], np.nan)
+
+
+def strategy_semantics(strategy: str) -> tuple[bool, bool, bool]:
+    """Return pooled-training, corridor-feature and global-threshold flags."""
+    definitions = {
+        "per_corridor": (False, False, False),
+        "pooled": (True, True, True),
+        "pooled_with_corridor_thresholds": (True, True, False),
+        "pooled_without_corridor_feature": (True, False, False),
+    }
+    if strategy not in definitions:
+        raise ValueError(f"Unknown strategy: {strategy}")
+    return definitions[strategy]
 
 
 def safe_auc(target: pd.Series, scores: np.ndarray) -> float:
@@ -218,21 +231,37 @@ def threshold_for_group(
     cooldown_days: int,
     min_signals: int,
     max_signals_per_week: float,
-) -> float:
-    baseline = float(validation["message_hit"].mean())
+    random_repeats: int,
+    seed: int,
+) -> tuple[float, list[dict[str, float]]]:
     rows: list[dict[str, float]] = []
+    random_cache: dict[int, float] = {}
     for threshold in threshold_candidates(validation["score"].to_numpy()):
         signals = apply_cooldown(validation, float(threshold), cooldown_days)
         if signals.empty:
             continue
+        signal_count = len(signals)
         hit = float(signals["message_hit"].mean())
+        if signal_count not in random_cache:
+            random_cache[signal_count] = random_baseline(
+                validation,
+                signal_count=signal_count,
+                cooldown_days=cooldown_days,
+                repeats=random_repeats,
+                seed=seed + signal_count,
+            )[0]
+        random_hit = random_cache[signal_count]
         rows.append(
             {
                 "threshold": float(threshold),
-                "signals": len(signals),
-                "signals_per_week": len(signals) / weeks_in(validation),
-                "wilson": wilson_lower(int(signals["message_hit"].sum()), len(signals)),
-                "lift_proxy": hit / baseline if baseline else float("nan"),
+                "signals": signal_count,
+                "signals_per_week": signal_count / weeks_in(validation),
+                "signal_hit_rate": hit,
+                "hit_rate_wilson_lower": wilson_lower(
+                    int(signals["message_hit"].sum()), signal_count
+                ),
+                "matched_random_hit_rate": random_hit,
+                "matched_random_lift": hit / random_hit if random_hit else float("nan"),
             }
         )
     eligible = [
@@ -242,7 +271,15 @@ def threshold_for_group(
     eligible = eligible or [item for item in rows if item["signals"] >= min(5, min_signals)] or rows
     if not eligible:
         raise RuntimeError("Validation period has no threshold candidates")
-    return float(max(eligible, key=lambda item: (item["wilson"], item["lift_proxy"], item["signals"]))["threshold"])
+    selected = max(
+        eligible,
+        key=lambda item: (
+            item["hit_rate_wilson_lower"],
+            item["matched_random_lift"],
+            item["signals"],
+        ),
+    )
+    return float(selected["threshold"]), rows
 
 
 def global_threshold(
@@ -250,25 +287,49 @@ def global_threshold(
     cooldown_days: int,
     min_signals: int,
     max_signals_per_week: float,
-) -> float:
+    random_repeats: int,
+    seed: int,
+) -> tuple[float, list[dict[str, float]]]:
     rows: list[dict[str, float]] = []
     groups = list(validation.groupby("corridor"))
-    baseline = float(validation["message_hit"].mean())
+    random_caches: list[dict[int, float]] = [{} for _ in groups]
     for threshold in threshold_candidates(validation["score"].to_numpy()):
-        selected = pd.concat(
-            [apply_cooldown(group, float(threshold), cooldown_days) for _, group in groups],
-            ignore_index=True,
-        )
+        selected_groups = [
+            apply_cooldown(group, float(threshold), cooldown_days) for _, group in groups
+        ]
+        selected = pd.concat(selected_groups, ignore_index=True)
         if selected.empty:
             continue
         hit = float(selected["message_hit"].mean())
+        random_weighted_sum = 0.0
+        for group_index, ((_, group), group_signals) in enumerate(
+            zip(groups, selected_groups)
+        ):
+            signal_count = len(group_signals)
+            if signal_count == 0:
+                continue
+            cache = random_caches[group_index]
+            if signal_count not in cache:
+                cache[signal_count] = random_baseline(
+                    group,
+                    signal_count=signal_count,
+                    cooldown_days=cooldown_days,
+                    repeats=random_repeats,
+                    seed=seed + group_index * 100_000 + signal_count,
+                )[0]
+            random_weighted_sum += cache[signal_count] * signal_count
+        random_hit = random_weighted_sum / len(selected)
         rows.append(
             {
                 "threshold": float(threshold),
                 "signals": len(selected),
                 "signals_per_week": len(selected) / sum(weeks_in(group) for _, group in groups),
-                "wilson": wilson_lower(int(selected["message_hit"].sum()), len(selected)),
-                "lift_proxy": hit / baseline if baseline else float("nan"),
+                "signal_hit_rate": hit,
+                "hit_rate_wilson_lower": wilson_lower(
+                    int(selected["message_hit"].sum()), len(selected)
+                ),
+                "matched_random_hit_rate": random_hit,
+                "matched_random_lift": hit / random_hit if random_hit else float("nan"),
             }
         )
     expected_min = min_signals * len(groups)
@@ -279,7 +340,15 @@ def global_threshold(
     eligible = eligible or [item for item in rows if item["signals"] >= min(5 * len(groups), expected_min)] or rows
     if not eligible:
         raise RuntimeError("Validation period has no global threshold candidates")
-    return float(max(eligible, key=lambda item: (item["wilson"], item["lift_proxy"], item["signals"]))["threshold"])
+    selected = max(
+        eligible,
+        key=lambda item: (
+            item["hit_rate_wilson_lower"],
+            item["matched_random_lift"],
+            item["signals"],
+        ),
+    )
+    return float(selected["threshold"]), rows
 
 
 def wilson_interval(successes: int, total: int, z: float = 1.96) -> tuple[float, float]:
@@ -310,44 +379,67 @@ def evaluate_test(
         group["candidate"] = group["score"] >= threshold
         signals = apply_cooldown(group, threshold, cooldown_days)
         group["selected_signal"] = group.index.isin(signals.index)
+        evaluation_weeks = weeks_in(group)
+        candidate_count = int(group["candidate"].sum())
+        signal_count = len(signals)
         random_mean, random_low, random_high = random_baseline(
-            group, signal_count=len(signals), cooldown_days=cooldown_days,
+            group, signal_count=signal_count, cooldown_days=cooldown_days,
             repeats=random_repeats, seed=seed + index,
         )
-        hit = float(signals["message_hit"].mean()) if len(signals) else float("nan")
-        successes = int(signals["message_hit"].sum()) if len(signals) else 0
-        hit_low, hit_high = wilson_interval(successes, len(signals))
+        hit = float(signals["message_hit"].mean()) if signal_count else float("nan")
+        successes = int(signals["message_hit"].sum()) if signal_count else 0
+        hit_low, hit_high = wilson_interval(successes, signal_count)
         scores = group["score"].to_numpy(dtype=float)
         labels = group["message_hit"].astype(int)
         candidate = group["candidate"].astype(int)
+        target_rate = float(labels.mean())
+        test_pr_auc = safe_ap(labels, scores)
+        test_brier = float(brier_score_loss(labels, scores))
+        reference_probability = float(metadata["validation_target_rate"])
+        brier_baseline = float(
+            brier_score_loss(labels, np.full(len(labels), reference_probability))
+        )
         rows.append(
             {
                 **metadata,
                 "corridor": corridor,
                 "threshold": threshold,
                 "test_rows": len(group),
-                "target_rate": float(labels.mean()),
+                "evaluation_weeks": evaluation_weeks,
+                "target_positives": int(labels.sum()),
+                "target_rate": target_rate,
                 "roc_auc": safe_auc(labels, scores),
-                "pr_auc": safe_ap(labels, scores),
-                "brier": float(brier_score_loss(labels, scores)),
+                "pr_auc": test_pr_auc,
+                "pr_auc_baseline": target_rate,
+                "pr_auc_gain": test_pr_auc - target_rate,
+                "pr_auc_ratio": test_pr_auc / target_rate if target_rate else float("nan"),
+                "brier": test_brier,
+                "brier_baseline": brier_baseline,
+                "brier_skill_score": 1.0 - test_brier / brier_baseline if brier_baseline else float("nan"),
                 "log_loss": float(log_loss(labels, np.clip(scores, 1e-9, 1 - 1e-9))),
                 "balanced_accuracy": float(balanced_accuracy_score(labels, candidate)),
                 "candidate_precision": float(precision_score(labels, candidate, zero_division=0)),
                 "candidate_recall": float(recall_score(labels, candidate, zero_division=0)),
-                "signals": len(signals),
-                "signals_per_week": len(signals) / weeks_in(group),
+                "candidates": candidate_count,
+                "candidates_per_week": candidate_count / evaluation_weeks,
+                "signals": signal_count,
+                "signals_per_week": signal_count / evaluation_weeks,
+                "suppressed_by_cooldown": candidate_count - signal_count,
+                "signal_active": signal_count > 0,
+                "signal_hits": successes,
+                "false_pushes": signal_count - successes,
                 "signal_hit_rate": hit,
                 "hit_rate_ci_low": hit_low,
                 "hit_rate_ci_high": hit_high,
-                "false_push_rate": 1.0 - hit if len(signals) else float("nan"),
+                "false_push_rate": 1.0 - hit if signal_count else float("nan"),
                 "random_hit_rate": random_mean,
                 "random_hit_rate_ci_low": random_low,
                 "random_hit_rate_ci_high": random_high,
-                "lift": hit / random_mean if random_mean and len(signals) else float("nan"),
-                "moment_advantage_bps_mean": float(signals["moment_advantage_bps"].mean()) if len(signals) else float("nan"),
-                "future_regret_bps_mean": float(signals["future_regret_bps"].mean()) if len(signals) else float("nan"),
-                "client_advantage_rub_mean": float(signals["moment_advantage_bps"].mean() * transfer_amount_rub / 10_000) if len(signals) else float("nan"),
-                "client_regret_rub_mean": float(signals["future_regret_bps"].mean() * transfer_amount_rub / 10_000) if len(signals) else float("nan"),
+                "lift": hit / random_mean if random_mean and signal_count else float("nan"),
+                "moment_advantage_bps_mean": float(signals["moment_advantage_bps"].mean()) if signal_count else float("nan"),
+                "future_regret_bps_mean": float(signals["future_regret_bps"].mean()) if signal_count else float("nan"),
+                "client_advantage_rub_mean": float(signals["moment_advantage_bps"].mean() * transfer_amount_rub / 10_000) if signal_count else float("nan"),
+                "client_regret_rub_mean": float(signals["future_regret_bps"].mean() * transfer_amount_rub / 10_000) if signal_count else float("nan"),
             }
         )
         for key, value in metadata.items():
@@ -385,20 +477,34 @@ def run_strategy(
     strategy: str, frames: dict[str, pd.DataFrame], horizon: int,
     epsilon_bps: int, configs: dict[str, Any], artifact_dir: Path,
     save_models: bool, transfer_amount_rub: float,
-) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[pd.DataFrame], list[pd.DataFrame], list[dict[str, Any]]]:
+) -> tuple[
+    list[dict[str, Any]],
+    list[dict[str, Any]],
+    list[dict[str, Any]],
+    list[pd.DataFrame],
+    list[pd.DataFrame],
+    list[dict[str, Any]],
+]:
     validation_config = configs["validation"]
     currencies = hypothesis["corridors"]
     all_frame = pd.concat([frames[item] for item in currencies], ignore_index=True)
     last_year = int(all_frame["date"].dt.year.max())
-    pooled = strategy != "per_corridor"
+    pooled_training, include_corridor_feature, global_policy_threshold = (
+        strategy_semantics(strategy)
+    )
     fold_rows: list[dict[str, Any]] = []
     threshold_rows: list[dict[str, Any]] = []
+    tradeoff_rows: list[dict[str, Any]] = []
     signal_frames: list[pd.DataFrame] = []
     prediction_frames: list[pd.DataFrame] = []
     model_records: list[dict[str, Any]] = []
 
     for test_year in range(int(validation_config["first_test_year"]), last_year + 1):
-        sources = [(None, all_frame)] if pooled else [(item, frames[item]) for item in currencies]
+        sources = (
+            [(None, all_frame)]
+            if pooled_training
+            else [(item, frames[item]) for item in currencies]
+        )
         for currency, source in sources:
             train, validation, test = split_frame(
                 source, test_year, horizon, int(validation_config.get("validation_years", 1))
@@ -407,9 +513,15 @@ def run_strategy(
                 continue
             if train["message_hit"].nunique() < 2 or validation["message_hit"].nunique() < 2:
                 continue
-            x_train = design_matrix(train, feature_columns, pooled, currencies)
-            x_validation = design_matrix(validation, feature_columns, pooled, currencies).reindex(columns=x_train.columns, fill_value=0)
-            x_test = design_matrix(test, feature_columns, pooled, currencies).reindex(columns=x_train.columns, fill_value=0)
+            x_train = design_matrix(
+                train, feature_columns, include_corridor_feature, currencies
+            )
+            x_validation = design_matrix(
+                validation, feature_columns, include_corridor_feature, currencies
+            ).reindex(columns=x_train.columns, fill_value=0)
+            x_test = design_matrix(
+                test, feature_columns, include_corridor_feature, currencies
+            ).reindex(columns=x_train.columns, fill_value=0)
             fitted, params, validation_auc, validation_ap = best_model(
                 model_name, configs["models"], x_train, train["message_hit"], x_validation, validation["message_hit"]
             )
@@ -417,26 +529,40 @@ def run_strategy(
             test = test.copy()
             validation["score"] = fitted.predict_proba(x_validation)[:, 1]
             test["score"] = fitted.predict_proba(x_test)[:, 1]
-            if pooled and strategy == "pooled":
-                threshold = global_threshold(
+            threshold_seed = validation_config["random_seed"] + test_year * 10_000
+            if global_policy_threshold:
+                threshold, tradeoffs = global_threshold(
                     validation, validation_config["cooldown_days"],
-                    validation_config["min_validation_signals"], validation_config["max_signals_per_week"]
+                    validation_config["min_validation_signals"],
+                    validation_config["max_signals_per_week"],
+                    validation_config["random_repeats"],
+                    threshold_seed,
                 )
                 thresholds = {corridor: threshold for corridor in test["corridor"].unique()}
+                tradeoff_groups = [("ALL", tradeoffs)]
             else:
-                thresholds = {
-                    corridor: threshold_for_group(
+                thresholds: dict[str, float] = {}
+                tradeoff_groups: list[tuple[str, list[dict[str, float]]]] = []
+                for corridor_index, (corridor, group) in enumerate(
+                    validation.groupby("corridor")
+                ):
+                    threshold, tradeoffs = threshold_for_group(
                         group, validation_config["cooldown_days"],
-                        validation_config["min_validation_signals"], validation_config["max_signals_per_week"]
+                        validation_config["min_validation_signals"],
+                        validation_config["max_signals_per_week"],
+                        validation_config["random_repeats"],
+                        threshold_seed + corridor_index * 100_000,
                     )
-                    for corridor, group in validation.groupby("corridor")
-                }
+                    thresholds[corridor] = threshold
+                    tradeoff_groups.append((corridor, tradeoffs))
             metadata = {
                 "hypothesis_id": hypothesis["id"], "horizon_days": horizon,
                 "epsilon_bps": epsilon_bps, "strategy": strategy, "model": model_name,
                 "test_year": test_year, "validation_auc": validation_auc,
                 "validation_pr_auc": validation_ap, "train_rows": len(train),
                 "validation_rows": len(validation), "feature_count": len(x_train.columns),
+                "train_target_rate": float(train["message_hit"].mean()),
+                "validation_target_rate": float(validation["message_hit"].mean()),
                 "hyperparameters": json.dumps(params, sort_keys=True),
             }
             rows, signals, predictions = evaluate_test(
@@ -448,6 +574,17 @@ def run_strategy(
             signal_frames.append(signals)
             prediction_frames.append(predictions)
             threshold_rows.extend([{**metadata, "corridor": key, "threshold": value} for key, value in thresholds.items()])
+            for tradeoff_corridor, tradeoffs in tradeoff_groups:
+                tradeoff_rows.extend(
+                    {
+                        **metadata,
+                        "corridor": tradeoff_corridor,
+                        "selected": item["threshold"]
+                        == (threshold if tradeoff_corridor == "ALL" else thresholds[tradeoff_corridor]),
+                        **item,
+                    }
+                    for item in tradeoffs
+                )
             record = {**metadata, "corridor": f"RUB_{currency}" if currency else "ALL"}
             if save_models:
                 suffix = f"_{currency}" if currency else ""
@@ -456,33 +593,73 @@ def run_strategy(
                 joblib.dump({"model": fitted, "features": list(x_train.columns), "thresholds": thresholds, "metadata": metadata}, model_path)
                 record["path"] = str(model_path)
             model_records.append(record)
-    return fold_rows, threshold_rows, signal_frames, prediction_frames, model_records
+    return (
+        fold_rows,
+        threshold_rows,
+        tradeoff_rows,
+        signal_frames,
+        prediction_frames,
+        model_records,
+    )
 
 
 def summarize(folds: pd.DataFrame) -> pd.DataFrame:
     group_columns = ["hypothesis_id", "horizon_days", "epsilon_bps", "strategy", "model", "corridor"]
     rows: list[dict[str, Any]] = []
     for keys, group in folds.groupby(group_columns):
-        valid = group.dropna(subset=["lift"])
-        signals = int(valid["signals"].sum())
-        tests = int(valid["test_rows"].sum())
-        signal_weights = valid["signals"] if signals else None
-        test_weights = valid["test_rows"] if tests else None
+        active = group.loc[group["signals"].gt(0) & group["lift"].notna()].copy()
+        signals = int(group["signals"].sum())
+        candidates = int(group["candidates"].sum())
+        tests = int(group["test_rows"].sum())
+        target_positives = int(group["target_positives"].sum())
+        evaluation_weeks = float(group["evaluation_weeks"].sum())
+        signal_weights = active["signals"] if signals else None
+        test_weights = group["test_rows"] if tests else None
+        candidate_weights = group["candidates"] if candidates else None
+        positive_weights = group["target_positives"] if target_positives else None
+
         def weighted(column: str, weights: pd.Series | None) -> float:
-            return float(np.average(valid[column], weights=weights)) if len(valid) and weights is not None else float("nan")
+            values = active[column] if weights is not None and weights.index.equals(active.index) else group[column]
+            return float(np.average(values, weights=weights)) if len(values) and weights is not None else float("nan")
+
         hit = weighted("signal_hit_rate", signal_weights)
         random = weighted("random_hit_rate", signal_weights)
+        signal_hits = int(group["signal_hits"].sum())
+        hit_low, hit_high = wilson_interval(signal_hits, signals)
         rows.append(
             {
-                **dict(zip(group_columns, keys)), "folds": len(valid), "signals": signals,
-                "signals_per_week": float(signals / sum(valid["signals"] / valid["signals_per_week"])) if signals else float("nan"),
-                "signal_hit_rate": hit, "false_push_rate": 1.0 - hit if signals else float("nan"),
+                **dict(zip(group_columns, keys)),
+                "folds": len(group),
+                "active_folds": len(active),
+                "inactive_folds": len(group) - len(active),
+                "active_fold_share": len(active) / len(group) if len(group) else float("nan"),
+                "test_rows": tests,
+                "evaluation_weeks": evaluation_weeks,
+                "candidates": candidates,
+                "candidates_per_week": candidates / evaluation_weeks if evaluation_weeks else float("nan"),
+                "signals": signals,
+                "signals_per_week": signals / evaluation_weeks if evaluation_weeks else float("nan"),
+                "suppressed_by_cooldown": int(group["suppressed_by_cooldown"].sum()),
+                "signal_hit_rate": hit,
+                "hit_rate_ci_low": hit_low,
+                "hit_rate_ci_high": hit_high,
+                "false_pushes": int(group["false_pushes"].sum()),
+                "false_push_rate": 1.0 - hit if signals else float("nan"),
                 "random_hit_rate": random, "lift": hit / random if random else float("nan"),
-                "median_fold_lift": float(valid["lift"].median()) if len(valid) else float("nan"),
-                "min_fold_lift": float(valid["lift"].min()) if len(valid) else float("nan"),
-                "folds_lift_ge_1_3": int((valid["lift"] >= 1.3).sum()),
+                "median_fold_lift": float(active["lift"].median()) if len(active) else float("nan"),
+                "min_fold_lift": float(active["lift"].min()) if len(active) else float("nan"),
+                "folds_lift_ge_1_3": int((active["lift"] >= 1.3).sum()),
                 "roc_auc": weighted("roc_auc", test_weights), "pr_auc": weighted("pr_auc", test_weights),
-                "brier": weighted("brier", test_weights), "balanced_accuracy": weighted("balanced_accuracy", test_weights),
+                "pr_auc_baseline": weighted("pr_auc_baseline", test_weights),
+                "pr_auc_gain": weighted("pr_auc_gain", test_weights),
+                "pr_auc_ratio": weighted("pr_auc_ratio", test_weights),
+                "brier": weighted("brier", test_weights),
+                "brier_baseline": weighted("brier_baseline", test_weights),
+                "brier_skill_score": weighted("brier_skill_score", test_weights),
+                "log_loss": weighted("log_loss", test_weights),
+                "balanced_accuracy": weighted("balanced_accuracy", test_weights),
+                "candidate_precision": weighted("candidate_precision", candidate_weights),
+                "candidate_recall": weighted("candidate_recall", positive_weights),
                 "mean_advantage_bps": weighted("moment_advantage_bps_mean", signal_weights),
                 "mean_regret_bps": weighted("future_regret_bps_mean", signal_weights),
                 "client_advantage_rub_mean": weighted("client_advantage_rub_mean", signal_weights),
@@ -493,6 +670,39 @@ def summarize(folds: pd.DataFrame) -> pd.DataFrame:
         ["hypothesis_id", "horizon_days", "epsilon_bps", "strategy", "lift"],
         ascending=[True, True, True, True, False],
     )
+
+
+def metric_views(folds: pd.DataFrame) -> dict[str, pd.DataFrame]:
+    """Expose model, threshold and delivery metrics without duplicating evaluation."""
+    identity = [
+        "hypothesis_id", "horizon_days", "epsilon_bps", "strategy", "model",
+        "corridor", "test_year",
+    ]
+    model_columns = [
+        *identity, "train_rows", "validation_rows", "test_rows", "feature_count",
+        "hyperparameters", "validation_auc", "validation_pr_auc", "train_target_rate",
+        "validation_target_rate", "target_positives", "target_rate", "roc_auc",
+        "pr_auc", "pr_auc_baseline", "pr_auc_gain", "pr_auc_ratio", "brier",
+        "brier_baseline", "brier_skill_score", "log_loss",
+    ]
+    candidate_columns = [
+        *identity, "threshold", "evaluation_weeks", "candidates",
+        "candidates_per_week", "candidate_precision", "candidate_recall",
+        "balanced_accuracy",
+    ]
+    signal_columns = [
+        *identity, "threshold", "evaluation_weeks", "candidates", "signals",
+        "signals_per_week", "suppressed_by_cooldown", "signal_active", "signal_hits",
+        "false_pushes", "signal_hit_rate", "hit_rate_ci_low", "hit_rate_ci_high",
+        "false_push_rate", "random_hit_rate", "random_hit_rate_ci_low",
+        "random_hit_rate_ci_high", "lift", "moment_advantage_bps_mean",
+        "future_regret_bps_mean", "client_advantage_rub_mean", "client_regret_rub_mean",
+    ]
+    return {
+        "model_metrics.csv": folds[model_columns].copy(),
+        "candidate_policy_metrics.csv": folds[candidate_columns].copy(),
+        "signal_policy_metrics.csv": folds[signal_columns].copy(),
+    }
 
 
 def git_commit() -> str | None:
@@ -544,6 +754,30 @@ def main() -> None:
         "transfer_amount_rub": args.transfer_amount_rub, "data_config": data_config,
         "feature_config": feature_config, "model_config": model_config,
         "validation_config": validation_config,
+        "evaluation_schema_version": 2,
+        "metric_layers": {
+            "model": "all OOT eligible dates before threshold",
+            "candidate_policy": "score at or above validation-selected threshold",
+            "signal_policy": "candidates remaining after cooldown",
+        },
+        "strategy_definitions": {
+            "per_corridor": "separate model and threshold per corridor",
+            "pooled": "one model with corridor feature and one global threshold",
+            "pooled_with_corridor_thresholds": (
+                "one model with corridor feature and a separate threshold per corridor"
+            ),
+            "pooled_without_corridor_feature": (
+                "one model without corridor identity and a separate threshold per corridor"
+            ),
+        },
+        "threshold_selection": (
+            "maximum validation Wilson lower hit-rate bound; matched-random lift "
+            "and signal count are tie-breakers"
+        ),
+        "random_baseline": (
+            "uniform over cooldown-feasible schedules in the same corridor/fold "
+            "with the same signal count"
+        ),
         "leakage_controls": [
             "features use current/past values only",
             "auxiliary FX joined backward as-of effective date",
@@ -555,6 +789,7 @@ def main() -> None:
 
     all_folds: list[dict[str, Any]] = []
     all_thresholds: list[dict[str, Any]] = []
+    all_tradeoffs: list[dict[str, Any]] = []
     all_signals: list[pd.DataFrame] = []
     all_predictions: list[pd.DataFrame] = []
     all_models: list[dict[str, Any]] = []
@@ -573,7 +808,7 @@ def main() -> None:
                         if model_name not in allowed_models:
                             continue
                         print(f"Running {name} h={horizon} e={epsilon_bps} {strategy} {model_name}", flush=True)
-                        folds, thresholds, signals, predictions, models = run_strategy(
+                        folds, thresholds, tradeoffs, signals, predictions, models = run_strategy(
                             hypothesis=hypothesis, feature_columns=features, model_name=model_name,
                             strategy=strategy, frames=frames, horizon=horizon, epsilon_bps=epsilon_bps,
                             configs=configs, artifact_dir=artifact_dir, save_models=args.save_models,
@@ -581,6 +816,7 @@ def main() -> None:
                         )
                         all_folds.extend(folds)
                         all_thresholds.extend(thresholds)
+                        all_tradeoffs.extend(tradeoffs)
                         all_signals.extend(signals)
                         all_predictions.extend(predictions)
                         all_models.extend(models)
@@ -591,7 +827,12 @@ def main() -> None:
     summary = summarize(folds)
     folds.to_csv(artifact_dir / "fold_metrics.csv", index=False)
     summary.to_csv(artifact_dir / "summary.csv", index=False)
+    for filename, view in metric_views(folds).items():
+        view.to_csv(artifact_dir / filename, index=False)
     pd.DataFrame(all_thresholds).to_csv(artifact_dir / "thresholds.csv", index=False)
+    pd.DataFrame(all_tradeoffs).to_csv(
+        artifact_dir / "validation_policy_tradeoffs.csv", index=False
+    )
     pd.DataFrame(all_models).to_csv(artifact_dir / "models.csv", index=False)
     concat_nonempty(all_predictions).to_csv(artifact_dir / "predictions.csv", index=False)
     concat_nonempty(all_signals).to_csv(artifact_dir / "signals.csv", index=False)

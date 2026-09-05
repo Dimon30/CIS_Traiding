@@ -4,7 +4,13 @@ import unittest
 import numpy as np
 import pandas as pd
 
-from scripts.run_backtest import LogisticModel, apply_cooldown, random_schedule_indices
+from scripts.run_backtest import (
+    LogisticModel,
+    apply_cooldown,
+    random_schedule_completion_counts,
+    random_schedule_indices,
+    random_schedule_state,
+)
 
 
 class RunBacktestTest(unittest.TestCase):
@@ -29,6 +35,12 @@ class RunBacktestTest(unittest.TestCase):
         dates = pd.Series(pd.date_range(datetime(2026, 1, 1), periods=365, freq="D"))
         selected = random_schedule_indices(dates, 50, 4, np.random.default_rng(7))
         self.assertEqual(len(selected), 50)
+
+    def test_random_schedule_counts_all_feasible_combinations(self) -> None:
+        dates = pd.Series(pd.date_range(datetime(2026, 1, 1), periods=3, freq="D"))
+        next_index, _ = random_schedule_state(dates, cooldown_days=0)
+        ways = random_schedule_completion_counts(next_index, count=2)
+        self.assertEqual(ways[0][2], 3)
 
     def test_logistic_model_ranks_separable_examples(self) -> None:
         x = pd.DataFrame({"feature": [-3.0, -2.0, -1.0, 1.0, 2.0, 3.0]})

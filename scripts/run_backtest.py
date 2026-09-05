@@ -339,7 +339,10 @@ def random_schedule_indices(
     if count <= 0:
         return np.array([], dtype=int)
     next_index, max_from = random_schedule_state(dates, cooldown_days)
-    return sample_random_schedule(next_index, max_from, count, cooldown_days, rng)
+    completion_counts = random_schedule_completion_counts(next_index, count)
+    return sample_random_schedule(
+        next_index, max_from, count, cooldown_days, rng, completion_counts
+    )
 
 
 def random_schedule_state(
@@ -355,25 +358,47 @@ def random_schedule_state(
     return next_index, max_from
 
 
+def random_schedule_completion_counts(
+    next_index: np.ndarray, count: int
+) -> list[list[int]]:
+    """Count valid suffix schedules so sampling can be uniform over schedules."""
+    size = len(next_index)
+    ways = [[0] * (count + 1) for _ in range(size + 1)]
+    for index in range(size + 1):
+        ways[index][0] = 1
+    for index in range(size - 1, -1, -1):
+        for remaining in range(1, count + 1):
+            ways[index][remaining] = (
+                ways[index + 1][remaining]
+                + ways[int(next_index[index])][remaining - 1]
+            )
+    return ways
+
+
 def sample_random_schedule(
     next_index: np.ndarray,
     max_from: np.ndarray,
     count: int,
     cooldown_days: int,
     rng: np.random.Generator,
+    completion_counts: list[list[int]] | None = None,
 ) -> np.ndarray:
     if max_from[0] < count:
         raise ValueError(
             f"Cannot draw {count} dates with cooldown={cooldown_days}; maximum={max_from[0]}"
         )
 
+    ways = completion_counts or random_schedule_completion_counts(next_index, count)
     selected: list[int] = []
     index = 0
     remaining = count
     while remaining:
-        can_take = 1 + max_from[next_index[index]] >= remaining
-        can_skip = max_from[index + 1] >= remaining
-        take = can_take and (not can_skip or bool(rng.integers(0, 2)))
+        take_ways = ways[int(next_index[index])][remaining - 1]
+        skip_ways = ways[index + 1][remaining]
+        total_ways = take_ways + skip_ways
+        if total_ways == 0:
+            raise RuntimeError("Random schedule sampler reached an infeasible state")
+        take = bool(rng.random() < take_ways / total_ways)
         if take:
             selected.append(index)
             remaining -= 1
@@ -394,10 +419,11 @@ def random_baseline(
     rng = np.random.default_rng(seed)
     outcomes = frame["message_hit"].reset_index(drop=True)
     next_index, max_from = random_schedule_state(frame["date"], cooldown_days)
+    completion_counts = random_schedule_completion_counts(next_index, signal_count)
     rates: list[float] = []
     for _ in range(repeats):
         indices = sample_random_schedule(
-            next_index, max_from, signal_count, cooldown_days, rng
+            next_index, max_from, signal_count, cooldown_days, rng, completion_counts
         )
         if len(indices):
             rates.append(float(outcomes.iloc[indices].mean()))
@@ -630,7 +656,10 @@ def main() -> None:
         "epsilon_bps": args.epsilon_bps,
         "cooldown_days": args.cooldown_days,
         "eligibility": "CBR effective-date observations excluding repeated unchanged rates",
-        "random_baseline": "same corridor/fold, same signal count, same cooldown",
+        "random_baseline": (
+            "uniform cooldown-feasible schedules in the same corridor/fold, "
+            "with the same signal count and cooldown"
+        ),
         "threshold_selection": "maximum validation Wilson lower bound with minimum event count",
         "first_test_year": args.first_test_year,
         "random_repeats": args.random_repeats,

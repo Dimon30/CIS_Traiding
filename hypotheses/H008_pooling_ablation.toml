@@ -1,0 +1,22 @@
+id = "H008_pooling_ablation"
+status = "ready"
+statement = "Объединение пяти продуктовых валют улучшает out-of-time качество за счёт общих закономерностей, а не только идентификатора валюты или отдельных порогов."
+corridors = ["TJS", "UZS", "KGS", "AMD", "KZT"]
+horizons_days = [3]
+primary_horizon_days = 3
+target = "message_hit"
+feature_sets = ["full_market_with_fx"]
+models = ["logistic", "catboost", "random_forest"]
+strategies = [
+  "per_corridor",
+  "pooled_with_corridor_thresholds",
+  "pooled_without_corridor_feature",
+  "pooled",
+]
+baseline = "per_corridor"
+
+[acceptance]
+minimum_lift = 1.3
+minimum_mean_benefit_bps = 0.0
+require_multiple_corridors = true
+require_out_of_time_stability = true

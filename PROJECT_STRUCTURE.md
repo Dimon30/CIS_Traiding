@@ -22,75 +22,61 @@ hypothesis_verdict
 
 Notebook не должен сам очищать данные, создавать labels или обучать модель по собственной логике. Он получает уже сохранённый результат эксперимента, визуализирует его и помогает принять решение по гипотезе.
 
-## Целевая структура каталогов
+## Текущая структура каталогов
 
 ```text
-CIS_Traiding/
-│
+itmophack/
+├── AGENTS.md                     # контекст и правила работы AI-агентов
+├── CURRENT_STATE.md              # основной flow, статусы и канонические результаты
 ├── PRODUCT_CONTRACT.md
 ├── PROJECT_STRUCTURE.md
 ├── README.md
 ├── pyproject.toml
-│
 ├── configs/
 │   ├── data.toml                 # валюты, горизонты, epsilon
 │   ├── features.toml             # наборы признаков
 │   ├── models.toml               # модели и сетки гиперпараметров
 │   └── validation.toml           # walk-forward, cooldown, baseline
-│
 ├── hypotheses/
 │   ├── README.md
-│   └── H002_combined_factors.toml
-│
+│   └── H001...H007.toml           # предзаданные ML-гипотезы
 ├── data/
-│   ├── *.dbf                     # сырые открытые данные
-│   └── processed/                # observations и labels
-│
-├── src/cis_trading/
-│   ├── data/                     # ingest, validate, availability
-│   ├── features/                 # функции расчёта признаков
-│   ├── labels/                   # message_hit и benefit_bps
-│   ├── validation/               # walk-forward и purge gap
-│   ├── models/                   # registry, fit, predict, persistence
-│   ├── evaluation/               # baseline и метрики
-│   └── inference/                # signal_as_of
-│
+│   ├── raw/                       # неизменяемые исходные DBF
+│   ├── processed/                # observations и labels
+│   └── exploration/              # одноразовые исследовательские выгрузки
 ├── scripts/
-│   ├── build_dataset.py          # существующая точка сборки данных
-│   ├── run_backtest.py           # существующий walk-forward
-│   ├── run_experiment.py         # будущая единая точка эксперимента
-│   └── show_signal_as_of.py
-│
+│   ├── build_dataset.py          # ingest, observations и labels
+│   ├── run_backtest.py           # проверенный logistic baseline
+│   ├── run_experiment.py         # единый configurable experiment runner
+│   ├── audit_pipeline.py         # leakage и data-quality checks
+│   ├── evaluate_*.py             # product-policy эксперименты
+│   ├── analyze_hypotheses.py     # итоговые таблицы, тесты и графики
+│   └── show_signal_as_of.py      # чтение сохранённого OOT-сигнала
 ├── experiments/
 │   └── README.md                 # правила запуска и хранения результатов
-│
-├── artifacts/
-│   ├── datasets/                 # версии feature/label table
-│   ├── experiments/              # predictions, metrics, manifests
-│   └── models/                   # fitted model каждого fold
-│
 ├── notebooks/
 │   ├── 00_data_pipeline_audit.ipynb
 │   ├── 01_model_benchmark.ipynb
 │   ├── 02_hypotheses_and_sensitivity.ipynb
+│   ├── exploration/              # ранний EDA, не source of truth
 │   └── README.md                 # правила review-notebook
-│
 ├── results/
-│   └── backtest/                 # утверждённые результаты для защиты
-│
+│   ├── backtest/                 # утверждённый logistic baseline
+│   ├── experiments/              # immutable experiment bundles
+│   └── hypothesis_study/         # итоговый анализ и отчёт
+├── deliverables/presentation/    # финальные PPTX/PDF и исходная версия
+├── docs/archive/                 # устаревшие материалы
 └── tests/
-    ├── test_build_dataset.py
-    ├── test_features.py
-    ├── test_walk_forward.py
-    ├── test_models.py
-    └── test_inference.py
+    └── test_*.py                 # labels, features, cooldown и baseline
 ```
 
 Фактические результаты полного исследования лежат в
 `results/experiments/20260904_*`. Каталог `results/hypothesis_study/` содержит
 сводные таблицы, статистические тесты, графики и итоговый Markdown-отчёт.
 
-Переезжать в `src/` нужно постепенно. Существующие рабочие скрипты не следует ломать перед сдачей.
+Исполняемая логика пока сосредоточена в `scripts/`: скрипты импортируют функции
+друг друга через каталог `scripts`. Переезд в пакет `src/cis_trading/` остаётся
+следующим этапом и должен выполняться постепенно, с сохранением CLI и тестов.
 
 ## Объекты системы
 
@@ -181,9 +167,13 @@ random_seed
 manifest.json
 fold_metrics.csv
 summary.csv
+model_metrics.csv
+candidate_policy_metrics.csv
+signal_policy_metrics.csv
 predictions.csv
 signals.csv
 thresholds.csv
+validation_policy_tradeoffs.csv
 models/<fold_id>.joblib
 ```
 
@@ -282,6 +272,18 @@ RUB_UZS → model_UZS
 
 Это основной рекомендуемый кандидат: общая модель изучает рыночные зависимости, а политика отправки учитывает разную базовую частоту событий.
 
+### D. Диагностика pooling
+
+`H008_pooling_ablation` дополнительно разделяет два эффекта:
+
+- `pooled_without_corridor_feature` проверяет общие закономерности без подсказки,
+  к какой валюте относится строка;
+- `pooled` использует признак коридора, но один threshold для всех валют.
+
+Эти варианты нужны для анализа. Они не считаются автоматически более подходящими
+для продукта только из-за более высокого среднего lift: отдельно проверяются
+покрытие валют и лет, false-push rate и отсутствие периодов без сигналов.
+
 ### Честное сравнение
 
 Все три стратегии должны получать:
@@ -323,21 +325,21 @@ Notebook **не должен**:
 - содержать единственную копию важной функции;
 - перезаписывать утверждённые результаты автоматически.
 
-## Команда будущего единого запуска
+## Текущий единый runner
 
-Целевой интерфейс:
+Рабочий интерфейс:
 
 ```text
-python scripts/run_experiment.py \
-  --hypothesis H002_combined_factors \
-  --strategy pooled_with_corridor_thresholds \
+uv run python scripts/run_experiment.py `
+  --hypotheses H002_combined_factors `
+  --strategies pooled_with_corridor_thresholds `
   --models logistic,hist_gradient_boosting
 ```
 
-Runner должен сам:
+Runner сейчас:
 
 1. загрузить hypothesis spec;
-2. собрать нужный dataset;
+2. загрузить заранее собранный dataset;
 3. выбрать feature groups;
 4. сформировать walk-forward folds;
 5. обучить все model candidates внутри каждого fold;
@@ -347,7 +349,11 @@ Runner должен сам:
 9. посчитать matched random baseline и метрики;
 10. сохранить полный experiment bundle.
 
-## Что делать с текущим кодом
+Сборка dataset остаётся отдельным явным шагом через `scripts/build_dataset.py`.
+Краткая карта актуальных и вспомогательных частей находится в
+`CURRENT_STATE.md`.
+
+## Граница текущей реализации
 
 ### Оставить сейчас
 
@@ -361,8 +367,7 @@ Runner должен сам:
 1. Вынести `add_features` из `run_backtest.py` в `src/cis_trading/features/market.py`.
 2. Вынести `LogisticModel` и новые sklearn-модели в `src/cis_trading/models/`.
 3. Вынести split, threshold и random baseline в отдельные модули.
-4. Сделать `run_experiment.py`, который читает TOML-конфиги.
-5. После этого перевести существующие scripts на новые модули.
-6. Только затем удалять дублирование старого кода.
+4. Перевести существующие scripts на общие модули без изменения CLI.
+5. Только затем удалять дублирование старого baseline-кода.
 
 Не нужно сначала переносить все файлы, а потом пытаться восстановить рабочий backtest. Каждый шаг должен сохранять прохождение тестов и текущие результаты.
