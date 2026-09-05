@@ -199,10 +199,13 @@ def add_auxiliary_features(
             )
         auxiliary = pd.read_csv(path, parse_dates=["date"])
         auxiliary = add_features(auxiliary)
-        keep = ["date", *AUXILIARY_FEATURE_BASES]
+        keep = ["date", "rub_per_unit", *AUXILIARY_FEATURE_BASES]
         prefix = currency.lower()
         auxiliary = auxiliary[keep].rename(
-            columns={name: f"{prefix}_{name}" for name in AUXILIARY_FEATURE_BASES}
+            columns={
+                name: f"{prefix}_{name}"
+                for name in ("rub_per_unit", *AUXILIARY_FEATURE_BASES)
+            }
         )
         auxiliary[f"{prefix}_source_date"] = auxiliary["date"]
         result = pd.merge_asof(
@@ -219,6 +222,48 @@ def add_auxiliary_features(
         result["eur_usd_volatility_spread_20"] = (
             result["eur_volatility_20"] - result["usd_volatility_20"]
         )
+    return result
+
+
+def add_implied_usd_features(frame: pd.DataFrame, data_dir: Path) -> pd.DataFrame:
+    """Add causal USD-per-local-currency decomposition on corridor update dates."""
+    result = frame.sort_values("date").copy()
+    if "usd_rub_per_unit" not in result.columns:
+        path = data_dir / "rub_usd_observations.csv"
+        if not path.exists():
+            raise FileNotFoundError(
+                f"Missing {path}. Run build_dataset.py --currencies USD "
+                "--observations-only first."
+            )
+        usd = pd.read_csv(path, parse_dates=["date"])[["date", "rub_per_unit"]]
+        usd = usd.rename(columns={"rub_per_unit": "usd_rub_per_unit"})
+        usd["usd_source_date"] = usd["date"]
+        result = pd.merge_asof(
+            result,
+            usd.sort_values("date"),
+            on="date",
+            direction="backward",
+            allow_exact_matches=True,
+        )
+    if (result["usd_source_date"] > result["date"]).any():
+        raise AssertionError("Future USD quote leaked into implied features")
+
+    implied = (
+        result["rub_per_unit"].astype(float)
+        / result["usd_rub_per_unit"].astype(float)
+    )
+    result["implied_usd_per_lcy"] = implied
+    for period in (1, 5, 20):
+        result[f"implied_usd_return_{period}"] = implied.pct_change(
+            periods=period, fill_method=None
+        )
+    result["implied_usd_volatility_20"] = result["implied_usd_return_1"].rolling(
+        20, min_periods=20
+    ).std()
+    rolling = implied.rolling(60, min_periods=60)
+    rolling_min = rolling.min()
+    spread = (rolling.max() - rolling_min).replace(0, np.nan)
+    result["implied_usd_range_position_60"] = (implied - rolling_min) / spread
     return result
 
 

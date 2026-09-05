@@ -9,6 +9,28 @@ from scripts.evaluation.comparison import load_compatible_runs
 
 
 class ComparisonV3Test(unittest.TestCase):
+    def test_incompatible_protocols_are_rejected_before_comparison(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            left = root / "left"
+            right = root / "right"
+            left.mkdir()
+            right.mkdir()
+            (left / "manifest.json").write_text(
+                json.dumps(
+                    {
+                        "evaluation_protocol_version": "temporal_v3",
+                        "artifact_schema_version": 3,
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (right / "manifest.json").write_text(
+                json.dumps({"evaluation_schema_version": 2}), encoding="utf-8"
+            )
+            with self.assertRaisesRegex(ValueError, "Incompatible evaluation protocols"):
+                load_compatible_runs(left, right)
+
     def test_different_universes_are_rejected_before_comparison(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

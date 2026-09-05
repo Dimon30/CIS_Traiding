@@ -44,6 +44,7 @@ from sklearn.svm import SVC
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from run_backtest import (  # noqa: E402
     add_auxiliary_features,
+    add_implied_usd_features,
     apply_cooldown,
     load_model_frame,
     random_baseline,
@@ -111,6 +112,7 @@ def load_frames(
     feature_columns: list[str],
 ) -> dict[str, pd.DataFrame]:
     needs_auxiliary = any(name.startswith(("usd_", "eur_")) for name in feature_columns)
+    needs_implied_usd = any(name.startswith("implied_usd_") for name in feature_columns)
     result: dict[str, pd.DataFrame] = {}
     for currency in currencies:
         frame = load_model_frame(data_dir, currency, horizon, epsilon_bps).assign(
@@ -118,6 +120,8 @@ def load_frames(
         )
         if needs_auxiliary:
             frame = add_auxiliary_features(frame, data_dir, ("USD", "EUR"))
+        if needs_implied_usd:
+            frame = add_implied_usd_features(frame, data_dir)
         missing = sorted(set(feature_columns) - set(frame.columns))
         if missing:
             raise ValueError(f"Missing features for {currency}: {missing}")

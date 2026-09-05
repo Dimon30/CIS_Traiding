@@ -1,0 +1,19 @@
+id = "H015_compact_fx_decomposition"
+status = "implemented_pending_run"
+statement = "A compact point-in-time USD/local-currency decomposition improves the selected model."
+corridors = ["TJS", "UZS", "KGS", "AMD", "KZT"]
+horizons_days = [3]
+primary_horizon_days = 3
+target = "message_hit"
+feature_sets = ["full_market_with_fx_and_implied_usd"]
+models = ["random_forest"]
+strategies = ["pooled_with_corridor_thresholds"]
+baseline = "selected_exact_model_baseline"
+evaluation_protocol = "temporal_v3"
+
+[acceptance]
+paired_probability_hit_rate_improves_min = 0.90
+paired_probability_mean_regret_decreases_min = 0.80
+minimum_positive_full_outer_years = 3
+maximum_active_cell_loss = 2
+require_every_full_outer_year_active = true

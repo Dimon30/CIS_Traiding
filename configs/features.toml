@@ -41,3 +41,13 @@ include = ["current_model", "derivatives", "reversal"]
 
 [sets.full_market_with_fx]
 include = ["full_market", "cross_currency"]
+
+[sets.implied_usd_decomposition]
+columns = [
+  "implied_usd_per_lcy",
+  "implied_usd_return_1", "implied_usd_return_5", "implied_usd_return_20",
+  "implied_usd_volatility_20", "implied_usd_range_position_60",
+]
+
+[sets.full_market_with_fx_and_implied_usd]
+include = ["full_market_with_fx", "implied_usd_decomposition"]

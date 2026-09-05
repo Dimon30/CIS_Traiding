@@ -1,0 +1,20 @@
+id = "H013_temporal_v3_model_control"
+status = "implemented_pending_run"
+statement = "CatBoost is a controlled model-family alternative to the frozen pooled RF baseline."
+corridors = ["TJS", "UZS", "KGS", "AMD", "KZT"]
+horizons_days = [3]
+primary_horizon_days = 3
+target = "message_hit"
+feature_sets = ["full_market_with_fx"]
+models = ["catboost"]
+strategies = ["pooled_with_corridor_thresholds"]
+baseline = "20260905_wave0_temporal_v3_baseline"
+evaluation_protocol = "temporal_v3"
+
+[acceptance]
+paired_probability_hit_rate_improves_min = 0.90
+paired_probability_mean_regret_decreases_min = 0.80
+frontier_majority_min_signals_per_week = 0.25
+frontier_majority_max_signals_per_week = 1.25
+maximum_active_cell_loss = 2
+require_every_full_outer_year_active = true

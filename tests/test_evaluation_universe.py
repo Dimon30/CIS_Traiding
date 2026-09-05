@@ -38,6 +38,17 @@ class EvaluationUniverseTest(unittest.TestCase):
         right = build_eligible_universe(right_source)
         self.assertEqual(compute_universe_id(left), compute_universe_id(right))
 
+    def test_h015_and_exact_baseline_share_eligible_universe_id(self) -> None:
+        baseline = build_eligible_universe(sample_frame().assign(return_1=[None, 0.0, -0.1]))
+        h015 = build_eligible_universe(
+            sample_frame().assign(
+                return_1=[None, 0.0, -0.1],
+                implied_usd_per_lcy=[0.1, 0.1, 0.099],
+                implied_usd_return_1=[None, 0.0, -0.01],
+            )
+        )
+        self.assertEqual(compute_universe_id(baseline), compute_universe_id(h015))
+
     def test_horizon_contract_changes_universe_hash(self) -> None:
         left = build_eligible_universe(sample_frame())
         right = left.copy()

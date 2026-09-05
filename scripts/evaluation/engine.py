@@ -14,9 +14,13 @@ import pandas as pd
 from sklearn.model_selection import ParameterGrid
 
 try:  # Running from repository root/imported by tests.
-    from scripts.run_backtest import add_auxiliary_features, add_features
+    from scripts.run_backtest import (
+        add_auxiliary_features,
+        add_features,
+        add_implied_usd_features,
+    )
 except ModuleNotFoundError:  # Running scripts/run_experiment.py directly.
-    from run_backtest import add_auxiliary_features, add_features
+    from run_backtest import add_auxiliary_features, add_features, add_implied_usd_features
 
 from .artifacts import build_manifest, git_metadata, sha256_file, write_frame, write_json
 from .audit import audit_result_bundle
@@ -83,6 +87,7 @@ def _load_universe_and_features(
     feature_columns: list[str],
 ) -> tuple[pd.DataFrame, pd.DataFrame, list[Path]]:
     needs_auxiliary = any(name.startswith(("usd_", "eur_")) for name in feature_columns)
+    needs_implied_usd = any(name.startswith("implied_usd_") for name in feature_columns)
     featured_frames: list[pd.DataFrame] = []
     universe_frames: list[pd.DataFrame] = []
     paths: list[Path] = []
@@ -115,6 +120,9 @@ def _load_universe_and_features(
             paths.extend(
                 [data_dir / "rub_usd_observations.csv", data_dir / "rub_eur_observations.csv"]
             )
+        if needs_implied_usd:
+            featured = add_implied_usd_features(featured, data_dir)
+            paths.append(data_dir / "rub_usd_observations.csv")
         missing = sorted(set(feature_columns) - set(featured.columns))
         if missing:
             raise ValueError(f"Missing features for {currency}: {missing}")
