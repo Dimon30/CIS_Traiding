@@ -1,0 +1,331 @@
+{
+  "run_id": "20260904_h008_pooling_v2_rf_logistic",
+  "started_at": "2026-09-04T18:45:24.524494+00:00",
+  "git_commit": "a61b217696ee5595833084a3bf04d782cec99ac9",
+  "hypotheses": [
+    "H008_pooling_ablation"
+  ],
+  "horizons": [
+    3
+  ],
+  "epsilon_bps": [
+    50
+  ],
+  "models": [
+    "logistic",
+    "random_forest"
+  ],
+  "strategies": [
+    "per_corridor",
+    "pooled",
+    "pooled_with_corridor_thresholds",
+    "pooled_without_corridor_feature"
+  ],
+  "dataset_version": "ff9d60c306a4f3c1",
+  "dataset_file_count": 82,
+  "transfer_amount_rub": 100000.0,
+  "data_config": {
+    "currencies": [
+      "TJS",
+      "UZS",
+      "KGS",
+      "AMD",
+      "KZT"
+    ],
+    "auxiliary_currencies": [
+      "USD",
+      "EUR",
+      "CNY"
+    ],
+    "horizons_days": [
+      1,
+      3,
+      5,
+      10,
+      20
+    ],
+    "epsilon_bps": 50,
+    "raw_data_dir": "data/raw",
+    "processed_data_dir": "data/processed"
+  },
+  "feature_config": {
+    "sets": {
+      "price_core": {
+        "columns": [
+          "return_1",
+          "return_3",
+          "return_5",
+          "return_10",
+          "return_20",
+          "distance_to_min_5",
+          "distance_to_min_10",
+          "distance_to_min_20",
+          "distance_to_min_60",
+          "distance_to_mean_5",
+          "distance_to_mean_10",
+          "distance_to_mean_20",
+          "distance_to_mean_60",
+          "range_position_5",
+          "range_position_10",
+          "range_position_20",
+          "range_position_60"
+        ]
+      },
+      "volatility": {
+        "columns": [
+          "volatility_5",
+          "volatility_10",
+          "volatility_20"
+        ]
+      },
+      "momentum": {
+        "columns": [
+          "down_streak",
+          "days_since_previous"
+        ]
+      },
+      "calendar": {
+        "columns": [
+          "month_sin",
+          "month_cos",
+          "weekday_sin",
+          "weekday_cos"
+        ]
+      },
+      "derivatives": {
+        "columns": [
+          "d1_pct",
+          "d1_per_day",
+          "d2_pct",
+          "d2_per_day2",
+          "ewm_d1_pct_5",
+          "ewm_d2_pct_5",
+          "ewm_d1_pct_10",
+          "ewm_d2_pct_10"
+        ]
+      },
+      "reversal": {
+        "columns": [
+          "rebound_from_past_min_20",
+          "rebound_from_past_min_60"
+        ]
+      },
+      "cross_currency": {
+        "columns": [
+          "usd_return_1",
+          "usd_return_5",
+          "usd_return_20",
+          "usd_d1_per_day",
+          "usd_d2_per_day2",
+          "usd_volatility_20",
+          "usd_range_position_60",
+          "eur_return_1",
+          "eur_return_5",
+          "eur_return_20",
+          "eur_d1_per_day",
+          "eur_d2_per_day2",
+          "eur_volatility_20",
+          "eur_range_position_60",
+          "eur_usd_return_spread_5",
+          "eur_usd_volatility_spread_20"
+        ]
+      },
+      "current_model": {
+        "include": [
+          "price_core",
+          "volatility",
+          "momentum",
+          "calendar"
+        ]
+      },
+      "full_market": {
+        "include": [
+          "current_model",
+          "derivatives",
+          "reversal"
+        ]
+      },
+      "full_market_with_fx": {
+        "include": [
+          "full_market",
+          "cross_currency"
+        ]
+      }
+    }
+  },
+  "model_config": {
+    "models": {
+      "logistic": {
+        "class": "sklearn.linear_model.LogisticRegression",
+        "enabled": true,
+        "fixed": {
+          "max_iter": 2000,
+          "solver": "lbfgs"
+        },
+        "search": {
+          "C": [
+            0.01,
+            0.1,
+            1.0,
+            10.0
+          ],
+          "class_weight": [
+            "none",
+            "balanced"
+          ]
+        }
+      },
+      "hist_gradient_boosting": {
+        "class": "sklearn.ensemble.HistGradientBoostingClassifier",
+        "enabled": true,
+        "fixed": {
+          "early_stopping": false,
+          "max_iter": 100,
+          "l2_regularization": 1.0
+        },
+        "search": {
+          "learning_rate": [
+            0.1
+          ],
+          "max_leaf_nodes": [
+            7
+          ]
+        }
+      },
+      "catboost": {
+        "class": "catboost.CatBoostClassifier",
+        "enabled": true,
+        "fixed": {
+          "verbose": false,
+          "allow_writing_files": false,
+          "thread_count": 1,
+          "random_seed": 42
+        },
+        "search": {
+          "iterations": [
+            150
+          ],
+          "depth": [
+            4,
+            6
+          ],
+          "learning_rate": [
+            0.05
+          ],
+          "l2_leaf_reg": [
+            3.0
+          ]
+        }
+      },
+      "random_forest": {
+        "class": "sklearn.ensemble.RandomForestClassifier",
+        "enabled": true,
+        "fixed": {
+          "n_estimators": 300,
+          "n_jobs": 1,
+          "random_state": 42,
+          "class_weight": "balanced_subsample"
+        },
+        "search": {
+          "max_depth": [
+            4,
+            8
+          ],
+          "min_samples_leaf": [
+            10
+          ],
+          "max_features": [
+            "sqrt"
+          ]
+        }
+      },
+      "svm": {
+        "class": "sklearn.svm.SVC",
+        "enabled": true,
+        "fixed": {
+          "probability": true,
+          "random_state": 42
+        },
+        "search": {
+          "C": [
+            0.5,
+            2.0
+          ],
+          "gamma": [
+            "scale"
+          ],
+          "class_weight": [
+            "balanced"
+          ]
+        }
+      },
+      "knn": {
+        "class": "sklearn.neighbors.KNeighborsClassifier",
+        "enabled": true,
+        "fixed": {
+          "n_jobs": 1
+        },
+        "search": {
+          "n_neighbors": [
+            15,
+            35
+          ],
+          "weights": [
+            "distance"
+          ],
+          "p": [
+            2
+          ]
+        }
+      },
+      "naive_bayes": {
+        "class": "sklearn.naive_bayes.GaussianNB",
+        "enabled": true,
+        "search": {
+          "var_smoothing": [
+            1e-09,
+            1e-07
+          ]
+        }
+      }
+    }
+  },
+  "validation_config": {
+    "first_test_year": 2022,
+    "validation_years": 1,
+    "cooldown_days": 4,
+    "random_repeats": 500,
+    "random_seed": 42,
+    "min_validation_signals": 12,
+    "max_signals_per_week": 2.0,
+    "strategies": [
+      "per_corridor",
+      "pooled",
+      "pooled_with_corridor_thresholds",
+      "pooled_without_corridor_feature"
+    ]
+  },
+  "evaluation_schema_version": 2,
+  "metric_layers": {
+    "model": "all OOT eligible dates before threshold",
+    "candidate_policy": "score at or above validation-selected threshold",
+    "signal_policy": "candidates remaining after cooldown"
+  },
+  "strategy_definitions": {
+    "per_corridor": "separate model and threshold per corridor",
+    "pooled": "one model with corridor feature and one global threshold",
+    "pooled_with_corridor_thresholds": "one model with corridor feature and a separate threshold per corridor",
+    "pooled_without_corridor_feature": "one model without corridor identity and a separate threshold per corridor"
+  },
+  "threshold_selection": "maximum validation Wilson lower hit-rate bound; matched-random lift and signal count are tie-breakers",
+  "random_baseline": "uniform over cooldown-feasible schedules in the same corridor/fold with the same signal count",
+  "leakage_controls": [
+    "features use current/past values only",
+    "auxiliary FX joined backward as-of effective date",
+    "horizon-sized purge gap before validation and test",
+    "test year unused for hyperparameters and threshold",
+    "preprocessing fitted inside each training fold"
+  ],
+  "completed_at": "2026-09-04T19:06:06.834194+00:00",
+  "fold_rows": 200
+}
