@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -13,6 +14,24 @@ from scipy.stats import fisher_exact, mannwhitneyu, wilcoxon
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from run_backtest import load_model_frame  # noqa: E402
+
+
+def legacy_benchmark_warning(benchmark_dir: Path) -> str:
+    """Warn when a benchmark predates the corrected matched-random protocol."""
+    manifest_path = benchmark_dir / "manifest.json"
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return ""
+    if int(manifest.get("evaluation_schema_version", 1)) >= 2:
+        return ""
+    return (
+        "**Внимание: этот benchmark является историческим и не должен использоваться "
+        "для выбора текущей модели.** Значение lift 1.42 для pooled Random Forest с "
+        "порогами по коридорам получено до исправления формулы matched-random baseline. "
+        "В пересчёте H008 по corrected protocol сопоставимый кандидат имеет aggregate "
+        "lift 1.246, hit rate 85.8% и частоту 0.40 сигнала в неделю."
+    )
 
 
 def parse_args() -> argparse.Namespace:
@@ -443,6 +462,7 @@ def main() -> None:
     make_figures(benchmark_summary, sensitivity_summary, benchmark_predictions, args.output_dir / "figures")
 
     best = ranking.iloc[0]
+    benchmark_warning = legacy_benchmark_warning(args.benchmark)
     sensitivity_best = sensitivity_summary.groupby(["horizon_days", "epsilon_bps", "strategy"], as_index=False).agg(
         mean_lift=("lift", "mean"), mean_hit_rate=("signal_hit_rate", "mean"),
         mean_frequency=("signals_per_week", "mean"), worst_fold_lift=("min_fold_lift", "min"),
@@ -454,7 +474,9 @@ def main() -> None:
 
 ## Главный вывод
 
-Лучший средний результат benchmark: **{best['model']} / {best['strategy']}**, средний lift по коридорам **{best['mean_lift']:.2f}**, hit rate **{best['mean_hit_rate']:.1%}**, частота **{best['mean_frequency']:.2f} сигнала в неделю**. Выбор финальной модели нельзя делать только по среднему lift: дополнительно смотрим худший временной fold, PR-AUC, Brier score и стабильность между коридорами.
+{benchmark_warning}
+
+Результат указанного benchmark bundle: **{best['model']} / {best['strategy']}**, средний lift по коридорам **{best['mean_lift']:.2f}**, hit rate **{best['mean_hit_rate']:.1%}**, частота **{best['mean_frequency']:.2f} сигнала в неделю**. Выбор финальной модели нельзя делать только по среднему lift: дополнительно смотрим худший временной fold, PR-AUC, Brier score и стабильность между коридорами.
 
 ## Зачем нужны эти метрики
 

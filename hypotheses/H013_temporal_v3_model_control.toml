@@ -1,5 +1,6 @@
 id = "H013_temporal_v3_model_control"
-status = "implemented_pending_run"
+status = "completed_rejected_alternative"
+result_bundle = "results/experiments/20260905_h013_temporal_v3_catboost_control"
 statement = "CatBoost is a controlled model-family alternative to the frozen pooled RF baseline."
 corridors = ["TJS", "UZS", "KGS", "AMD", "KZT"]
 horizons_days = [3]

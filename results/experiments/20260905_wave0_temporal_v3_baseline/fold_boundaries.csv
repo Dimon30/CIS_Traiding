@@ -1,0 +1,6 @@
+outer_fold,test_year,horizon_days,refit_end_exclusive,calibration_start,calibration_end_exclusive,policy_start,policy_end_exclusive,test_start,test_end_exclusive,inner_fold_count,is_partial_fold,data_cutoff,label_complete_through,artifact_schema_version,evaluation_protocol_version
+outer_2022,2022,3,2019-12-29,2020-01-01,2020-12-29,2021-01-01,2021-12-29,2022-01-01,2023-01-01,1,False,2026-09-02,,3,temporal_v3
+outer_2023,2023,3,2020-12-29,2021-01-01,2021-12-29,2022-01-01,2022-12-29,2023-01-01,2024-01-01,2,False,2026-09-02,,3,temporal_v3
+outer_2024,2024,3,2021-12-29,2022-01-01,2022-12-29,2023-01-01,2023-12-29,2024-01-01,2025-01-01,3,False,2026-09-02,,3,temporal_v3
+outer_2025,2025,3,2022-12-29,2023-01-01,2023-12-29,2024-01-01,2024-12-29,2025-01-01,2026-01-01,4,False,2026-09-02,,3,temporal_v3
+outer_2026,2026,3,2023-12-29,2024-01-01,2024-12-29,2025-01-01,2025-12-29,2026-01-01,2026-08-30,5,True,2026-09-02,2026-08-29,3,temporal_v3

@@ -1,0 +1,437 @@
+{
+  "run_id": "20260906_h015_temporal_v3_implied_usd_rf",
+  "created_at": "2026-09-05T22:21:23.207499+00:00",
+  "evaluation_protocol_version": "temporal_v3",
+  "artifact_schema_version": 3,
+  "target_contract_version": 2,
+  "eligibility_version": 1,
+  "policy_version": 3,
+  "matched_random_version": 3,
+  "uncertainty_version": 1,
+  "command": [
+    "scripts\\run_experiment.py",
+    "--hypotheses",
+    "H015_compact_fx_decomposition",
+    "--horizons",
+    "3",
+    "--epsilon-bps",
+    "50",
+    "--models",
+    "random_forest",
+    "--strategies",
+    "pooled_with_corridor_thresholds",
+    "--evaluation-protocol",
+    "temporal_v3",
+    "--output-root",
+    "C:\\dev\\ITMOPHACK\\results\\experiments",
+    "--run-id",
+    "20260906_h015_temporal_v3_implied_usd_rf"
+  ],
+  "config": {
+    "protocol_version": "temporal_v3",
+    "artifact_schema_version": 3,
+    "target_contract_version": 2,
+    "eligibility_version": 1,
+    "canonical_baseline_run_id": "20260905_wave0_temporal_v3_baseline",
+    "temporal": {
+      "first_outer_year": 2022,
+      "first_selection_year": 2019,
+      "calibration_years": 1,
+      "policy_years": 1,
+      "purge_days": "target_horizon",
+      "minimum_train_rows_per_corridor": 500,
+      "minimum_role_rows_per_corridor": 100,
+      "minimum_test_rows_per_corridor": 40,
+      "include_partial_last_fold": true
+    },
+    "calibration": {
+      "method": "identity"
+    },
+    "policy": {
+      "cooldown_days": 4,
+      "minimum_policy_signals": 12,
+      "hard_min_signals_per_week": "none",
+      "hard_max_signals_per_week": 1.4,
+      "frequency_grid": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0,
+        1.1,
+        1.2,
+        1.3,
+        1.4
+      ],
+      "frontier_integration_min": 0.25,
+      "frontier_integration_max": 1.25,
+      "threshold_objective": "wilson_lower_then_matched_random_lift_then_count"
+    },
+    "random": {
+      "version": 3,
+      "draws": 2000,
+      "smoke_draws": 200,
+      "seed": 42,
+      "primary_stratification": "calendar_month",
+      "sensitivity_stratifications": [
+        "fold_count_only",
+        "month_update_gap"
+      ],
+      "maximum_aggregate_mcse": 0.005
+    },
+    "bootstrap": {
+      "version": 1,
+      "replicates": 5000,
+      "smoke_replicates": 200,
+      "seed": 42029,
+      "primary_block_days": 28,
+      "sensitivity_block_days": [
+        14,
+        56
+      ],
+      "ci_level": 0.95
+    }
+  },
+  "inputs": [
+    {
+      "path": "configs/evaluation_v3.toml",
+      "sha256": "f3f0b46733486a014c4141e7b4023e692451c2b9ebe5606d758ffe929fa6934d",
+      "bytes": 1255
+    },
+    {
+      "path": "configs/features.toml",
+      "sha256": "bc495349e9ff5ee757034f182d0f2fd19d88a04a9c556e5a703e9b938694e3ed",
+      "bytes": 1804
+    },
+    {
+      "path": "configs/models.toml",
+      "sha256": "2b7398f62b3e968a3d99527615e3061ef5db595a4a71f9bcc10b6bf6c55c85b8",
+      "bytes": 1700
+    },
+    {
+      "path": "data/processed/rub_amd_labels_h3_e50bp.csv",
+      "sha256": "0927a15654b4bc3324a4bddf9459b011c55bac2e31b56da8000e8b1bff92f109",
+      "bytes": 274222
+    },
+    {
+      "path": "data/processed/rub_amd_observations.csv",
+      "sha256": "8cad900fede5847f3e23941c611bb8ddb0f214a5f191109e7ce060535f8c7978",
+      "bytes": 283952
+    },
+    {
+      "path": "data/processed/rub_eur_observations.csv",
+      "sha256": "5678b87b1af21f025b23473f86cf6d751878c1797e6bca68ca5a44084e913b47",
+      "bytes": 281958
+    },
+    {
+      "path": "data/processed/rub_kgs_labels_h3_e50bp.csv",
+      "sha256": "76bc15f59125378aa70681dbb7700634234eb698241d7442553b2bb1c5261cd7",
+      "bytes": 274233
+    },
+    {
+      "path": "data/processed/rub_kgs_observations.csv",
+      "sha256": "cfa172ddace37ee665c85404bbfb1e9ac5bdb35b488ce9564f211eb9f5ee3eda",
+      "bytes": 283503
+    },
+    {
+      "path": "data/processed/rub_kzt_labels_h3_e50bp.csv",
+      "sha256": "5851d8468d51ffcf40929a3769bd775c50bd874f4323e5436ceb1ff06d28135e",
+      "bytes": 274171
+    },
+    {
+      "path": "data/processed/rub_kzt_observations.csv",
+      "sha256": "b37356b211b6380619d1e77e925c56c42a35f4129a2fa8b2a87a162347cdb156",
+      "bytes": 283953
+    },
+    {
+      "path": "data/processed/rub_tjs_labels_h3_e50bp.csv",
+      "sha256": "7e49aec34da746099738477c3ce858be9a7fa9c04d3f5a9ad0af9fbcd6a30927",
+      "bytes": 274193
+    },
+    {
+      "path": "data/processed/rub_tjs_observations.csv",
+      "sha256": "f4342fb87552a0b6b2805f7ee11716f2a2b28df83d5215a24c8c54579215867a",
+      "bytes": 281487
+    },
+    {
+      "path": "data/processed/rub_usd_observations.csv",
+      "sha256": "47b599f0db138594f3e8ab9768137842520b6327fb944a06a3685f749d66c871",
+      "bytes": 281583
+    },
+    {
+      "path": "data/processed/rub_uzs_labels_h3_e50bp.csv",
+      "sha256": "2f5f461f5cff0a18bc56901123ce81da3822535ddc0141eeb2c7b9b27eef8bc2",
+      "bytes": 274294
+    },
+    {
+      "path": "data/processed/rub_uzs_observations.csv",
+      "sha256": "4324f5f32c75ce2d7aab9edcb70cb5b2a2c73052759f8ee4e183864f6e32fb23",
+      "bytes": 293312
+    },
+    {
+      "path": "hypotheses/H015_compact_fx_decomposition.toml",
+      "sha256": "c9d781477193667ed53e335a5878b68a324ececf9f417c3685fefbacacba627d",
+      "bytes": 742
+    }
+  ],
+  "universe_ids": {
+    "all_corridors": "10d14213e118585ccaa286e9"
+  },
+  "dependencies": {
+    "python": "3.14.7",
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.0",
+    "scipy": "1.18.1",
+    "catboost": "1.2.10",
+    "dbfread": "2.0.7"
+  },
+  "git_commit": "7bd5f245ee3dd23b8170dbf4c3076d1cdabe041c",
+  "git_dirty": false,
+  "git_diff_sha256": null,
+  "canonical_eligible": true,
+  "hypothesis": {
+    "id": "H015_compact_fx_decomposition",
+    "status": "implemented_pending_run",
+    "statement": "A compact point-in-time USD/local-currency decomposition improves the selected model.",
+    "corridors": [
+      "TJS",
+      "UZS",
+      "KGS",
+      "AMD",
+      "KZT"
+    ],
+    "horizons_days": [
+      3
+    ],
+    "primary_horizon_days": 3,
+    "target": "message_hit",
+    "feature_sets": [
+      "full_market_with_fx_and_implied_usd"
+    ],
+    "models": [
+      "random_forest"
+    ],
+    "strategies": [
+      "pooled_with_corridor_thresholds"
+    ],
+    "baseline": "selected_exact_model_baseline",
+    "evaluation_protocol": "temporal_v3",
+    "acceptance": {
+      "paired_probability_hit_rate_improves_min": 0.9,
+      "paired_probability_mean_regret_decreases_min": 0.8,
+      "minimum_positive_full_outer_years": 3,
+      "maximum_active_cell_loss": 2,
+      "require_every_full_outer_year_active": true
+    }
+  },
+  "target_contract": {
+    "target": "message_hit",
+    "horizon_calendar_days": 3,
+    "epsilon_bps": 50,
+    "future_window": "T+1_through_T+h_calendar_days_forward_filled",
+    "positive_rule": "future_regret_bps_le_epsilon_bps"
+  },
+  "eligibility_contract": {
+    "requires_full_label_window": true,
+    "effective_date_rows_only": true,
+    "exclude_same_rate_as_previous": true,
+    "common_label_complete_through": "2026-08-29"
+  },
+  "feature_columns": [
+    "return_1",
+    "return_3",
+    "return_5",
+    "return_10",
+    "return_20",
+    "distance_to_min_5",
+    "distance_to_min_10",
+    "distance_to_min_20",
+    "distance_to_min_60",
+    "distance_to_mean_5",
+    "distance_to_mean_10",
+    "distance_to_mean_20",
+    "distance_to_mean_60",
+    "range_position_5",
+    "range_position_10",
+    "range_position_20",
+    "range_position_60",
+    "volatility_5",
+    "volatility_10",
+    "volatility_20",
+    "down_streak",
+    "days_since_previous",
+    "month_sin",
+    "month_cos",
+    "weekday_sin",
+    "weekday_cos",
+    "d1_pct",
+    "d1_per_day",
+    "d2_pct",
+    "d2_per_day2",
+    "ewm_d1_pct_5",
+    "ewm_d2_pct_5",
+    "ewm_d1_pct_10",
+    "ewm_d2_pct_10",
+    "rebound_from_past_min_20",
+    "rebound_from_past_min_60",
+    "usd_return_1",
+    "usd_return_5",
+    "usd_return_20",
+    "usd_d1_per_day",
+    "usd_d2_per_day2",
+    "usd_volatility_20",
+    "usd_range_position_60",
+    "eur_return_1",
+    "eur_return_5",
+    "eur_return_20",
+    "eur_d1_per_day",
+    "eur_d2_per_day2",
+    "eur_volatility_20",
+    "eur_range_position_60",
+    "eur_usd_return_spread_5",
+    "eur_usd_volatility_spread_20",
+    "implied_usd_per_lcy",
+    "implied_usd_return_1",
+    "implied_usd_return_5",
+    "implied_usd_return_20",
+    "implied_usd_volatility_20",
+    "implied_usd_range_position_60"
+  ],
+  "models": [
+    "random_forest"
+  ],
+  "strategies": [
+    "pooled_with_corridor_thresholds"
+  ],
+  "random_draws": 2000,
+  "bootstrap_replicates": 5000,
+  "smoke_evaluation": false,
+  "quality_gates": {
+    "not_smoke": true,
+    "aggregate_random_mcse_pass": true,
+    "all_policy_cells_materialized": true
+  },
+  "artifacts": [
+    {
+      "path": "bootstrap_replicates.csv.gz",
+      "sha256": "2c2a85c03bda6525ef3f2fcc9b16f68906b46e220a23919bae902465cab7d5c4",
+      "bytes": 5004493
+    },
+    {
+      "path": "calibration_metrics.csv",
+      "sha256": "943499dabf7c28be76d7a780e52e9984ba78c025a875944cd65f0a1a8e1ee7e8",
+      "bytes": 2145
+    },
+    {
+      "path": "candidate_policy_metrics.csv",
+      "sha256": "bdf064d5a272a3047d52d807ffe1c7eb0657669c7b0e7efdccf69881dfc54397",
+      "bytes": 2092206
+    },
+    {
+      "path": "corridor_year_metrics.csv",
+      "sha256": "4c816401d8972a84035e4c30814c5a986628e8edb8c4865d254813934711344e",
+      "bytes": 17283
+    },
+    {
+      "path": "eligible_universe.csv.gz",
+      "sha256": "9703925afe9576fa8e1bbe478dbc66168134e11afbccc6410e40570260a80bfa",
+      "bytes": 3345860
+    },
+    {
+      "path": "evaluation_views.csv",
+      "sha256": "27ed9ff0407e19092830250219abe9be0d6b3f2014ea9f7157830f054b89c0e7",
+      "bytes": 4093
+    },
+    {
+      "path": "fold_boundaries.csv",
+      "sha256": "c75a14720bbd532890fa90b5310850a78cbe9daae3e4e4edb1a4bf67b3331837",
+      "bytes": 942
+    },
+    {
+      "path": "frontier_decisions.csv.gz",
+      "sha256": "7b6747d420c726b69a79ae8670637908e9dc8f447f3ae1e113a933a949cdeaad",
+      "bytes": 3078069
+    },
+    {
+      "path": "inner_selection_metrics.csv",
+      "sha256": "28082955b893ffbed9e0fd90f6cdbd1578eab14a943551fc8be698cddff729ed",
+      "bytes": 56384
+    },
+    {
+      "path": "model_fits.csv",
+      "sha256": "b97e0af94f15142d71c2ea2ebfc25108900b7fd4d974e6aa8e0679683dbca539",
+      "bytes": 2004
+    },
+    {
+      "path": "model_metrics.csv",
+      "sha256": "41a9bd1de48523eba5b91be02bd53c78325e9599c3fba36ed2abdbe76881198d",
+      "bytes": 9744
+    },
+    {
+      "path": "oot_scores.csv.gz",
+      "sha256": "abfa02995acf879df3333a4fc30f0bf92935fc51c6cb4b9970cab7acac544ce9",
+      "bytes": 207175
+    },
+    {
+      "path": "policy_decisions.csv.gz",
+      "sha256": "eb2461956df2e3090483252b7f3362dd179151a2c6cee1314bc6232c2ed6de26",
+      "bytes": 221018
+    },
+    {
+      "path": "policy_frontier.csv",
+      "sha256": "db82276d1f44a61d113eaafd39d1b3e0aa0cc0b2c64ea3f3f55bd03115448a19",
+      "bytes": 268516
+    },
+    {
+      "path": "random_aggregate_draws.csv.gz",
+      "sha256": "75eb357778ce568df95252b68483cf57fc4559d14cfcd6088838f938d1a2bc38",
+      "bytes": 8078
+    },
+    {
+      "path": "random_draw_metrics.csv.gz",
+      "sha256": "29762a0020f6f6ef59a953a0f02848d2f1f06a91d315d857f6166aff7185c7a7",
+      "bytes": 2034070
+    },
+    {
+      "path": "random_draw_registry.json",
+      "sha256": "c9e13904fb52eb062efd241588c81f8e27d93b85990f12db7361b15c23e2a7c7",
+      "bytes": 317
+    },
+    {
+      "path": "random_schedules.csv.gz",
+      "sha256": "3701b11984eeed2790985468673b11187b53c4415893816c6a74648c5ca2bee7",
+      "bytes": 10773189
+    },
+    {
+      "path": "score_frontier.csv",
+      "sha256": "7bf49f38cf7888156f0ccf6518ace5b6e96b80b64aa15359cecdd6e3847e7b3e",
+      "bytes": 64789
+    },
+    {
+      "path": "selected_policies.csv",
+      "sha256": "96e03494a3a1f3ffd9bf746338d1d6e623e8733981ceb1321fe6b476a5d435fb",
+      "bytes": 6759
+    },
+    {
+      "path": "signal_policy_metrics.csv",
+      "sha256": "4c816401d8972a84035e4c30814c5a986628e8edb8c4865d254813934711344e",
+      "bytes": 17283
+    },
+    {
+      "path": "summary.csv",
+      "sha256": "2e18ec333dc7875a24abcbf544191668ecbb76ea67560ca49093883223157ab8",
+      "bytes": 887
+    },
+    {
+      "path": "uncertainty_summary.csv",
+      "sha256": "65649c485735f97266aef71ade2fe69ab3fe9adde19f053a1d6b604ad46feff8",
+      "bytes": 14753
+    }
+  ]
+}

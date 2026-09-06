@@ -1,0 +1,25 @@
+id = "H018_random_forest_tuning"
+status = "smoke_completed_rejected_alternative"
+result_bundle = "results/experiments/20260906_h018_rf_tuning_smoke_03"
+comparison_bundle = "results/experiments/20260906_h018_vs_canonical_smoke_v3"
+statement = "Focused regularization tuning improves the frozen pooled Random Forest baseline."
+corridors = ["TJS", "UZS", "KGS", "AMD", "KZT"]
+horizons_days = [3]
+primary_horizon_days = 3
+target = "message_hit"
+feature_sets = ["full_market_with_fx"]
+models = ["random_forest"]
+strategies = ["pooled_with_corridor_thresholds"]
+baseline = "20260905_wave0_temporal_v3_baseline"
+evaluation_protocol = "temporal_v3"
+model_config = "configs/models_rf_tuning.toml"
+
+[acceptance]
+minimum_aggregate_lift = 1.2143072501611238
+minimum_aggregate_hit_rate = 0.8474903474903475
+maximum_mean_regret_increase_bps = 5.0
+maximum_active_cell_loss = 2
+minimum_positive_full_years = 3
+report_lift_1_3 = true
+require_paired_comparison = true
+require_untouched_future_confirmation = true

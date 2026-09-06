@@ -1,0 +1,6 @@
+corridor,common_count,model_original_count,control_covers_model_count,delta_safety,delta_mean_regret_bps,delta_p90_regret_bps,artifact_schema_version,evaluation_protocol_version,policy_version,matched_random_version
+RUB_AMD,71,71,True,0.05633802816901401,-28.444147039533817,-43.87887659559999,3,temporal_v3,4,4
+RUB_KGS,78,78,True,0.03846153846153855,5.619775618279505,32.27129771776984,3,temporal_v3,4,4
+RUB_KZT,80,80,True,0.07500000000000007,-34.69450863594625,-104.40539013301012,3,temporal_v3,4,4
+RUB_TJS,63,63,True,0.015873015873015817,-10.659143651458749,45.68282377624007,3,temporal_v3,4,4
+RUB_UZS,88,88,True,0.045454545454545414,-22.797516568715906,-68.08711616742005,3,temporal_v3,4,4

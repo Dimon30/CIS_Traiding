@@ -1,0 +1,45 @@
+{
+  "status": "rejected_smoke",
+  "full_run_allowed": false,
+  "exploratory": true,
+  "independent_confirmation": false,
+  "canonical_run_id": "20260905_wave0_temporal_v3_baseline",
+  "candidate_run_id": "20260906_h018_rf_tuning_smoke_03",
+  "checks": {
+    "aggregate_lift_improves": false,
+    "aggregate_hit_rate_not_lower": false,
+    "mean_regret_increase_within_5bp": true,
+    "active_cell_loss_within_two": true,
+    "positive_delta_in_three_full_years": true
+  },
+  "canonical": {
+    "lift": 1.2143072501611238,
+    "hit_rate": 0.8474903474903475,
+    "signals_per_week": 0.4260869565217391,
+    "mean_regret_bps": 23.428301009136486,
+    "active_cells": 24
+  },
+  "candidate": {
+    "lift": 1.1951011306423232,
+    "hit_rate": 0.8406862745098039,
+    "signals_per_week": 0.335605170387779,
+    "mean_regret_bps": 22.565656262652944,
+    "active_cells": 22
+  },
+  "delta": {
+    "lift": -0.01920611951880069,
+    "hit_rate": -0.00680407298054353,
+    "signals_per_week": -0.09048178613396013,
+    "mean_regret_bps": -0.862644746483543,
+    "active_cells": -2
+  },
+  "full_year_hit_rate_deltas": {
+    "2022": 0.09375,
+    "2023": 0.018793546021268814,
+    "2024": -0.03412603292752159,
+    "2025": 0.03387566779990292
+  },
+  "paired_probability_hit_rate_improves": 0.325,
+  "bootstrap_replicates": 200,
+  "execution_contract_note": "Policy-only paired smoke comparison; random draw counts intentionally differ."
+}

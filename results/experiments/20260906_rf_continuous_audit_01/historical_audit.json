@@ -1,0 +1,10 @@
+{
+  "source": "results\\experiments\\20260905_wave0_temporal_v3_baseline",
+  "source_manifest_sha256": "323c5f63233ed8d0a08285dc76e60e54b16169cceed4648e0aa9e9302d212b94",
+  "violations": {
+    "model": 0,
+    "frontier": 0,
+    "random": 0
+  },
+  "source_overwritten": false
+}

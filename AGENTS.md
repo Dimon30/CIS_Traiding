@@ -60,6 +60,20 @@ data/raw/*.dbf
 `scripts/evaluate_indicators.py` и `scripts/evaluate_fast_slow.py` проверяют
 продуктовые альтернативы на той же временной схеме. `show_signal_as_of.py` только
 читает сохранённые out-of-time сигналы и не переобучает модель задним числом.
+`export_demo_signals.py` переносит одну явно выбранную OOT policy в стабильный
+JSON-контракт демо; frontend не должен напрямую разбирать experiment CSV.
+`run_experiment.py --evaluation-protocol temporal_v3` запускает frozen Wave 0
+evaluation; reusable split/policy/random/uncertainty-компоненты находятся в
+`scripts/evaluation/`. Результаты v2 и temporal_v3 нельзя объединять без явной
+миграции schema/protocol version.
+H017 запускается только с явным
+`--evaluation-config configs/evaluation_weekly_v4.toml`; policy/random v4
+несовместимы с frozen v3. Cross-fold cooldown старых bundles проверяется
+`scripts/audit_continuous_evaluation.py`, а исправление всегда создаёт новый
+bundle без refit и не перезаписывает source.
+H018 сохраняет frozen temporal_v3 evaluation и меняет только RF grid через
+`--model-config configs/models_rf_tuning.toml`; сравнение выполняется paired с
+canonical `20260905_wave0_temporal_v3_baseline`.
 
 ## Структура репозитория
 
@@ -69,6 +83,8 @@ data/raw/*.dbf
 - `data/processed/` — воспроизводимые observations и future-label tables.
 - `data/exploration/` — одноразовые исследовательские выгрузки; не вход pipeline.
 - `scripts/` — текущая реализация и CLI. Это ещё не installable Python package.
+- `fx-push-demo/` — Vite/React-демо; календарь читает экспорт OOT-сигналов, а
+  тексты уведомлений пока остаются демонстрационными.
 - `tests/` — unit-тесты критичных формул и signal policy.
 - `notebooks/` — три review-notebook, читающие готовые результаты.
 - `notebooks/exploration/` — ранний EDA; не источник бизнес-логики.
@@ -127,22 +143,31 @@ uv run python -m unittest discover -s tests -v
 - Все пути по умолчанию задавать относительно корня и через `pathlib.Path`.
 - Новые scratch/render/inspection outputs направлять в `tmp/`, финальные
   пользовательские материалы — в `deliverables/`, ML-метрики — в `results/`.
+- Для H013+ использовать только `temporal_v3`: model selection, calibration,
+  policy selection и outer test должны оставаться отдельными временными ролями.
+- Сравнение temporal_v3 runs выполнять только при совпадающих protocol/schema и
+  eligible-universe ID; uncertainty новых моделей считать paired к baseline.
 
 ## Текущие выводы, которые нельзя переобещать
 
 - Logistic baseline для RUB→TJS, `h=3`, `epsilon=50 bp`: lift 1.36, hit rate
   86.3%, 0.59 сигнала в неделю; 4 из 5 folds имеют lift ≥ 1.3, поэтому строгий
   критерий устойчивости ещё не выполнен.
-- Лучший средний benchmark — random forest с pooled model и отдельными порогами по
-  коридорам: mean lift 1.42, hit rate 85.4%, 0.43 сигнала в неделю.
+- **Не использовать lift 1.42 как актуальный результат.** Это старый benchmark
+  pooled Random Forest с отдельными порогами, рассчитанный до исправления формулы
+  matched-random baseline. В corrected H008 сопоставимый вариант получил aggregate
+  lift 1.246, hit rate 85.8% и 0.40 сигнала в неделю; критерий lift 1.3 не достигнут.
 - После поправки Holm статистической значимости на 5% нет; данные дают
   перспективный, но не финально доказанный результат.
 - Простые индикаторы и slow-confirmation не улучшили текущую policy.
 - Реальная банковская выгода и влияние пушей на доверие не проверены без
   исторического банковского курса и продуктовых event logs.
 
-Актуальные числа брать из `results/hypothesis_study/HYPOTHESIS_REPORT.md` и
-`results/backtest/RESULTS.md`, а не из памяти или презентации.
+Актуальные model-comparison числа брать из
+`results/experiments/20260904_h008_pooling_v2_rf_logistic/RESULTS.md`. Текущий
+`results/hypothesis_study/HYPOTHESIS_REPORT.md` содержит исторический benchmark
+1.42 и до полной пересборки canonical runs пригоден только с указанной выше
+оговоркой. Reference baseline брать из `results/backtest/RESULTS.md`.
 
 ## Порядок работы агента
 
@@ -155,4 +180,3 @@ uv run python -m unittest discover -s tests -v
    точно описать, что выполнено и что заблокировано окружением.
 5. Обновить README/PROJECT_STRUCTURE/AGENTS, если поменялись команды, каталоги,
    инварианты или источники истины.
-

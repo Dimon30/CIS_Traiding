@@ -79,12 +79,25 @@ def resolve_feature_columns(config: dict[str, Any], names: list[str]) -> list[st
     return list(dict.fromkeys(resolved))
 
 
+def _universe_extra_contract(horizon: int, epsilon_bps: int, target: str) -> dict[str, object]:
+    contract: dict[str, object] = {
+        "horizon_days": horizon,
+        "epsilon_bps": epsilon_bps,
+    }
+    # Preserve the frozen Wave 0 identity for its canonical target. Alternative
+    # target semantics must remain a distinct comparable-universe contract.
+    if target != "message_hit":
+        contract["target"] = target
+    return contract
+
+
 def _load_universe_and_features(
     data_dir: Path,
     currencies: list[str],
     horizon: int,
     epsilon_bps: int,
     feature_columns: list[str],
+    compute_gate: bool = False,
 ) -> tuple[pd.DataFrame, pd.DataFrame, list[Path]]:
     needs_auxiliary = any(name.startswith(("usd_", "eur_")) for name in feature_columns)
     needs_implied_usd = any(name.startswith("implied_usd_") for name in feature_columns)
@@ -97,6 +110,9 @@ def _load_universe_and_features(
         label_path = data_dir / f"{prefix}_labels_h{horizon}_e{epsilon_bps}bp.csv"
         paths.extend([observation_path, label_path])
         observations = pd.read_csv(observation_path, parse_dates=["date"])
+        if compute_gate:
+            from .weekly import attractiveness_gate
+            observations = attractiveness_gate(observations)
         labels = pd.read_csv(label_path, parse_dates=["date"])
         label_columns = [
             "date",
@@ -163,8 +179,36 @@ def _project(frame: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
     return frame[selected].copy()
 
 
+def _activate_target(frame: pd.DataFrame, target_column: str) -> pd.DataFrame:
+    """Map an explicitly declared binary target onto the v3 outcome contract.
+
+    Artifact schema v3 names its binary outcome ``message_hit``. Experimental
+    targets therefore use that canonical outcome slot while preserving the
+    original future-safety label for secondary diagnostics.
+    """
+    supported = {"message_hit", "target_good_now"}
+    if target_column not in supported:
+        raise ValueError(
+            f"Unsupported temporal_v3 target {target_column!r}; expected one of "
+            f"{sorted(supported)}"
+        )
+    if target_column not in frame.columns:
+        raise ValueError(f"Target column is missing from evaluation frame: {target_column}")
+    result = frame.copy()
+    def binary(series: pd.Series) -> pd.Series:
+        return series.astype("Int64") if series.isna().any() else series.astype(int)
+
+    if target_column != "message_hit":
+        result["future_safety_message_hit"] = binary(result["message_hit"])
+        result["message_hit"] = binary(result[target_column])
+    else:
+        result["message_hit"] = binary(result["message_hit"])
+    return result
+
+
 SCORE_ARTIFACT_COLUMNS = [
     "date", "corridor", "rub_per_unit", "message_hit", "target_good_now",
+    "future_safety_message_hit",
     "future_regret_bps", "moment_advantage_bps", "raw_score", "calibrated_score",
     "calibration_method", "temporal_role",
 ]
@@ -261,10 +305,19 @@ def run_v3(args: Any) -> Path:
     hypothesis = read_toml(hypothesis_path)
     if hypothesis.get("evaluation_protocol") != EVALUATION_PROTOCOL_VERSION:
         raise ValueError("Hypothesis must explicitly declare evaluation_protocol=temporal_v3")
-    evaluation_path = args.config_dir / "evaluation_v3.toml"
+    evaluation_path = getattr(args, "evaluation_config", None) or args.config_dir / "evaluation_v3.toml"
     feature_path = args.config_dir / "features.toml"
-    model_path = args.config_dir / "models.toml"
+    model_path = getattr(args, "model_config", None) or args.config_dir / "models.toml"
     evaluation = read_toml(evaluation_path)
+    weekly = evaluation["policy"].get("version", 3) == 4
+    if hypothesis.get("evaluation_config") and Path(hypothesis["evaluation_config"]).resolve() != evaluation_path.resolve():
+        raise ValueError("Hypothesis requires its preregistered --evaluation-config")
+    if hypothesis.get("model_config") and Path(hypothesis["model_config"]).resolve() != model_path.resolve():
+        raise ValueError("Hypothesis requires its preregistered --model-config")
+    if weekly:
+        from .weekly_bundle import WeeklyBundle
+        if hypothesis["target"] != "message_hit" or hypothesis["models"] != ["random_forest"]:
+            raise ValueError("Weekly v4 requires the fixed message_hit RF flow")
     features_config = read_toml(feature_path)
     models_config = read_toml(model_path)
     horizons = [int(item) for item in args.horizons.split(",") if item.strip()]
@@ -278,10 +331,14 @@ def run_v3(args: Any) -> Path:
     corridor_categories = [f"RUB_{item}" for item in currencies]
     feature_columns = resolve_feature_columns(features_config, hypothesis["feature_sets"])
     universe, frame, input_paths = _load_universe_and_features(
-        args.data_dir, currencies, horizon, epsilon, feature_columns
+        args.data_dir, currencies, horizon, epsilon, feature_columns, compute_gate=weekly
     )
+    target_column = str(hypothesis["target"])
+    universe = _activate_target(universe, target_column)
+    frame = _activate_target(frame, target_column)
     universe_id = compute_universe_id(
-        universe, extra_contract={"horizon_days": horizon, "epsilon_bps": epsilon}
+        universe,
+        extra_contract=_universe_extra_contract(horizon, epsilon, target_column),
     )
     label_cutoff = common_label_complete_through(universe, corridor_categories)
     data_cutoff = pd.Timestamp(universe["date"].max()).normalize()
@@ -325,6 +382,7 @@ def run_v3(args: Any) -> Path:
         str(item) for item in evaluation["random"]["sensitivity_stratifications"]
     ]
     bank = RandomDrawBank(int(evaluation["random"]["seed"]))
+    weekly_bundle = WeeklyBundle(evaluation, smoke) if weekly else None
 
     fold_boundaries: list[dict[str, object]] = []
     inner_metrics_all: list[pd.DataFrame] = []
@@ -469,6 +527,9 @@ def run_v3(args: Any) -> Path:
                 for scored in (calibration, policy_block, test):
                     scored["calibrated_score"] = calibrator.transform(scored["raw_score"])
                     scored["calibration_method"] = calibrator.method
+                if weekly_bundle is not None:
+                    weekly_bundle.add_fold(policy_block, test, fold, identity)
+                    continue
                 calibration_rows.append({**identity, **score_metrics(calibration, "calibrated_score")})
                 threshold_groups = [("ALL", policy_block)] if global_threshold else list(policy_block.groupby("corridor", observed=True))
                 thresholds: dict[str, SelectedPolicy] = {}
@@ -675,6 +736,23 @@ def run_v3(args: Any) -> Path:
                             {**corridor_identity, **point._asdict(), **frontier_metrics}
                         )
 
+    if weekly_bundle is not None:
+        manifest = build_manifest(
+            run_id=run_id, command=sys.argv, config=evaluation,
+            input_paths=[hypothesis_path, evaluation_path, feature_path, model_path, *input_paths],
+            universe_ids={"all_corridors": universe_id}, git_state=initial_git_state,
+            extra={"hypothesis": hypothesis, "feature_columns": feature_columns,
+                   "policy_version": 4, "matched_random_version": 4,
+                   "exploratory": True, "canonical_eligible": False,
+                   "smoke_evaluation": smoke, "data_cutoff": str(data_cutoff.date()),
+                   "target_contract": {"target": target_column, "horizon_calendar_days": horizon, "epsilon_bps": epsilon}},
+        )
+        write_frame(output / "eligible_universe.csv.gz", universe)
+        write_frame(output / "fold_boundaries.csv", pd.DataFrame(fold_boundaries))
+        write_frame(output / "inner_selection_metrics.csv", pd.concat(inner_metrics_all, ignore_index=True))
+        write_frame(output / "model_fits.csv", pd.DataFrame(model_fit_rows))
+        return weekly_bundle.finish(output, manifest)
+
     fold_boundaries_frame = _add_identity(pd.DataFrame(fold_boundaries), {})
     oot_scores = pd.concat(oot_scores_all, ignore_index=True)
     decisions = pd.concat(decisions_all, ignore_index=True)
@@ -688,6 +766,10 @@ def run_v3(args: Any) -> Path:
     summary["p95_realized_regret_bps"] = delivered_all["future_regret_bps"].quantile(0.95)
     summary["false_push_regret_bps_mean"] = false_delivered["future_regret_bps"].mean()
     summary["moment_advantage_bps_mean"] = delivered_all["moment_advantage_bps"].mean()
+    if "future_safety_message_hit" in delivered_all:
+        summary["future_safety_hit_rate"] = delivered_all[
+            "future_safety_message_hit"
+        ].mean()
     summary["run_id"] = run_id
     summary["evaluation_protocol_version"] = EVALUATION_PROTOCOL_VERSION
     summary["artifact_schema_version"] = ARTIFACT_SCHEMA_VERSION
@@ -844,13 +926,24 @@ def run_v3(args: Any) -> Path:
         git_state=initial_git_state,
         extra={
             "hypothesis": hypothesis,
-            "target_contract": {
-                "target": "message_hit",
-                "horizon_calendar_days": horizon,
-                "epsilon_bps": epsilon,
-                "future_window": "T+1_through_T+h_calendar_days_forward_filled",
-                "positive_rule": "future_regret_bps_le_epsilon_bps",
-            },
+            "target_contract": (
+                {
+                    "target": "message_hit",
+                    "horizon_calendar_days": horizon,
+                    "epsilon_bps": epsilon,
+                    "future_window": "T+1_through_T+h_calendar_days_forward_filled",
+                    "positive_rule": "future_regret_bps_le_epsilon_bps",
+                }
+                if target_column == "message_hit"
+                else {
+                    "target": "target_good_now",
+                    "horizon_calendar_days": horizon,
+                    "epsilon_bps": epsilon,
+                    "symmetric_window": "T-h_through_T+h_calendar_days_forward_filled",
+                    "positive_rule": "current_rate_le_window_min_times_one_plus_epsilon",
+                    "secondary_safety_target": "future_safety_message_hit",
+                }
+            ),
             "eligibility_contract": {
                 "requires_full_label_window": True,
                 "effective_date_rows_only": True,

@@ -1,0 +1,449 @@
+{
+  "run_id": "20260906_h017_weekly_v4_smoke_04",
+  "created_at": "2026-09-06T13:25:24.690146+00:00",
+  "evaluation_protocol_version": "temporal_v3",
+  "artifact_schema_version": 3,
+  "target_contract_version": 2,
+  "eligibility_version": 1,
+  "policy_version": 4,
+  "matched_random_version": 4,
+  "uncertainty_version": 1,
+  "command": [
+    "scripts/run_experiment.py",
+    "--evaluation-protocol",
+    "temporal_v3",
+    "--evaluation-config",
+    "configs/evaluation_weekly_v4.toml",
+    "--hypotheses",
+    "H017_attractiveness_gate_rf",
+    "--models",
+    "random_forest",
+    "--strategies",
+    "pooled_with_corridor_thresholds",
+    "--horizons",
+    "3",
+    "--epsilon-bps",
+    "50",
+    "--smoke-evaluation",
+    "--run-id",
+    "20260906_h017_weekly_v4_smoke_04"
+  ],
+  "config": {
+    "protocol_version": "temporal_v3",
+    "artifact_schema_version": 3,
+    "target_contract_version": 2,
+    "eligibility_version": 1,
+    "canonical_baseline_run_id": "20260905_wave0_temporal_v3_baseline",
+    "temporal": {
+      "first_outer_year": 2022,
+      "first_selection_year": 2019,
+      "calibration_years": 1,
+      "policy_years": 1,
+      "purge_days": "target_horizon",
+      "minimum_train_rows_per_corridor": 500,
+      "minimum_role_rows_per_corridor": 100,
+      "minimum_test_rows_per_corridor": 40,
+      "include_partial_last_fold": true
+    },
+    "calibration": {
+      "method": "identity"
+    },
+    "policy": {
+      "version": 4,
+      "continuous_cooldown": true,
+      "gate_window_days": 28,
+      "gate_minimum_bps": 50,
+      "minimum_safety": 0.75,
+      "maximum_mean_regret_bps": 40,
+      "maximum_p90_regret_bps": 100,
+      "cooldown_days": 4,
+      "minimum_policy_signals": 12,
+      "hard_min_signals_per_week": "none",
+      "hard_max_signals_per_week": 1.0,
+      "frequency_grid": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0,
+        1.1,
+        1.2,
+        1.3,
+        1.4
+      ],
+      "frontier_integration_min": 0.25,
+      "frontier_integration_max": 1.25,
+      "threshold_objective": "frequency_after_quality_guardrails"
+    },
+    "random": {
+      "version": 4,
+      "draws": 2000,
+      "smoke_draws": 50,
+      "seed": 42,
+      "primary_stratification": "calendar_month_weekday",
+      "sensitivity_stratifications": [
+        "calendar_month",
+        "month_update_gap"
+      ],
+      "maximum_aggregate_mcse": 0.005
+    },
+    "bootstrap": {
+      "version": 1,
+      "replicates": 5000,
+      "smoke_replicates": 200,
+      "seed": 42029,
+      "primary_block_days": 28,
+      "sensitivity_block_days": [
+        14,
+        56
+      ],
+      "ci_level": 0.95
+    }
+  },
+  "inputs": [
+    {
+      "path": "configs/evaluation_weekly_v4.toml",
+      "sha256": "c5e45114a2b6231469735bb169ebd0cae9288ddad8fe90e3a538500298d1a4d9",
+      "bytes": 1360
+    },
+    {
+      "path": "configs/features.toml",
+      "sha256": "7ea79e0efacabd8ee31fab02e8386f6e398e1430d8f1c72905d45e4f18c4d12e",
+      "bytes": 1792
+    },
+    {
+      "path": "configs/models.toml",
+      "sha256": "2b7398f62b3e968a3d99527615e3061ef5db595a4a71f9bcc10b6bf6c55c85b8",
+      "bytes": 1700
+    },
+    {
+      "path": "data/processed/rub_amd_labels_h3_e50bp.csv",
+      "sha256": "0927a15654b4bc3324a4bddf9459b011c55bac2e31b56da8000e8b1bff92f109",
+      "bytes": 274222
+    },
+    {
+      "path": "data/processed/rub_amd_observations.csv",
+      "sha256": "8cad900fede5847f3e23941c611bb8ddb0f214a5f191109e7ce060535f8c7978",
+      "bytes": 283952
+    },
+    {
+      "path": "data/processed/rub_eur_observations.csv",
+      "sha256": "5678b87b1af21f025b23473f86cf6d751878c1797e6bca68ca5a44084e913b47",
+      "bytes": 281958
+    },
+    {
+      "path": "data/processed/rub_kgs_labels_h3_e50bp.csv",
+      "sha256": "76bc15f59125378aa70681dbb7700634234eb698241d7442553b2bb1c5261cd7",
+      "bytes": 274233
+    },
+    {
+      "path": "data/processed/rub_kgs_observations.csv",
+      "sha256": "cfa172ddace37ee665c85404bbfb1e9ac5bdb35b488ce9564f211eb9f5ee3eda",
+      "bytes": 283503
+    },
+    {
+      "path": "data/processed/rub_kzt_labels_h3_e50bp.csv",
+      "sha256": "5851d8468d51ffcf40929a3769bd775c50bd874f4323e5436ceb1ff06d28135e",
+      "bytes": 274171
+    },
+    {
+      "path": "data/processed/rub_kzt_observations.csv",
+      "sha256": "b37356b211b6380619d1e77e925c56c42a35f4129a2fa8b2a87a162347cdb156",
+      "bytes": 283953
+    },
+    {
+      "path": "data/processed/rub_tjs_labels_h3_e50bp.csv",
+      "sha256": "7e49aec34da746099738477c3ce858be9a7fa9c04d3f5a9ad0af9fbcd6a30927",
+      "bytes": 274193
+    },
+    {
+      "path": "data/processed/rub_tjs_observations.csv",
+      "sha256": "f4342fb87552a0b6b2805f7ee11716f2a2b28df83d5215a24c8c54579215867a",
+      "bytes": 281487
+    },
+    {
+      "path": "data/processed/rub_usd_observations.csv",
+      "sha256": "47b599f0db138594f3e8ab9768137842520b6327fb944a06a3685f749d66c871",
+      "bytes": 281583
+    },
+    {
+      "path": "data/processed/rub_uzs_labels_h3_e50bp.csv",
+      "sha256": "2f5f461f5cff0a18bc56901123ce81da3822535ddc0141eeb2c7b9b27eef8bc2",
+      "bytes": 274294
+    },
+    {
+      "path": "data/processed/rub_uzs_observations.csv",
+      "sha256": "4324f5f32c75ce2d7aab9edcb70cb5b2a2c73052759f8ee4e183864f6e32fb23",
+      "bytes": 293312
+    },
+    {
+      "path": "hypotheses/H017_attractiveness_gate_rf.toml",
+      "sha256": "95928dc7b03d0253f74de8bc7f7b61606352aa3136ba1d47e506b4b2358f8fb5",
+      "bytes": 1077
+    }
+  ],
+  "universe_ids": {
+    "all_corridors": "6c83e17844187e4f49485ed1"
+  },
+  "dependencies": {
+    "python": "3.14.7",
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.0",
+    "scipy": "1.18.1",
+    "catboost": "1.2.10",
+    "dbfread": "2.0.7"
+  },
+  "git_commit": "7bd5f245ee3dd23b8170dbf4c3076d1cdabe041c",
+  "git_dirty": true,
+  "git_diff_sha256": "5c402028ebcabd3f11614f080e93c6abdf79a6aca60889fa87f77d77f5b93998",
+  "canonical_eligible": false,
+  "hypothesis": {
+    "id": "H017_attractiveness_gate_rf",
+    "status": "preregistered_exploratory",
+    "statement": "A fixed causal 28-day/50-bp gate plus future-safety RF can sustain useful weekly delivery.",
+    "corridors": [
+      "TJS",
+      "UZS",
+      "KGS",
+      "AMD",
+      "KZT"
+    ],
+    "horizons_days": [
+      3
+    ],
+    "primary_horizon_days": 3,
+    "target": "message_hit",
+    "feature_sets": [
+      "full_market_with_fx"
+    ],
+    "models": [
+      "random_forest"
+    ],
+    "strategies": [
+      "pooled_with_corridor_thresholds"
+    ],
+    "baseline": "20260905_wave0_temporal_v3_baseline",
+    "evaluation_protocol": "temporal_v3",
+    "evaluation_config": "configs/evaluation_weekly_v4.toml",
+    "acceptance": {
+      "minimum_signals_per_week": 0.8,
+      "maximum_signals_per_week": 1.0,
+      "require_every_full_outer_year_active": true,
+      "maximum_median_gap_days": 10,
+      "maximum_p90_gap_days": 14,
+      "maximum_silence_days": 28,
+      "minimum_active_week_share": 0.7,
+      "minimum_safety": 0.75,
+      "maximum_mean_regret_bps": 40,
+      "maximum_p90_regret_bps": 100,
+      "minimum_control_delta_safety": -0.05,
+      "maximum_control_delta_mean_regret_bps": 10,
+      "maximum_control_delta_p90_regret_bps": 25,
+      "require_positive_conditional_delta": true,
+      "require_untouched_holdout_for_confirmation": true
+    }
+  },
+  "feature_columns": [
+    "return_1",
+    "return_3",
+    "return_5",
+    "return_10",
+    "return_20",
+    "distance_to_min_5",
+    "distance_to_min_10",
+    "distance_to_min_20",
+    "distance_to_min_60",
+    "distance_to_mean_5",
+    "distance_to_mean_10",
+    "distance_to_mean_20",
+    "distance_to_mean_60",
+    "range_position_5",
+    "range_position_10",
+    "range_position_20",
+    "range_position_60",
+    "volatility_5",
+    "volatility_10",
+    "volatility_20",
+    "down_streak",
+    "days_since_previous",
+    "month_sin",
+    "month_cos",
+    "weekday_sin",
+    "weekday_cos",
+    "d1_pct",
+    "d1_per_day",
+    "d2_pct",
+    "d2_per_day2",
+    "ewm_d1_pct_5",
+    "ewm_d2_pct_5",
+    "ewm_d1_pct_10",
+    "ewm_d2_pct_10",
+    "rebound_from_past_min_20",
+    "rebound_from_past_min_60",
+    "usd_return_1",
+    "usd_return_5",
+    "usd_return_20",
+    "usd_d1_per_day",
+    "usd_d2_per_day2",
+    "usd_volatility_20",
+    "usd_range_position_60",
+    "eur_return_1",
+    "eur_return_5",
+    "eur_return_20",
+    "eur_d1_per_day",
+    "eur_d2_per_day2",
+    "eur_volatility_20",
+    "eur_range_position_60",
+    "eur_usd_return_spread_5",
+    "eur_usd_volatility_spread_20"
+  ],
+  "exploratory": true,
+  "smoke_evaluation": true,
+  "data_cutoff": "2026-09-02",
+  "target_contract": {
+    "target": "message_hit",
+    "horizon_calendar_days": 3,
+    "epsilon_bps": 50
+  },
+  "decision": {
+    "status": "failed",
+    "accepted_corridors": [],
+    "full_monte_carlo_allowed": false,
+    "independent_confirmation": false,
+    "policy_frozen": true,
+    "confirmation_after_cutoff": "2026-09-02"
+  },
+  "artifacts": [
+    {
+      "path": "audit_report.json",
+      "sha256": "1785c94010f4d936a83fa0492bb437db5f65ae069d4a3c55b8a6a670701c11ec",
+      "bytes": 73
+    },
+    {
+      "path": "baseline_summary.csv",
+      "sha256": "8045e90a31b93b4d59be44c132aa50b829db88e88047e81215541ab2abcff646",
+      "bytes": 15013
+    },
+    {
+      "path": "cadence_metrics.csv",
+      "sha256": "bffecdef6dd65692a3c9524665ca40d4024a1e65af3c3e562138f6a55bafc003",
+      "bytes": 1444
+    },
+    {
+      "path": "candidate_policy_metrics.csv",
+      "sha256": "94f809c9835df7bb704c42bebe2f36c1cd56918a61008db5fd9c30c8e1adf958",
+      "bytes": 815225
+    },
+    {
+      "path": "canonical_reference.csv",
+      "sha256": "3a9538e044e952cddc6b90a90c68dc2868e6c21f73b2dec19fceaaba169dacae",
+      "bytes": 956
+    },
+    {
+      "path": "DECISION.json",
+      "sha256": "28e89bb66827341002bb3e3b4bb5fb1257d668945b9ea9d044cd4ca08f24da8b",
+      "bytes": 203
+    },
+    {
+      "path": "eligible_universe.csv.gz",
+      "sha256": "c71515956556d58a00d8c5b7f48a56ef9a5e08aa09bb68d3e431555e7a4a9888",
+      "bytes": 3532365
+    },
+    {
+      "path": "equal_count_control.csv",
+      "sha256": "0320d3d424723854fce86a81bd1abb7b73c4a2f58f763d66af891505d1c20eee",
+      "bytes": 700
+    },
+    {
+      "path": "exposures.csv",
+      "sha256": "b90f5614c3a8aae9fbcdfe4279631fdefdb6ef6e36b560304f68a8d0ef514f00",
+      "bytes": 265
+    },
+    {
+      "path": "fold_boundaries.csv",
+      "sha256": "0e70f50d35c1f5617836456e298a6dd4dd5d9ae956229d34d018ce275af8b827",
+      "bytes": 820
+    },
+    {
+      "path": "frontier_decisions.csv.gz",
+      "sha256": "c86765375b08e358973f00f2f2c2570c4772d3af082d6a0a3f6082a4f3a50ade",
+      "bytes": 40062036
+    },
+    {
+      "path": "inner_selection_metrics.csv",
+      "sha256": "19a33ab4927251971211ac8003a68d18304ba88c8360430e3bed42355e5bfad8",
+      "bytes": 52477
+    },
+    {
+      "path": "model_fits.csv",
+      "sha256": "3a2da798c5dea9d8942f96ccaee270d3a2ebacba2c075015ef3b986eadb322f7",
+      "bytes": 1870
+    },
+    {
+      "path": "oot_scores.csv.gz",
+      "sha256": "1ecc031de53dada42af143de22ff340858c24896b945a7cd9fc2fced2660b9a2",
+      "bytes": 1978138
+    },
+    {
+      "path": "policy_decisions.csv.gz",
+      "sha256": "08f748dca8b1a0287ac93472d81141b0f9c74101d10d7f794e3c2da066ce33df",
+      "bytes": 2671939
+    },
+    {
+      "path": "policy_frontier.csv",
+      "sha256": "626004b82be97f9a7f99551b8f90950ed945138fc9604d82f128d8b9421cc0fb",
+      "bytes": 123406
+    },
+    {
+      "path": "policy_scores.csv.gz",
+      "sha256": "a15591764444eeceeb9c1e267f9b6de4dd998a0b36d761e51f5706e340d928c3",
+      "bytes": 2109007
+    },
+    {
+      "path": "random_draw_metrics.csv.gz",
+      "sha256": "9c704feb3d67314f33a9af963f3a9c3dd26223ddf5ff5b0fab76efe6da3c51b8",
+      "bytes": 57565
+    },
+    {
+      "path": "random_draw_registry.json",
+      "sha256": "6b1fd29f00a361464b0fdf48f5300e0f52c4710a37bd4996098ef94b2e21cdaf",
+      "bytes": 468
+    },
+    {
+      "path": "random_schedules.csv.gz",
+      "sha256": "ef678db93518f5888cf3aa27f2a9d6216f2545fb86f6eaf8532070ceb644bca1",
+      "bytes": 108482145
+    },
+    {
+      "path": "RESULTS.md",
+      "sha256": "c7c5056f671c18d8c641d88434cb2d2d6bb9267c5813762c13b11afc53dd63c8",
+      "bytes": 2252
+    },
+    {
+      "path": "selected_policies.csv",
+      "sha256": "65a5aa7039ac9029f12c28f06b890fa805addcb6a75d279d3eec55ab3e22fea5",
+      "bytes": 94258
+    },
+    {
+      "path": "signal_policy_metrics.csv",
+      "sha256": "f8bca515e07e58e959ac91380cf7df9a4d5d7fdf2949cedda179f45f2cfd5d08",
+      "bytes": 149421
+    },
+    {
+      "path": "summary.csv",
+      "sha256": "91db499509b647adde5c1f1c3c61c49414775dddaac497f67f2db905ceba10c0",
+      "bytes": 1064
+    },
+    {
+      "path": "uncertainty_summary.csv",
+      "sha256": "f3ba60259d5eb2f67c8f89e4bbc15fbf0661e12d8418a9ae3bd2c4c459c7132a",
+      "bytes": 96661
+    }
+  ]
+}

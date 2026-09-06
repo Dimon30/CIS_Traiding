@@ -69,6 +69,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--data-dir", type=Path, default=Path("data/processed"))
     parser.add_argument("--output-root", type=Path, default=Path("results/experiments"))
     parser.add_argument("--config-dir", type=Path, default=Path("configs"))
+    parser.add_argument("--evaluation-config", type=Path,
+                        help="Explicit temporal_v3 evaluation contract; default remains frozen v3.")
+    parser.add_argument("--model-config", type=Path,
+                        help="Explicit model grid; default remains configs/models.toml.")
     parser.add_argument("--hypotheses-dir", type=Path, default=Path("hypotheses"))
     parser.add_argument("--run-id", help="Stable output directory name")
     parser.add_argument("--save-models", action="store_true")
@@ -753,7 +757,7 @@ def main() -> None:
         return
     data_config = read_toml(args.config_dir / "data.toml")
     feature_config = read_toml(args.config_dir / "features.toml")
-    model_config = read_toml(args.config_dir / "models.toml")
+    model_config = read_toml(args.model_config or args.config_dir / "models.toml")
     validation_config = read_toml(args.config_dir / "validation.toml")
     configs = {"models": model_config, "validation": validation_config}
     run_id = args.run_id or datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")

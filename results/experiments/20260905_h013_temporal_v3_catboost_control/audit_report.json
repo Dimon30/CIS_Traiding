@@ -1,0 +1,8 @@
+{
+  "status": "pass",
+  "run_id": "20260905_h013_temporal_v3_catboost_control",
+  "outer_rows": 5741,
+  "signals": 526,
+  "random_rows": 1052000,
+  "checks": 10
+}

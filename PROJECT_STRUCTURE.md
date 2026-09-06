@@ -36,6 +36,7 @@ itmophack/
 │   ├── data.toml                 # валюты, горизонты, epsilon
 │   ├── features.toml             # наборы признаков
 │   ├── models.toml               # модели и сетки гиперпараметров
+│   ├── models_rf_tuning.toml     # preregistered focused RF grid для H018
 │   └── validation.toml           # walk-forward, cooldown, baseline
 ├── hypotheses/
 │   ├── README.md
@@ -49,9 +50,15 @@ itmophack/
 │   ├── run_backtest.py           # проверенный logistic baseline
 │   ├── run_experiment.py         # единый configurable experiment runner
 │   ├── audit_pipeline.py         # leakage и data-quality checks
+│   ├── audit_evaluation_v3.py    # post-run invariants frozen evaluation bundle
+│   ├── audit_continuous_evaluation.py # cross-fold cooldown audit/replay без refit
+│   ├── compare_evaluation_v3.py  # paired comparison двух compatible v3 runs
+│   ├── evaluation/               # temporal_v3 + versioned weekly policy/random components
 │   ├── evaluate_*.py             # product-policy эксперименты
 │   ├── analyze_hypotheses.py     # итоговые таблицы, тесты и графики
-│   └── show_signal_as_of.py      # чтение сохранённого OOT-сигнала
+│   ├── show_signal_as_of.py      # чтение сохранённого OOT-сигнала
+│   └── export_demo_signals.py    # versioned JSON из OOT policy для демо
+├── fx-push-demo/                 # Vite/React-визуализация последних 3 месяцев
 ├── experiments/
 │   └── README.md                 # правила запуска и хранения результатов
 ├── notebooks/
@@ -348,6 +355,27 @@ Runner сейчас:
 8. применить cooldown;
 9. посчитать matched random baseline и метрики;
 10. сохранить полный experiment bundle.
+
+Frozen `configs/evaluation_v3.toml` остаётся default. Exploratory H017 явно
+подключает несовместимый policy/random contract:
+
+```powershell
+uv run python scripts/run_experiment.py `
+  --hypotheses H017_attractiveness_gate_rf `
+  --models random_forest `
+  --strategies pooled_with_corridor_thresholds `
+  --horizons 3 --epsilon-bps 50 `
+  --evaluation-protocol temporal_v3 `
+  --evaluation-config configs/evaluation_weekly_v4.toml `
+  --smoke-evaluation `
+  --run-id <unique-run-id>
+```
+
+`scripts/evaluation/weekly.py` содержит causal 28-day gate, непрерывное состояние
+delivery/random и cadence-метрики; `weekly_bundle.py` формирует три random
+baseline, equal-count RF control и решение acceptance. Старые bundles проверяет
+`scripts/audit_continuous_evaluation.py`; `--repair` пишет новый metrics bundle и
+никогда не меняет source bundle.
 
 Сборка dataset остаётся отдельным явным шагом через `scripts/build_dataset.py`.
 Краткая карта актуальных и вспомогательных частей находится в

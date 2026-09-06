@@ -1,0 +1,6 @@
+outer_fold,exposure_start,exposure_end_exclusive,is_partial_fold
+outer_2022,2022-01-01,2023-01-01,False
+outer_2023,2023-01-01,2024-01-01,False
+outer_2024,2024-01-01,2025-01-01,False
+outer_2025,2025-01-01,2026-01-01,False
+outer_2026,2026-01-01,2026-08-30,True

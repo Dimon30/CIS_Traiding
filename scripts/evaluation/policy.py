@@ -25,13 +25,13 @@ def apply_cooldown(
     cooldown_days: int,
     *,
     score_column: str = "calibrated_score",
+    last_sent: pd.Timestamp | None = None,
 ) -> pd.DataFrame:
     require_columns(frame, ["date", score_column], "policy frame")
     candidates = frame.loc[frame[score_column].ge(threshold)].sort_values(
         "date", kind="stable"
     )
     selected: list[object] = []
-    last_sent: pd.Timestamp | None = None
     for index, row in candidates.iterrows():
         date = pd.Timestamp(row["date"])
         if last_sent is None or date > last_sent + timedelta(days=cooldown_days):
@@ -175,6 +175,8 @@ def apply_selected_policy(
     *,
     cooldown_days: int,
     score_column: str = "calibrated_score",
+    last_sent: pd.Timestamp | None = None,
+    gate_column: str | None = None,
 ) -> pd.DataFrame:
     result = frame.copy()
     result["candidate"] = False
@@ -185,8 +187,11 @@ def apply_selected_policy(
     if policy.threshold is None:
         return result
     result["candidate"] = result[score_column].ge(policy.threshold)
+    if gate_column is not None:
+        result["candidate"] &= result[gate_column].fillna(False).astype(bool)
     signals = apply_cooldown(
-        result, policy.threshold, cooldown_days, score_column=score_column
+        result.loc[result["candidate"]], policy.threshold, cooldown_days,
+        score_column=score_column, last_sent=last_sent,
     )
     result.loc[signals.index, "selected_signal"] = True
     return result

@@ -1,4 +1,5 @@
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -8,7 +9,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
-from analyze_hypotheses import paired_lift_test
+from analyze_hypotheses import legacy_benchmark_warning, paired_lift_test
 from run_experiment import (
     design_matrix,
     metric_views,
@@ -74,6 +75,26 @@ def fold_row(test_year: int, *, signals: int, weeks: float, lift: float) -> dict
         "client_advantage_rub_mean": 100.0 if active else np.nan,
         "client_regret_rub_mean": 50.0 if active else np.nan,
     }
+
+
+class BenchmarkWarningTests(unittest.TestCase):
+    def test_legacy_manifest_marks_1_42_as_invalid_for_current_selection(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)
+            (path / "manifest.json").write_text("{}", encoding="utf-8")
+            warning = legacy_benchmark_warning(path)
+        self.assertIn("1.42", warning)
+        self.assertIn("1.246", warning)
+        self.assertIn("до исправления", warning)
+
+    def test_schema_v2_manifest_has_no_legacy_warning(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)
+            (path / "manifest.json").write_text(
+                '{"evaluation_schema_version": 2}', encoding="utf-8"
+            )
+            warning = legacy_benchmark_warning(path)
+        self.assertEqual(warning, "")
 
 
 class ExperimentMetricTest(unittest.TestCase):

@@ -1,0 +1,8 @@
+{
+  "status": "failed",
+  "accepted_corridors": [],
+  "full_monte_carlo_allowed": false,
+  "independent_confirmation": false,
+  "policy_frozen": true,
+  "confirmation_after_cutoff": "2026-09-02"
+}

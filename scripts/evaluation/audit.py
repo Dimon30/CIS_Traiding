@@ -33,6 +33,30 @@ def _as_bool(series: pd.Series) -> pd.Series:
     return series.astype(str).str.lower().isin({"true", "1"})
 
 
+def continuous_cooldown_violations(frame: pd.DataFrame, cooldown_days: int, *, random: bool = False) -> pd.DataFrame:
+    """Audit streams over all years, never resetting on outer_fold."""
+    keys = [key for key in ("model", "strategy", "corridor", "variant", "frontier_point_id", "baseline", "random_mode") if key in frame]
+    if random:
+        keys.append("draw_id")
+    elif "selected_signal" in frame:
+        frame = frame.loc[_as_bool(frame["selected_signal"])].copy()
+    rows = []
+    for key, group in frame.groupby(keys, observed=True, dropna=False):
+        ordered = group.sort_values("date").copy()
+        ordered["previous_send"] = ordered["date"].shift(1)
+        ordered["gap_days"] = (ordered["date"] - ordered["previous_send"]).dt.days
+        rows.append(ordered.loc[ordered["gap_days"].le(cooldown_days)])
+    return pd.concat(rows, ignore_index=True) if rows else pd.DataFrame()
+
+
+def audit_continuous_schedules(decisions: pd.DataFrame, random: pd.DataFrame, cooldown_days: int) -> dict:
+    for frame, is_random in ((decisions, False), (random, True)):
+        violations = continuous_cooldown_violations(frame, cooldown_days, random=is_random)
+        if len(violations):
+            raise AssertionError(f"Continuous cooldown violation: random={is_random}, rows={len(violations)}")
+    return {"status": "pass", "continuous_model_and_random_cooldown": True}
+
+
 def audit_result_bundle(path: Path) -> dict[str, object]:
     missing = [name for name in REQUIRED_ARTIFACTS if not (path / name).exists()]
     if missing:
@@ -72,7 +96,7 @@ def audit_result_bundle(path: Path) -> dict[str, object]:
         raise AssertionError("A delivered signal is not a threshold candidate")
     cooldown_days = int(manifest["config"]["policy"]["cooldown_days"])
     selected = decisions.loc[_as_bool(decisions["selected_signal"])]
-    for key, group in selected.groupby(["outer_fold", "corridor"], observed=True):
+    for key, group in selected.groupby(["corridor"], observed=True):
         gaps = group.sort_values("date")["date"].diff().dt.days.dropna()
         if gaps.le(cooldown_days).any():
             raise AssertionError(f"Cooldown violation in {key}")
@@ -91,6 +115,11 @@ def audit_result_bundle(path: Path) -> dict[str, object]:
         raise AssertionError("Random selected a date outside the model eligible universe")
     if not checked["message_hit_random"].eq(checked["message_hit_model"]).all():
         raise AssertionError("Random and model universes disagree on labels")
+    audit_continuous_schedules(decisions, random, cooldown_days)
+    frontier = pd.read_csv(path / "frontier_decisions.csv.gz", parse_dates=["date"])
+    frontier_violations = continuous_cooldown_violations(frontier, cooldown_days)
+    if len(frontier_violations):
+        raise AssertionError("Continuous frontier cooldown violation")
     model_quotas = (
         selected.assign(month=selected["date"].dt.to_period("M").astype(str))
         .groupby(["outer_fold", "corridor", "month"], observed=True)
@@ -121,5 +150,5 @@ def audit_result_bundle(path: Path) -> dict[str, object]:
         "outer_rows": len(scores),
         "signals": len(selected),
         "random_rows": len(random),
-        "checks": 10,
+        "checks": 12,
     }

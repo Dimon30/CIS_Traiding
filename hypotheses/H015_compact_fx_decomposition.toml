@@ -1,5 +1,6 @@
 id = "H015_compact_fx_decomposition"
-status = "implemented_pending_run"
+status = "completed_rejected_alternative"
+result_bundle = "results/experiments/20260906_h015_temporal_v3_implied_usd_rf"
 statement = "A compact point-in-time USD/local-currency decomposition improves the selected model."
 corridors = ["TJS", "UZS", "KGS", "AMD", "KZT"]
 horizons_days = [3]

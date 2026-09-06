@@ -1,0 +1,122 @@
+{
+  "status": "CRITERION_NOT_MET",
+  "selected_run_id": "20260905_wave0_temporal_v3_baseline",
+  "model": "random_forest",
+  "feature_sets": [
+    "full_market_with_fx"
+  ],
+  "aggregate": {
+    "lift": 1.2143072501611238,
+    "signal_hit_rate": 0.8474903474903475,
+    "matched_random_hit_rate": 0.6979208494208494,
+    "signals_per_week": 0.4260869565217391,
+    "mean_regret_bps": 23.428301009136486,
+    "p90_regret_bps": 70.47927104741001,
+    "probability_lift_ge_1_3": 0.012
+  },
+  "full_outer_year_lifts": {
+    "2022": 1.5799079295034186,
+    "2023": 1.1865644395764878,
+    "2024": 1.127848162576199,
+    "2025": 1.2798221176531424
+  },
+  "candidate_gates": {
+    "catboost": {
+      "accepted": false,
+      "checks": {
+        "paired_probability_hit_rate_improves": false,
+        "paired_probability_mean_regret_decreases": false,
+        "active_cell_loss_within_two": true,
+        "every_full_outer_year_active": true,
+        "common_count_frontier_majority": true
+      },
+      "p_delta_hit_rate_gt_zero": 0.0118,
+      "p_delta_mean_regret_bps_lt_zero": 0.0174,
+      "delta_hit_rate": -0.0544396892218701,
+      "delta_mean_regret_bps": 12.402647909481574,
+      "active_cell_loss": -1,
+      "active_cells": 25,
+      "active_cells_by_year": {
+        "2022": 5,
+        "2023": 5,
+        "2024": 5,
+        "2025": 5,
+        "2026": 5
+      },
+      "frontier_wins": 122,
+      "frontier_active_points": 238,
+      "full_year_hit_rate_deltas": {
+        "2022": -0.40625,
+        "2023": -0.01958374303507049,
+        "2024": -0.012494050452165562,
+        "2025": -0.053448275862068906
+      },
+      "positive_full_years": 0
+    },
+    "h015": {
+      "accepted": false,
+      "checks": {
+        "paired_probability_hit_rate_improves": false,
+        "paired_probability_mean_regret_decreases": false,
+        "active_cell_loss_within_two": false,
+        "every_full_outer_year_active": true,
+        "positive_hit_rate_delta_in_three_full_years": false
+      },
+      "p_delta_hit_rate_gt_zero": 0.049,
+      "p_delta_mean_regret_bps_lt_zero": 0.1966,
+      "delta_hit_rate": -0.0210304492434908,
+      "delta_mean_regret_bps": 1.6120312655311666,
+      "active_cell_loss": 3,
+      "active_cells": 21,
+      "active_cells_by_year": {
+        "2022": 1,
+        "2023": 5,
+        "2024": 5,
+        "2025": 5,
+        "2026": 5
+      },
+      "frontier_wins": 103,
+      "frontier_active_points": 233,
+      "full_year_hit_rate_deltas": {
+        "2022": 0.09375,
+        "2023": 0.007801108194809059,
+        "2024": -0.04163843547890356,
+        "2025": -0.03735632183908044
+      },
+      "positive_full_years": 2
+    }
+  },
+  "audits": {
+    "rf_baseline": {
+      "status": "pass",
+      "run_id": "20260905_wave0_temporal_v3_baseline",
+      "outer_rows": 5741,
+      "signals": 518,
+      "random_rows": 1036000,
+      "checks": 10
+    },
+    "catboost": {
+      "status": "pass",
+      "run_id": "20260905_h013_temporal_v3_catboost_control",
+      "outer_rows": 5741,
+      "signals": 526,
+      "random_rows": 1052000,
+      "checks": 10
+    },
+    "h015": {
+      "status": "pass",
+      "run_id": "20260906_h015_temporal_v3_implied_usd_rf",
+      "outer_rows": 5741,
+      "signals": 439,
+      "random_rows": 878000,
+      "checks": 10
+    }
+  },
+  "canonical_eligible": true,
+  "stop_program": true,
+  "reasons": [
+    "CatBoost rejected: at least one preregistered gate failed.",
+    "H015 rejected: at least one preregistered gate failed.",
+    "Final aggregate lift is 1.214."
+  ]
+}

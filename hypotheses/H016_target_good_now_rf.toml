@@ -1,0 +1,19 @@
+id = "H016_target_good_now_rf"
+status = "smoke_completed_rejected_alternative"
+result_bundle = "tmp/h016_target_good_now_rf_smoke_20260906"
+statement = "The selected pooled Random Forest can identify locally attractive dates when trained on target_good_now instead of the permissive future-safety target."
+corridors = ["TJS", "UZS", "KGS", "AMD", "KZT"]
+horizons_days = [3]
+primary_horizon_days = 3
+target = "target_good_now"
+feature_sets = ["full_market_with_fx"]
+models = ["random_forest"]
+strategies = ["pooled_with_corridor_thresholds"]
+baseline = "20260905_wave0_temporal_v3_baseline"
+evaluation_protocol = "temporal_v3"
+
+[acceptance]
+minimum_aggregate_lift = 1.3
+minimum_signals_per_week = 0.8
+require_all_full_outer_years_active = true
+preserve_future_safety_as_secondary_metric = true

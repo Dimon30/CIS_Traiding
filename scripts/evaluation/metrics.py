@@ -138,6 +138,11 @@ def aggregate_signal_metrics(cells: pd.DataFrame) -> dict[str, float | int]:
     )
     signals = int(cells["signals"].sum())
     hits = int(cells["signal_hits"].sum())
+    active_rates = pd.to_numeric(
+        cells.loc[cells["signals"].gt(0), "matched_random_hit_rate"], errors="coerce"
+    )
+    if (~np.isfinite(active_rates) | ~active_rates.between(0, 1)).any():
+        raise ValueError("Active cell requires a finite random rate in [0,1]")
     expected_random_hits = float(
         (cells["matched_random_hit_rate"].fillna(0) * cells["signals"]).sum()
     )

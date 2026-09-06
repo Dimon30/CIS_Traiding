@@ -142,6 +142,8 @@ def stratum_values(frame: pd.DataFrame, mode: str) -> pd.Series:
     month = dates.dt.strftime("%Y-%m")
     if mode == "calendar_month":
         return month
+    if mode == "calendar_month_weekday":
+        return month + "|weekday=" + dates.dt.dayofweek.astype(str)
     if mode == "month_update_gap":
         require_columns(frame, ["eligible_gap_days"], "update-gap random universe")
         gap = pd.to_numeric(frame["eligible_gap_days"], errors="coerce")
@@ -221,6 +223,10 @@ def draw_metrics(draws: Iterable[pd.DataFrame]) -> pd.DataFrame:
                     float(draw["future_regret_bps"].mean())
                     if count and "future_regret_bps" in draw
                     else np.nan
+                ),
+                "future_regret_bps_p90": (
+                    float(draw["future_regret_bps"].quantile(0.9))
+                    if count and "future_regret_bps" in draw else np.nan
                 ),
             }
         )

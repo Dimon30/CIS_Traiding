@@ -1,0 +1,31 @@
+id = "H017_attractiveness_gate_rf"
+status = "smoke_completed_rejected_alternative"
+result_bundle = "results/experiments/20260906_h017_weekly_v4_smoke_04"
+statement = "A fixed causal 28-day/50-bp gate plus future-safety RF can sustain useful weekly delivery."
+corridors = ["TJS", "UZS", "KGS", "AMD", "KZT"]
+horizons_days = [3]
+primary_horizon_days = 3
+target = "message_hit"
+feature_sets = ["full_market_with_fx"]
+models = ["random_forest"]
+strategies = ["pooled_with_corridor_thresholds"]
+baseline = "20260905_wave0_temporal_v3_baseline"
+evaluation_protocol = "temporal_v3"
+evaluation_config = "configs/evaluation_weekly_v4.toml"
+
+[acceptance]
+minimum_signals_per_week = 0.8
+maximum_signals_per_week = 1.0
+require_every_full_outer_year_active = true
+maximum_median_gap_days = 10
+maximum_p90_gap_days = 14
+maximum_silence_days = 28
+minimum_active_week_share = 0.70
+minimum_safety = 0.75
+maximum_mean_regret_bps = 40
+maximum_p90_regret_bps = 100
+minimum_control_delta_safety = -0.05
+maximum_control_delta_mean_regret_bps = 10
+maximum_control_delta_p90_regret_bps = 25
+require_positive_conditional_delta = true
+require_untouched_holdout_for_confirmation = true
