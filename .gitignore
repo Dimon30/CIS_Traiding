@@ -3,6 +3,8 @@
 .idea/
 .venv/
 **/node_modules/
+fx-push-demo/dist/
+fx-push-demo/verification/
 __pycache__/
 *.py[cod]
 .pytest_cache/

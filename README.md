@@ -68,6 +68,14 @@ uv run python scripts/run_experiment.py --help
 
 Готовые результаты для знакомства с проектом находятся в `results/`; команды выше позволяют проверить окружение и основные точки входа.
 
+Интерактивное демо запускается отдельно:
+
+```powershell
+cd fx-push-demo
+npm install
+npm run dev
+```
+
 ## Где что лежит
 
 | Путь | Содержание |
@@ -77,6 +85,7 @@ uv run python scripts/run_experiment.py --help
 | `scripts/` | сборка данных, обучение и оценка |
 | `configs/`, `hypotheses/` | параметры воспроизводимых запусков |
 | `tests/` | проверки критичной логики |
+| `fx-push-demo/` | интерактивный сценарий сигнала и перевода |
 | `results/experiments/` | артефакты отдельных экспериментов |
 | `results/alternative_solutions/` | завершённые сравнения альтернатив |
 
