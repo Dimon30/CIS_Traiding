@@ -29,7 +29,8 @@ export type SignalCalendarDay = {
   dayOfMonth: number
   isFuture: boolean
   isExpired: boolean
-  ageDays: number
+  notificationTimeLabel: string
+  courseStatus: "same" | "worse"
   decisions: ModelSignalDecision[]
   scenario?: NotificationScenario
 }
@@ -72,16 +73,39 @@ const dateFormatter = new Intl.DateTimeFormat("ru-RU", {
 const monthFormatter = new Intl.DateTimeFormat("ru-RU", { month: "long", year: "numeric" })
 const preferredDefaultMonthKey = "2025-10"
 
-function scenarioFor(decision: ModelSignalDecision): NotificationScenario {
+const demoSchedule: Record<string, string[]> = {
+  "2025-09": ["2025-09-02", "2025-09-19"],
+  "2025-10": ["2025-10-04", "2025-10-09", "2025-10-22"],
+  "2025-11": ["2025-11-06", "2025-11-18"],
+}
+
+const demoMeta: Record<string, { notificationTimeLabel: string; courseStatus: "same" | "worse" }> = {
+  "2025-09-02": { notificationTimeLabel: "5 ч. назад", courseStatus: "same" },
+  "2025-09-19": { notificationTimeLabel: "сейчас", courseStatus: "worse" },
+  "2025-10-04": { notificationTimeLabel: "5 ч. назад", courseStatus: "same" },
+  "2025-10-09": { notificationTimeLabel: "сейчас", courseStatus: "worse" },
+  "2025-10-22": { notificationTimeLabel: "сейчас", courseStatus: "same" },
+  "2025-11-06": { notificationTimeLabel: "5 ч. назад", courseStatus: "worse" },
+  "2025-11-18": { notificationTimeLabel: "сейчас", courseStatus: "same" },
+}
+
+const demoText: Record<string, { title: string; body: string }> = {
+  "2025-10-04": { title: "Курс заметно выгоднее", body: "Сейчас за ту же сумму получатель получит больше валюты. Можно отправить перевод без ожидания." },
+  "2025-10-09": { title: "Хороший момент для перевода", body: "Модель нашла спокойное окно для перевода. Проверьте сумму и отправьте, когда удобно." },
+  "2025-10-22": { title: "Выгодный курс для перевода", body: "Курс держится в привлекательном диапазоне — получатель получит больше за те же рубли." },
+}
+
+function scenarioFor(decision: ModelSignalDecision, date: string): NotificationScenario {
   const prepared = notificationScenarios.find((scenario) => scenario.countryCode === decision.countryCode)
-  if (prepared) return prepared
+  if (prepared && !demoText[date]) return prepared
 
   const country = getCountry(decision.countryCode)
-  return {
+  const fallback = {
     countryCode: decision.countryCode,
     title: "Выгодный момент для перевода",
     body: `Модель отметила подходящий момент для перевода в ${country.destination}`,
   }
+  return demoText[date] ? { ...fallback, ...demoText[date] } : fallback
 }
 
 function toIsoDate(date: Date) {
@@ -181,23 +205,24 @@ export function createSignalCalendar(payload: ModelSignalExport, monthCount = 3)
   for (let index = 0; index < monthCount; index += 1) {
     const key = monthKey(monthStart(displayEndMonth, index - (monthCount - 1)))
     const quota = index === centerIndex ? 3 : 2
-    const selectedDates = selectSpread(signalDates.filter((date) => date.startsWith(key)), quota)
-    for (const date of selectedDates) signalsByDate.set(date, allSignalsByDate.get(date) ?? [])
+    const sourceDates = selectSpread(signalDates.filter((date) => date.startsWith(key)), quota)
+    const displayDates = demoSchedule[key] ?? sourceDates
+    displayDates.forEach((displayDate, displayIndex) => {
+      const sourceDate = sourceDates[displayIndex % Math.max(1, sourceDates.length)]
+      const decisions = (allSignalsByDate.get(sourceDate) ?? []).map((decision) => ({ ...decision, date: displayDate }))
+      signalsByDate.set(displayDate, decisions)
+    })
   }
 
   const startDate = monthStart(displayEndMonth, -(monthCount - 1))
   const endDate = new Date(displayEndMonth.getFullYear(), displayEndMonth.getMonth() + 1, 0, 12)
-  const latestSignalByMonth = new Map<string, Date>()
-  for (const date of [...signalsByDate.keys()].sort()) latestSignalByMonth.set(date.slice(0, 7), parseDate(date))
-
   const days: SignalCalendarDay[] = []
   for (const cursor = new Date(startDate); cursor <= endDate; cursor.setDate(cursor.getDate() + 1)) {
     const isoDate = toIsoDate(cursor)
     const decisions = [...(signalsByDate.get(isoDate) ?? [])].sort(
       (left, right) => right.priority - left.priority || left.corridor.localeCompare(right.corridor),
     )
-    const monthLatestSignal = latestSignalByMonth.get(isoDate.slice(0, 7)) ?? cursor
-    const ageDays = Math.max(0, Math.round((monthLatestSignal.getTime() - cursor.getTime()) / 86_400_000))
+    const meta = demoMeta[isoDate]
     days.push({
       isoDate,
       label: dateFormatter.format(cursor),
@@ -205,10 +230,11 @@ export function createSignalCalendar(payload: ModelSignalExport, monthCount = 3)
       monthLabel: monthFormatter.format(cursor),
       dayOfMonth: cursor.getDate(),
       isFuture: false,
-      isExpired: decisions.length > 0 && ageDays > payload.source.horizonDays,
-      ageDays,
+      isExpired: Boolean(meta && meta.notificationTimeLabel !== "сейчас"),
+      notificationTimeLabel: meta?.notificationTimeLabel ?? "сейчас",
+      courseStatus: meta?.courseStatus ?? "same",
       decisions,
-      scenario: decisions.length > 0 ? scenarioFor(decisions[0]) : undefined,
+      scenario: decisions.length > 0 ? scenarioFor(decisions[0], isoDate) : undefined,
     })
   }
 
@@ -224,4 +250,15 @@ export async function loadSignalCalendar(): Promise<SignalCalendarDataset> {
   const response = await fetch(url)
   if (!response.ok) throw new Error(`Не удалось загрузить ${url}: HTTP ${response.status}`)
   return createSignalCalendar(readExport(await response.json()))
+}
+
+export async function loadCourseStatus(): Promise<"same" | "worse"> {
+  const url = `${import.meta.env.BASE_URL}course-status.json`
+  const response = await fetch(url)
+  if (!response.ok) throw new Error(`Не удалось загрузить ${url}: HTTP ${response.status}`)
+  const payload: unknown = await response.json()
+  if (!isRecord(payload) || (payload.courseStatus !== "same" && payload.courseStatus !== "worse")) {
+    throw new Error("Некорректный ответ проверки курса")
+  }
+  return payload.courseStatus
 }

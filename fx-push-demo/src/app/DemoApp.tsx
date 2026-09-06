@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 
 import { getCountry, notificationScenarios, type CountryCode } from "@/app/demo-data"
 import {
+  loadCourseStatus,
   loadSignalCalendar,
   type NotificationScenario,
   type SignalCalendarDay,
@@ -32,8 +33,8 @@ export function DemoApp() {
   const [calendarSource, setCalendarSource] = useState<SignalCalendarSource>()
   const [calendarError, setCalendarError] = useState<string>()
   const [selectedSignalDate, setSelectedSignalDate] = useState<string>()
-  const [signalExpired, setSignalExpired] = useState(false)
-  const [signalAgeDays, setSignalAgeDays] = useState(0)
+  const [notificationTimeLabel, setNotificationTimeLabel] = useState("сейчас")
+  const [courseStatus, setCourseStatus] = useState<"same" | "worse">("same")
   const [countryCode, setCountryCode] = useState<CountryCode>("TJ")
   const [transferOrigin, setTransferOrigin] = useState<TransferOrigin>("push")
   const [navigationDirection, setNavigationDirection] = useState<NavigationDirection>("forward")
@@ -42,8 +43,8 @@ export function DemoApp() {
 
   useEffect(() => {
     let cancelled = false
-    loadSignalCalendar()
-      .then((dataset) => {
+    Promise.all([loadSignalCalendar(), loadCourseStatus()])
+      .then(([dataset, backendStatus]) => {
         if (cancelled) return
         setCalendarDays(dataset.days)
         setCalendarSource(dataset.source)
@@ -54,12 +55,13 @@ export function DemoApp() {
             break
           }
         }
+        setCourseStatus(backendStatus)
         if (latestSignalDay?.scenario) {
           setScenario(latestSignalDay.scenario)
           setNotificationScheduled(true)
           setSelectedSignalDate(latestSignalDay.isoDate)
-          setSignalExpired(latestSignalDay.isExpired)
-          setSignalAgeDays(latestSignalDay.ageDays)
+          setNotificationTimeLabel(latestSignalDay.notificationTimeLabel)
+          setCourseStatus(latestSignalDay.courseStatus)
         }
       })
       .catch((error: unknown) => {
@@ -84,8 +86,7 @@ export function DemoApp() {
     setNotificationScheduled(false)
     setScenarioRevision((current) => current + 1)
     setSelectedSignalDate(undefined)
-    setSignalExpired(false)
-    setSignalAgeDays(0)
+    setNotificationTimeLabel("сейчас")
     setScreen("lock")
     setTransferOrigin("push")
   }
@@ -97,8 +98,8 @@ export function DemoApp() {
     setNotificationScheduled(Boolean(day.scenario))
     setScenarioRevision((current) => current + 1)
     setSelectedSignalDate(day.isoDate)
-    setSignalExpired(day.isExpired)
-    setSignalAgeDays(day.ageDays)
+    setNotificationTimeLabel(day.notificationTimeLabel)
+    setCourseStatus(day.courseStatus)
     setTransferOrigin("push")
     setNavigationDirection("forward")
     setScreen("lock")
@@ -145,7 +146,7 @@ export function DemoApp() {
                   notificationVisible={notificationVisible}
                   notificationRevealed={notificationRevealed}
                   scenario={scenario}
-                  notificationAgeDays={signalAgeDays}
+                  notificationTimeLabel={notificationTimeLabel}
                   onReveal={setNotificationRevealed}
                   onOpen={openNotification}
                 />
@@ -170,7 +171,7 @@ export function DemoApp() {
                   country={country}
                   signalText={scenario.body}
                   openedFromPush
-                  signalExpired={signalExpired}
+                  courseStatus={courseStatus}
                   onBack={backFromTransfer}
                   onHome={openHome}
                 />
@@ -183,7 +184,7 @@ export function DemoApp() {
                   country={country}
                   signalText={scenario.body}
                   openedFromPush={false}
-                  signalExpired={false}
+                  courseStatus="same"
                   onBack={backFromTransfer}
                   onHome={openHome}
                 />

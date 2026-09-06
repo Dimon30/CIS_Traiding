@@ -13,7 +13,7 @@ type LockScreenProps = {
     title: string
     body: string
   }
-  notificationAgeDays: number
+  notificationTimeLabel: string
   onReveal: (revealed: boolean) => void
   onOpen: () => void
 }
@@ -22,7 +22,7 @@ export function LockScreen({
   notificationVisible,
   notificationRevealed,
   scenario,
-  notificationAgeDays,
+  notificationTimeLabel,
   onReveal,
   onOpen,
 }: LockScreenProps) {
@@ -45,7 +45,7 @@ export function LockScreen({
         {notificationVisible && (
           <PushNotification
             scenario={scenario}
-            ageDays={notificationAgeDays}
+            timeLabel={notificationTimeLabel}
             revealed={notificationRevealed}
             onReveal={onReveal}
             onOpen={onOpen}

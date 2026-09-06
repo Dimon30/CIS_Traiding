@@ -12,13 +12,13 @@ type NotificationScenario = {
 
 type PushNotificationProps = {
   scenario: NotificationScenario
-  ageDays: number
+  timeLabel: string
   revealed: boolean
   onReveal: (revealed: boolean) => void
   onOpen: () => void
 }
 
-export function PushNotification({ scenario, ageDays, revealed, onReveal, onOpen }: PushNotificationProps) {
+export function PushNotification({ scenario, timeLabel, revealed, onReveal, onOpen }: PushNotificationProps) {
   const reducedMotion = useReducedMotion()
   const dragged = useRef(false)
 
@@ -66,7 +66,7 @@ export function PushNotification({ scenario, ageDays, revealed, onReveal, onOpen
         <div className="flex items-center gap-2">
           <BrandMark compact />
           <span className="text-[12px] font-semibold">Альфа-Банк</span>
-          <span className="ml-auto text-[11px] text-black/45">{ageDays > 0 ? `${ageDays} дн. назад` : "сейчас"}</span>
+          <span className="ml-auto text-[11px] text-black/45">{timeLabel}</span>
         </div>
         <strong className="mt-1.5 block text-[14px] font-semibold leading-tight tracking-[-0.015em]">
           {scenario.title}
