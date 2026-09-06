@@ -21,19 +21,19 @@ class RunBacktestTest(unittest.TestCase):
                 "score": [0.9, 0.8, 0.7],
             }
         )
-        selected = apply_cooldown(frame, threshold=0.5, cooldown_days=4)
+        selected = apply_cooldown(frame, threshold=0.5, cooldown_days=3)
         self.assertEqual(selected["date"].dt.strftime("%Y-%m-%d").tolist(), ["2026-01-01", "2026-01-06"])
 
     def test_random_schedule_respects_cooldown(self) -> None:
         dates = pd.Series(pd.date_range(datetime(2026, 1, 1), periods=30, freq="D"))
-        selected = random_schedule_indices(dates, 5, 4, np.random.default_rng(42))
+        selected = random_schedule_indices(dates, 5, 3, np.random.default_rng(42))
         chosen = sorted(dates.iloc[selected].tolist())
         self.assertEqual(len(chosen), 5)
-        self.assertTrue(all((right - left).days > 4 for left, right in zip(chosen, chosen[1:])))
+        self.assertTrue(all((right - left).days > 3 for left, right in zip(chosen, chosen[1:])))
 
     def test_random_schedule_returns_requested_count(self) -> None:
         dates = pd.Series(pd.date_range(datetime(2026, 1, 1), periods=365, freq="D"))
-        selected = random_schedule_indices(dates, 50, 4, np.random.default_rng(7))
+        selected = random_schedule_indices(dates, 50, 3, np.random.default_rng(7))
         self.assertEqual(len(selected), 50)
 
     def test_random_schedule_counts_all_feasible_combinations(self) -> None:

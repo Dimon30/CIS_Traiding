@@ -47,7 +47,7 @@ def signal_metrics(
     exposure_end_exclusive: pd.Timestamp,
     random_hit_rate: float = np.nan,
     random_mcse: float = np.nan,
-    cooldown_days: int = 4,
+    cooldown_days: int = 3,
 ) -> dict[str, float | int]:
     require_columns(
         decisions,

@@ -80,7 +80,7 @@ class MetricsContractV3Test(unittest.TestCase):
             decisions,
             exposure_start=pd.Timestamp("2025-01-01"),
             exposure_end_exclusive=pd.Timestamp("2025-02-01"),
-            cooldown_days=4,
+            cooldown_days=3,
         )
         self.assertEqual(permissive["cooldown_violations"], 0)
         self.assertEqual(strict["cooldown_violations"], 1)

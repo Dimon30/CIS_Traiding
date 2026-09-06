@@ -19,7 +19,7 @@ include_partial_last_fold = true
 method = "identity"
 
 [policy]
-cooldown_days = 4
+cooldown_days = 3
 minimum_policy_signals = 12
 hard_min_signals_per_week = "none"
 hard_max_signals_per_week = 1.4

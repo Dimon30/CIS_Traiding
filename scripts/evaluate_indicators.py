@@ -29,7 +29,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--horizons", default=",".join(map(str, DEFAULT_HORIZONS)))
     parser.add_argument("--epsilon-bps", type=int, default=50)
     parser.add_argument("--first-test-year", type=int, default=2022)
-    parser.add_argument("--cooldown-days", type=int, default=4)
+    parser.add_argument("--cooldown-days", type=int, default=3)
     parser.add_argument("--random-repeats", type=int, default=300)
     parser.add_argument("--seed", type=int, default=142)
     return parser.parse_args()

@@ -58,8 +58,8 @@ class RandomBaselineV3Test(unittest.TestCase):
         quotas = tuple(sorted(schedule_quotas(schedule, "calendar_month").items()))
         key = RandomDrawKey("universe", "RUB_TJS", "outer_2025", "calendar_month", quotas)
         bank = RandomDrawBank(42)
-        left = bank.draw(universe, key, draw_id=7, cooldown_days=4)
-        right = bank.draw(universe, key, draw_id=7, cooldown_days=4)
+        left = bank.draw(universe, key, draw_id=7, cooldown_days=3)
+        right = bank.draw(universe, key, draw_id=7, cooldown_days=3)
         self.assertEqual(left["date"].tolist(), right["date"].tolist())
         self.assertEqual(schedule_quotas(left, "calendar_month"), dict(quotas))
 
@@ -77,8 +77,8 @@ class RandomBaselineV3Test(unittest.TestCase):
         )
         bank = RandomDrawBank(42)
         bank.draw(universe, key, draw_id=1, cooldown_days=2)
-        strict = bank.draw(universe, key, draw_id=1, cooldown_days=4)
-        self.assertTrue(strict["date"].sort_values().diff().dt.days.dropna().gt(4).all())
+        strict = bank.draw(universe, key, draw_id=1, cooldown_days=3)
+        self.assertTrue(strict["date"].sort_values().diff().dt.days.dropna().gt(3).all())
 
     def test_draw_bank_bounds_sampler_cache(self) -> None:
         universe = pd.DataFrame(
@@ -98,7 +98,7 @@ class RandomBaselineV3Test(unittest.TestCase):
                 "fold_count_only",
                 (("ALL", count),),
             )
-            bank.draw(universe, key, draw_id=1, cooldown_days=4)
+            bank.draw(universe, key, draw_id=1, cooldown_days=3)
         self.assertLessEqual(len(bank._samplers), 2)
 
     def test_update_gap_strata_are_explicit(self) -> None:

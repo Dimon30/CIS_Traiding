@@ -74,7 +74,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--horizons", default=",".join(map(str, DEFAULT_HORIZONS)))
     parser.add_argument("--epsilon-bps", type=int, default=50)
     parser.add_argument("--first-test-year", type=int, default=2022)
-    parser.add_argument("--cooldown-days", type=int, default=4)
+    parser.add_argument("--cooldown-days", type=int, default=3)
     parser.add_argument("--min-validation-signals", type=int, default=12)
     parser.add_argument("--max-signals-per-week", type=float, default=2.0)
     parser.add_argument("--random-repeats", type=int, default=500)
