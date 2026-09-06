@@ -49,7 +49,7 @@ export function DemoApp() {
         setCalendarSource(dataset.source)
         let latestSignalDay: SignalCalendarDay | undefined
         for (let index = dataset.days.length - 1; index >= 0; index -= 1) {
-          if (dataset.days[index].scenario) {
+          if (dataset.days[index].monthKey === dataset.defaultMonthKey && dataset.days[index].scenario) {
             latestSignalDay = dataset.days[index]
             break
           }

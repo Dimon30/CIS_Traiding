@@ -48,6 +48,7 @@ export type SignalCalendarSource = {
 export type SignalCalendarDataset = {
   days: SignalCalendarDay[]
   source: SignalCalendarSource
+  defaultMonthKey: string
 }
 
 type ModelSignalExport = {
@@ -69,6 +70,7 @@ const dateFormatter = new Intl.DateTimeFormat("ru-RU", {
 })
 
 const monthFormatter = new Intl.DateTimeFormat("ru-RU", { month: "long", year: "numeric" })
+const preferredDefaultMonthKey = "2025-10"
 
 function scenarioFor(decision: ModelSignalDecision): NotificationScenario {
   const prepared = notificationScenarios.find((scenario) => scenario.countryCode === decision.countryCode)
@@ -156,14 +158,20 @@ export function createSignalCalendar(payload: ModelSignalExport, monthCount = 3)
   }
 
   const signalDates = [...allSignalsByDate.keys()].sort()
-  let displayEndMonth = monthStart(coverageEnd)
-  for (let candidate = monthStart(coverageEnd); candidate >= monthStart(coverageStart); candidate = monthStart(candidate, -1)) {
-    const quotasSatisfied = Array.from({ length: monthCount }, (_, index) => {
-      const key = monthKey(monthStart(candidate, index - (monthCount - 1)))
-      const quota = index === monthCount - 1 ? 3 : 2
-      return signalDates.filter((date) => date.startsWith(key)).length >= quota
-    }).every(Boolean)
-    if (quotasSatisfied) {
+  const centerIndex = Math.floor(monthCount / 2)
+  const windowSatisfiesQuotas = (endMonth: Date) => Array.from({ length: monthCount }, (_, index) => {
+    const key = monthKey(monthStart(endMonth, index - (monthCount - 1)))
+    const quota = index === centerIndex ? 3 : 2
+    return signalDates.filter((date) => date.startsWith(key)).length >= quota
+  }).every(Boolean)
+
+  const preferredDefaultMonth = parseDate(`${preferredDefaultMonthKey}-01`)
+  let displayEndMonth = monthStart(preferredDefaultMonth, monthCount - centerIndex - 1)
+  if (!windowSatisfiesQuotas(displayEndMonth)) {
+    displayEndMonth = monthStart(coverageEnd)
+  }
+  for (let candidate = displayEndMonth; !windowSatisfiesQuotas(displayEndMonth) && candidate >= monthStart(coverageStart); candidate = monthStart(candidate, -1)) {
+    if (windowSatisfiesQuotas(candidate)) {
       displayEndMonth = candidate
       break
     }
@@ -172,14 +180,15 @@ export function createSignalCalendar(payload: ModelSignalExport, monthCount = 3)
   const signalsByDate = new Map<string, ModelSignalDecision[]>()
   for (let index = 0; index < monthCount; index += 1) {
     const key = monthKey(monthStart(displayEndMonth, index - (monthCount - 1)))
-    const quota = index === monthCount - 1 ? 3 : 2
+    const quota = index === centerIndex ? 3 : 2
     const selectedDates = selectSpread(signalDates.filter((date) => date.startsWith(key)), quota)
     for (const date of selectedDates) signalsByDate.set(date, allSignalsByDate.get(date) ?? [])
   }
 
   const startDate = monthStart(displayEndMonth, -(monthCount - 1))
   const endDate = new Date(displayEndMonth.getFullYear(), displayEndMonth.getMonth() + 1, 0, 12)
-  const latestSignalDate = parseDate([...signalsByDate.keys()].sort().at(-1) ?? toIsoDate(endDate))
+  const latestSignalByMonth = new Map<string, Date>()
+  for (const date of [...signalsByDate.keys()].sort()) latestSignalByMonth.set(date.slice(0, 7), parseDate(date))
 
   const days: SignalCalendarDay[] = []
   for (const cursor = new Date(startDate); cursor <= endDate; cursor.setDate(cursor.getDate() + 1)) {
@@ -187,7 +196,8 @@ export function createSignalCalendar(payload: ModelSignalExport, monthCount = 3)
     const decisions = [...(signalsByDate.get(isoDate) ?? [])].sort(
       (left, right) => right.priority - left.priority || left.corridor.localeCompare(right.corridor),
     )
-    const ageDays = Math.max(0, Math.round((latestSignalDate.getTime() - cursor.getTime()) / 86_400_000))
+    const monthLatestSignal = latestSignalByMonth.get(isoDate.slice(0, 7)) ?? cursor
+    const ageDays = Math.max(0, Math.round((monthLatestSignal.getTime() - cursor.getTime()) / 86_400_000))
     days.push({
       isoDate,
       label: dateFormatter.format(cursor),
@@ -202,7 +212,11 @@ export function createSignalCalendar(payload: ModelSignalExport, monthCount = 3)
     })
   }
 
-  return { days, source: payload.source }
+  return {
+    days,
+    source: payload.source,
+    defaultMonthKey: monthKey(monthStart(displayEndMonth, centerIndex - (monthCount - 1))),
+  }
 }
 
 export async function loadSignalCalendar(): Promise<SignalCalendarDataset> {

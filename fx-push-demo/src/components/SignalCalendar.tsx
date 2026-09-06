@@ -26,7 +26,7 @@ export function SignalCalendar({ days, source, error, selectedDate, onSelect }: 
 
   const [activeMonthKey, setActiveMonthKey] = useState<string>()
   const requestedMonthIndex = months.findIndex((month) => month.key === activeMonthKey)
-  const activeMonthIndex = requestedMonthIndex >= 0 ? requestedMonthIndex : Math.max(0, months.length - 1)
+  const activeMonthIndex = requestedMonthIndex >= 0 ? requestedMonthIndex : Math.floor(months.length / 2)
   const activeMonth = months[activeMonthIndex]
   const monthDays = days.filter((day) => day.monthKey === activeMonth?.key)
   const firstWeekday = monthDays[0] ? (new Date(`${monthDays[0].isoDate}T12:00:00`).getDay() + 6) % 7 : 0
