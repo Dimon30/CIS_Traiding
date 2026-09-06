@@ -81,12 +81,12 @@ npm run dev
 | Путь | Содержание |
 |---|---|
 | `PRODUCT_CONTRACT.md` | точное определение продукта, target и критериев качества |
-| `CURRENT_STATE.md` | короткий статус решения и экспериментов |
 | `scripts/` | сборка данных, обучение и оценка |
 | `configs/`, `hypotheses/` | параметры воспроизводимых запусков |
 | `tests/` | проверки критичной логики |
 | `fx-push-demo/` | интерактивный сценарий сигнала и перевода |
 | `results/experiments/` | артефакты отдельных экспериментов |
 | `results/alternative_solutions/` | завершённые сравнения альтернатив |
+| `deliverables/review/` | финальные Markdown-материалы для загрузки на ревью |
 
-Для технического погружения: [продуктовый контракт](PRODUCT_CONTRACT.md), [текущее состояние](CURRENT_STATE.md) и [архитектура экспериментов](PROJECT_STRUCTURE.md).
+Для технического погружения: [продуктовый контракт](PRODUCT_CONTRACT.md), [архитектура экспериментов](PROJECT_STRUCTURE.md) и [результаты выбранного запуска](results/experiments/20260905_wave0_temporal_v3_baseline/RESULTS.md).

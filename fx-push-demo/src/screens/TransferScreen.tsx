@@ -18,14 +18,14 @@ import { HomeIndicator, StatusBar } from "@/components/StatusBar"
 
 type TransferScreenProps = {
   country: Country
-  signalText: string
+  bannerText: string
   openedFromPush: boolean
-  courseStatus: "same" | "worse"
+  isSignalFresh: boolean
   onBack: () => void
   onHome: () => void
 }
 
-export function TransferScreen({ country, signalText, openedFromPush, courseStatus, onBack, onHome }: TransferScreenProps) {
+export function TransferScreen({ country, bannerText, openedFromPush, isSignalFresh, onBack, onHome }: TransferScreenProps) {
   const [amount, setAmount] = useState(5000)
   const [recipient, setRecipient] = useState(country.lastRecipient)
   const [confirmed, setConfirmed] = useState(false)
@@ -76,7 +76,7 @@ export function TransferScreen({ country, signalText, openedFromPush, courseStat
 
         <p className="mt-3 px-1 text-[13px] text-[#85858b]">Зачисление происходит моментально</p>
 
-        {openedFromPush && courseStatus === "same" && (
+        {openedFromPush && isSignalFresh && (
           <section
             data-testid="active-signal"
             className="mt-5 rounded-[20px] border border-[#ef3124]/25 bg-[#291a1a] px-[15px] py-[13px] shadow-[inset_0_1px_0_rgba(255,255,255,.04)]"
@@ -87,7 +87,7 @@ export function TransferScreen({ country, signalText, openedFromPush, courseStat
               </span>
               <div>
                 <p className="text-[14px] font-semibold">Выгодный курс сохраняется</p>
-                <p className="mt-1 text-[12px] leading-[1.35] text-[#c7b9b9]">{signalText} Мы проверили курс при открытии — условия по-прежнему выглядят выгодно.</p>
+                <p className="mt-1 text-[12px] leading-[1.35] text-[#c7b9b9]">{bannerText}</p>
               </div>
             </div>
           </section>

@@ -27,7 +27,6 @@ Notebook не должен сам очищать данные, создават�
 ```text
 itmophack/
 ├── AGENTS.md                     # контекст и правила работы AI-агентов
-├── CURRENT_STATE.md              # основной flow, статусы и канонические результаты
 ├── PRODUCT_CONTRACT.md
 ├── PROJECT_STRUCTURE.md
 ├── README.md
@@ -72,7 +71,6 @@ itmophack/
 │   ├── experiments/              # immutable experiment bundles
 │   └── hypothesis_study/         # итоговый анализ и отчёт
 ├── deliverables/presentation/    # финальные PPTX/PDF и исходная версия
-├── docs/archive/                 # устаревшие материалы
 └── tests/
     └── test_*.py                 # labels, features, cooldown и baseline
 ```
@@ -379,7 +377,7 @@ baseline, equal-count RF control и решение acceptance. Старые bund
 
 Сборка dataset остаётся отдельным явным шагом через `scripts/build_dataset.py`.
 Краткая карта актуальных и вспомогательных частей находится в
-`CURRENT_STATE.md`.
+`results/experiments/20260905_wave0_temporal_v3_baseline/RESULTS.md`.
 
 ## Граница текущей реализации
 

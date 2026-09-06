@@ -7,7 +7,8 @@ import { BrandMark } from "@/components/BrandMark"
 type NotificationScenario = {
   countryCode: CountryCode
   title: string
-  body: string
+  pushText: string
+  bannerText: string
 }
 
 type PushNotificationProps = {
@@ -72,7 +73,7 @@ export function PushNotification({ scenario, timeLabel, revealed, onReveal, onOp
           {scenario.title}
         </strong>
         <span className="mt-0.5 line-clamp-2 text-[12px] leading-[1.25] text-black/75">
-          {scenario.body}
+          {scenario.pushText}
         </span>
       </motion.button>
     </motion.div>

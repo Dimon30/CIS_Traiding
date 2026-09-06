@@ -3,7 +3,6 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 
 import { getCountry, notificationScenarios, type CountryCode } from "@/app/demo-data"
 import {
-  loadCourseStatus,
   loadSignalCalendar,
   type NotificationScenario,
   type SignalCalendarDay,
@@ -34,7 +33,7 @@ export function DemoApp() {
   const [calendarError, setCalendarError] = useState<string>()
   const [selectedSignalDate, setSelectedSignalDate] = useState<string>()
   const [notificationTimeLabel, setNotificationTimeLabel] = useState("сейчас")
-  const [courseStatus, setCourseStatus] = useState<"same" | "worse">("same")
+  const [isSignalFresh, setIsSignalFresh] = useState(true)
   const [countryCode, setCountryCode] = useState<CountryCode>("TJ")
   const [transferOrigin, setTransferOrigin] = useState<TransferOrigin>("push")
   const [navigationDirection, setNavigationDirection] = useState<NavigationDirection>("forward")
@@ -43,8 +42,8 @@ export function DemoApp() {
 
   useEffect(() => {
     let cancelled = false
-    Promise.all([loadSignalCalendar(), loadCourseStatus()])
-      .then(([dataset, backendStatus]) => {
+    loadSignalCalendar()
+      .then((dataset) => {
         if (cancelled) return
         setCalendarDays(dataset.days)
         setCalendarSource(dataset.source)
@@ -55,13 +54,12 @@ export function DemoApp() {
             break
           }
         }
-        setCourseStatus(backendStatus)
         if (latestSignalDay?.scenario) {
           setScenario(latestSignalDay.scenario)
           setNotificationScheduled(true)
           setSelectedSignalDate(latestSignalDay.isoDate)
           setNotificationTimeLabel(latestSignalDay.notificationTimeLabel)
-          setCourseStatus(latestSignalDay.courseStatus)
+          setIsSignalFresh(!latestSignalDay.isExpired)
         }
       })
       .catch((error: unknown) => {
@@ -87,6 +85,7 @@ export function DemoApp() {
     setScenarioRevision((current) => current + 1)
     setSelectedSignalDate(undefined)
     setNotificationTimeLabel("сейчас")
+    setIsSignalFresh(true)
     setScreen("lock")
     setTransferOrigin("push")
   }
@@ -99,7 +98,7 @@ export function DemoApp() {
     setScenarioRevision((current) => current + 1)
     setSelectedSignalDate(day.isoDate)
     setNotificationTimeLabel(day.notificationTimeLabel)
-    setCourseStatus(day.courseStatus)
+    setIsSignalFresh(!day.isExpired)
     setTransferOrigin("push")
     setNavigationDirection("forward")
     setScreen("lock")
@@ -169,9 +168,9 @@ export function DemoApp() {
               <AppOpenSlide key={`transfer-${country.code}-push`} reducedMotion={Boolean(reducedMotion)}>
                 <TransferScreen
                   country={country}
-                  signalText={scenario.body}
+                  bannerText={scenario.bannerText}
                   openedFromPush
-                  courseStatus={courseStatus}
+                  isSignalFresh={isSignalFresh}
                   onBack={backFromTransfer}
                   onHome={openHome}
                 />
@@ -182,9 +181,9 @@ export function DemoApp() {
               <ScreenSlide key={`transfer-${country.code}-countries`} direction={navigationDirection}>
                 <TransferScreen
                   country={country}
-                  signalText={scenario.body}
+                  bannerText={scenario.bannerText}
                   openedFromPush={false}
-                  courseStatus="same"
+                  isSignalFresh={false}
                   onBack={backFromTransfer}
                   onHome={openHome}
                 />

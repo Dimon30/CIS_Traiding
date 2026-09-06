@@ -70,6 +70,7 @@ try {
   await notification.waitFor({ state: "visible", timeout: 5000 })
   const expectedSignalText = await notification.locator("span").last().innerText()
   assert(expectedSignalText.length > 0, "У загруженного сигнала нет демонстрационного текста")
+  assert(expectedSignalText.includes("среднего за октябрь"), "В тексте сравнения не указано название месяца")
   assert((await signalCalendar.getByText("настоящий OOT-сигнал", { exact: false }).count()) === 1, "Календарь не подтвердил загрузку OOT-сигналов")
   assert((await signalCalendar.getByText("20260905_wave0_temporal_v3_baseline", { exact: false }).count()) === 1, "Не показан источник model export")
   await capturePage("00-desktop-layout")
@@ -164,7 +165,8 @@ try {
   assert((await page.getByText("ч. назад", { exact: false }).count()) > 0, "У старого пуша не показано время")
   await oldNotification.click()
   await page.getByRole("button", { name: "Открыть", exact: true }).click()
-  await page.getByTestId("active-signal").waitFor({ state: "visible" })
+  await page.getByTestId("transfer-screen").waitFor({ state: "visible" })
+  assert((await page.getByTestId("active-signal").count()) === 0, "У просроченного пуша не должна показываться плашка с курсом")
   await page.waitForTimeout(650)
   await capturePage("08-expired-notification")
 

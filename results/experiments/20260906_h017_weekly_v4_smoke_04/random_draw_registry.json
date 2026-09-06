@@ -1,0 +1,20 @@
+{
+  "version": 4,
+  "draws": 50,
+  "seed": 42,
+  "primary_stratification": "calendar_month_weekday",
+  "sensitivity_stratifications": [
+    "calendar_month",
+    "month_update_gap"
+  ],
+  "outcome_ids": [
+    "conditional_message_hit_v2",
+    "future_safety_message_hit_v2",
+    "gate28_50_and_message_hit_v1"
+  ],
+  "universe_ids": [
+    "6c83e17844187e4f49485ed1:full",
+    "6c83e17844187e4f49485ed1:gate28_50"
+  ],
+  "continuous_cooldown": true
+}

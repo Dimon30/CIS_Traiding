@@ -11,7 +11,8 @@ type LockScreenProps = {
   scenario: {
     countryCode: CountryCode
     title: string
-    body: string
+    pushText: string
+    bannerText: string
   }
   notificationTimeLabel: string
   onReveal: (revealed: boolean) => void

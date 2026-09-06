@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "draws": 2000,
+  "seed": 42,
+  "primary_stratification": "calendar_month",
+  "sensitivity_stratifications": [
+    "fold_count_only",
+    "month_update_gap"
+  ],
+  "universe_id": "10d14213e118585ccaa286e9",
+  "aggregate_mcse": 0.00038650662743081537,
+  "maximum_aggregate_mcse": 0.005
+}

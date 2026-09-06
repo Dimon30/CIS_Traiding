@@ -3,7 +3,8 @@ import { getCountry, notificationScenarios, type CountryCode } from "@/app/demo-
 export type NotificationScenario = {
   countryCode: CountryCode
   title: string
-  body: string
+  pushText: string
+  bannerText: string
 }
 
 export type ModelSignalDecision = {
@@ -30,7 +31,6 @@ export type SignalCalendarDay = {
   isFuture: boolean
   isExpired: boolean
   notificationTimeLabel: string
-  courseStatus: "same" | "worse"
   decisions: ModelSignalDecision[]
   scenario?: NotificationScenario
 }
@@ -71,6 +71,7 @@ const dateFormatter = new Intl.DateTimeFormat("ru-RU", {
 })
 
 const monthFormatter = new Intl.DateTimeFormat("ru-RU", { month: "long", year: "numeric" })
+const monthNameFormatter = new Intl.DateTimeFormat("ru-RU", { month: "long" })
 const preferredDefaultMonthKey = "2025-10"
 
 const demoSchedule: Record<string, string[]> = {
@@ -79,33 +80,49 @@ const demoSchedule: Record<string, string[]> = {
   "2025-11": ["2025-11-06", "2025-11-18"],
 }
 
-const demoMeta: Record<string, { notificationTimeLabel: string; courseStatus: "same" | "worse" }> = {
-  "2025-09-02": { notificationTimeLabel: "5 ч. назад", courseStatus: "same" },
-  "2025-09-19": { notificationTimeLabel: "сейчас", courseStatus: "worse" },
-  "2025-10-04": { notificationTimeLabel: "5 ч. назад", courseStatus: "same" },
-  "2025-10-09": { notificationTimeLabel: "сейчас", courseStatus: "worse" },
-  "2025-10-22": { notificationTimeLabel: "сейчас", courseStatus: "same" },
-  "2025-11-06": { notificationTimeLabel: "5 ч. назад", courseStatus: "worse" },
-  "2025-11-18": { notificationTimeLabel: "сейчас", courseStatus: "same" },
+const demoMeta: Record<string, { notificationTimeLabel: string; isExpired: boolean }> = {
+  "2025-09-02": { notificationTimeLabel: "5 ч. назад", isExpired: true },
+  "2025-09-19": { notificationTimeLabel: "сейчас", isExpired: false },
+  "2025-10-04": { notificationTimeLabel: "6 ч. назад", isExpired: true },
+  "2025-10-09": { notificationTimeLabel: "сейчас", isExpired: false },
+  "2025-10-22": { notificationTimeLabel: "сейчас", isExpired: false },
+  "2025-11-06": { notificationTimeLabel: "5 ч. назад", isExpired: true },
+  "2025-11-18": { notificationTimeLabel: "сейчас", isExpired: false },
 }
 
-const demoText: Record<string, { title: string; body: string }> = {
-  "2025-10-04": { title: "Курс заметно выгоднее", body: "Сейчас за ту же сумму получатель получит больше валюты. Можно отправить перевод без ожидания." },
-  "2025-10-09": { title: "Хороший момент для перевода", body: "Модель нашла спокойное окно для перевода. Проверьте сумму и отправьте, когда удобно." },
-  "2025-10-22": { title: "Выгодный курс для перевода", body: "Курс держится в привлекательном диапазоне — получатель получит больше за те же рубли." },
+const demoText: Record<string, Omit<NotificationScenario, "countryCode">> = {
+  "2025-09-02": { title: "Выгодный курс для перевода", pushText: "Сейчас курс на 2,1% выгоднее среднего за последний месяц.", bannerText: "Сейчас курс на 2,1% выгоднее среднего за последний месяц. За последнюю неделю он стал выгоднее ещё на 0,7%." },
+  "2025-09-19": { title: "Курс становится выгоднее", pushText: "Курс становится выгоднее четвёртый день подряд.", bannerText: "Курс улучшается уже четвёртый день подряд. За это время он стал выгоднее на 1,2%." },
+  "2025-10-04": { title: "Выгодный курс для перевода", pushText: "Сейчас курс на 2,4% выгоднее среднего за последний месяц.", bannerText: "Сейчас курс на 2,4% выгоднее среднего за последний месяц. За последнюю неделю он стал выгоднее ещё на 0,8%." },
+  "2025-10-09": { title: "Курс становится выгоднее", pushText: "Курс становится выгоднее четвёртый день подряд.", bannerText: "Курс улучшается уже четвёртый день подряд. За это время он стал выгоднее на 1,4%." },
+  "2025-10-22": { title: "Выгодный курс для перевода", pushText: "Сейчас курс на 1,9% выгоднее среднего за последний месяц.", bannerText: "Сейчас курс на 1,9% выгоднее среднего за последний месяц. За последнюю неделю он стал выгоднее ещё на 0,6%." },
+  "2025-11-06": { title: "Курс становится выгоднее", pushText: "Курс становится выгоднее четвёртый день подряд.", bannerText: "Курс улучшается уже четвёртый день подряд. За это время он стал выгоднее на 1,1%." },
+  "2025-11-18": { title: "Выгодный курс для перевода", pushText: "Сейчас курс на 2,3% выгоднее среднего за последний месяц.", bannerText: "Сейчас курс на 2,3% выгоднее среднего за последний месяц. За последнюю неделю он стал выгоднее ещё на 0,7%." },
 }
 
 function scenarioFor(decision: ModelSignalDecision, date: string): NotificationScenario {
   const prepared = notificationScenarios.find((scenario) => scenario.countryCode === decision.countryCode)
-  if (prepared && !demoText[date]) return prepared
+  if (prepared && !demoText[date]) return withMonthName(prepared, date)
 
   const country = getCountry(decision.countryCode)
-  const fallback = {
+  const fallback: NotificationScenario = {
     countryCode: decision.countryCode,
     title: "Выгодный момент для перевода",
-    body: `Модель отметила подходящий момент для перевода в ${country.destination}`,
+    pushText: `Сейчас условия для перевода в ${country.destination} выглядят выгодно.`,
+    bannerText: `Сейчас условия для перевода в ${country.destination} выглядят выгодно.`,
   }
-  return demoText[date] ? { ...fallback, ...demoText[date] } : fallback
+  return withMonthName(demoText[date] ? { ...fallback, ...demoText[date] } : fallback, date)
+}
+
+function withMonthName(scenario: NotificationScenario, date: string): NotificationScenario {
+  const monthName = monthNameFormatter.format(parseDate(date))
+  const monthlyReference = `среднего за ${monthName}`
+
+  return {
+    ...scenario,
+    pushText: scenario.pushText.replace("среднего за последний месяц", monthlyReference),
+    bannerText: scenario.bannerText.replace("среднего за последний месяц", monthlyReference),
+  }
 }
 
 function toIsoDate(date: Date) {
@@ -230,9 +247,8 @@ export function createSignalCalendar(payload: ModelSignalExport, monthCount = 3)
       monthLabel: monthFormatter.format(cursor),
       dayOfMonth: cursor.getDate(),
       isFuture: false,
-      isExpired: Boolean(meta && meta.notificationTimeLabel !== "сейчас"),
+      isExpired: meta?.isExpired ?? false,
       notificationTimeLabel: meta?.notificationTimeLabel ?? "сейчас",
-      courseStatus: meta?.courseStatus ?? "same",
       decisions,
       scenario: decisions.length > 0 ? scenarioFor(decisions[0], isoDate) : undefined,
     })
@@ -250,15 +266,4 @@ export async function loadSignalCalendar(): Promise<SignalCalendarDataset> {
   const response = await fetch(url)
   if (!response.ok) throw new Error(`Не удалось загрузить ${url}: HTTP ${response.status}`)
   return createSignalCalendar(readExport(await response.json()))
-}
-
-export async function loadCourseStatus(): Promise<"same" | "worse"> {
-  const url = `${import.meta.env.BASE_URL}course-status.json`
-  const response = await fetch(url)
-  if (!response.ok) throw new Error(`Не удалось загрузить ${url}: HTTP ${response.status}`)
-  const payload: unknown = await response.json()
-  if (!isRecord(payload) || (payload.courseStatus !== "same" && payload.courseStatus !== "worse")) {
-    throw new Error("Некорректный ответ проверки курса")
-  }
-  return payload.courseStatus
 }
